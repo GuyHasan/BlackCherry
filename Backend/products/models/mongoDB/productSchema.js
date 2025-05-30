@@ -1,4 +1,8 @@
 import mongoose from "mongoose";
+import { categories } from "../../../config/constants/categories";
+
+const categoryEnum = categories.map((category) => category.he);
+const subCategoryEnum = [...new Set(categories.flatMap((c) => c.subCategories.map((sc) => sc.key)))];
 
 const productSchema = new mongoose.Schema({
 	name: {
@@ -18,11 +22,11 @@ const productSchema = new mongoose.Schema({
 	category: {
 		type: String,
 		required: true,
-		enum: ["בשרי", "חלבי", "קינוחים", "מגשים", "סלטים", "תוספות", "טבעוני"],
+		enum: categoryEnum,
 	},
 	subCategory: {
 		type: String,
-		enum: ["חלבי", "פרווה", "טבעוני"],
+		enum: subCategoryEnum,
 	},
 	size: [
 		{

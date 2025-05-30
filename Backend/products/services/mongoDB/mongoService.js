@@ -1,8 +1,7 @@
 import Product from "../../models/mongoDB/productSchema.js";
-import { uploadImageToCloude } from "../../../services/uploadService.js";
 import CustomError from "../../../utils/customError.js";
 
-export const getProductById = async (productId) => {
+const getProductById = async (productId) => {
 	try {
 		const product = await Product.findById(productId);
 		if (!product) {
@@ -15,7 +14,7 @@ export const getProductById = async (productId) => {
 	}
 };
 
-export const getAllProducts = async () => {
+const getAllProducts = async () => {
 	try {
 		const products = await Product.find();
 		return products;
@@ -24,7 +23,25 @@ export const getAllProducts = async () => {
 	}
 };
 
-export const createProduct = async (productData) => {
+const getProductsByCategory = async (category) => {
+	try {
+		const products = await Product.find({ category });
+		return products;
+	} catch (error) {
+		throw new CustomError(`Error fetching products by category: ${error.message}`, 500, "ServerError");
+	}
+};
+
+const getProductsBySubCategory = async (subCategory) => {
+	try {
+		const products = await Product.find({ subCategory });
+		return products;
+	} catch (error) {
+		throw new CustomError(`Error fetching products by sub-category: ${error.message}`, 500, "ServerError");
+	}
+};
+
+const createProduct = async (productData) => {
 	try {
 		const newProduct = new Product(productFields);
 		await newProduct.save();
@@ -35,7 +52,7 @@ export const createProduct = async (productData) => {
 	}
 };
 
-export const editProduct = async (productId, updatedFields) => {
+const editProduct = async (productId, updatedFields) => {
 	try {
 		const product = await Product.findById(productId);
 		if (!product) {
@@ -50,7 +67,7 @@ export const editProduct = async (productId, updatedFields) => {
 	}
 };
 
-export const deleteProduct = async (productId) => {
+const deleteProduct = async (productId) => {
 	try {
 		const product = await Product.findById(productId);
 		if (!product) {
@@ -66,6 +83,8 @@ export const deleteProduct = async (productId) => {
 const mongoService = {
 	getProductById,
 	getAllProducts,
+	getProductsByCategory,
+	getProductsBySubCategory,
 	createProduct,
 	editProduct,
 	deleteProduct,

@@ -158,7 +158,7 @@ const getUserFavorites = async (userId) => {
 	}
 };
 
-const updateEmployeeRole = async (userId) => {
+const updateEmployeeStatus = async (userId) => {
 	try {
 		const user = await User.findById(userId);
 		if (!user) {
@@ -186,7 +186,7 @@ const mongoService = {
 	getAllUsers,
 	updateFavoriteItem,
 	getUserFavorites,
-	updateEmployeeRole,
+	updateEmployeeStatus,
 };
 
 export default mongoService;

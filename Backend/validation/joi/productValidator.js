@@ -1,7 +1,11 @@
 import Joi from "joi";
+import { categories } from "../../config/constants/categories";
 
-const allowedCategories = ["בשרי", "חלבי", "קינוחים", "מגשים", "סלטים", "תוספות", "טבעוני"];
-const allowedSubCategories = ["חלבי", "פרווה", "טבעוני"];
+const allowedCategories = categories.map((category) => category.key);
+const subCategoriesByCategory = categories.reduce((acc, category) => {
+	acc[category.key] = category.subCategories.map((sc) => sc.key);
+	return acc;
+}, {});
 const allowedUnits = ["kg", "g", "L", "יחידות"];
 
 const sizeSchema = Joi.object({
@@ -15,12 +19,22 @@ const productSchema = Joi.object({
 	category: Joi.string()
 		.valid(...allowedCategories)
 		.required(),
-	subCategory: Joi.when("category", {
-		is: "קינוחים",
-		then: Joi.string()
-			.valid(...allowedSubCategories)
-			.required(),
-		otherwise: Joi.forbidden(),
+	subCategory: Joi.any().custom((value, helpers) => {
+		const chosenCategory = helpers.state.ancestors[0].category;
+		const validSubs = subCategoriesByCategory[chosenCategory] || [];
+		if (validSubs.length === 0) {
+			if (value !== undefined && value !== null && value !== "") {
+				return helpers.error("any.invalid", { message: "קטגוריה זו אינה תומכת בתת־קטגוריה" });
+			}
+			return value;
+		}
+		if (value === undefined || value === null || value === "") {
+			return helpers.error("any.required", { message: "חובה לבחור תת־קטגוריה עבור קטגוריה זו" });
+		}
+		if (!validSubs.includes(value)) {
+			return helpers.error("any.invalid", { message: "תת־קטגוריה לא תואמת לקטגוריה" });
+		}
+		return value;
 	}),
 	size: Joi.array().items(sizeSchema).min(1).required(),
 	unit: Joi.string()
