@@ -1,0 +1,31 @@
+/* Style for the container */
+.carousel-container {
+	width: 550px;
+	overflow: hidden;
+	white-space: nowrap;
+	position: relative;
+}
+
+/* Style for the track */
+.carousel-track {
+	white-space: nowrap;
+	display: flex;
+	animation: scroll 30s linear infinite;
+}
+
+.customer {
+	flex-shrink: 0;
+	width: 100px;
+	height: 100px;
+	margin: 10px;
+}
+
+/* Keyframes for the scrolling animation */
+@keyframes scroll {
+	0% {
+		transform: translateX(-9%);
+	}
+	100% {
+		transform: translateX(210%);
+	}
+}

@@ -1,0 +1,8 @@
+{
+	"AUTH_PROVIDER": "jwt",
+	"VALIDATOR": "Joi",
+	"DB": "MongoDB",
+	"ENVIRONMENT": "production",
+	"LOGGER": "morgan",
+	"useCloudUpload": true
+}
