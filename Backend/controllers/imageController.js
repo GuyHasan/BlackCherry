@@ -1,19 +1,13 @@
 import cloudService from "../services/cloudProvider.js";
 import CustomError from "../utils/customError.js";
 import imageServices from "../images/services/imageService.js";
+import validators from "../validation/validator.js";
 
 const { createImage, getAllImages, deleteImage, getImageById } = imageServices;
 const { cloudUploadImage, cloudDeleteImage } = cloudService;
 
 export async function uploadImageController(req, res, next) {
 	try {
-		if (!req.file || !req.file.buffer || !req.file.originalname) {
-			return next(new CustomError("No image file provided", 400, "Validation Error"));
-		}
-		const { altText } = req.body;
-		if (!altText) {
-			return next(new CustomError("Alt text is required", 400, "Validation Error"));
-		}
 		const uploaderId = req.user.id;
 		const fileBuffer = req.file.buffer;
 		const fileName = req.file.originalname;
@@ -27,6 +21,11 @@ export async function uploadImageController(req, res, next) {
 			publicId: cloudImage.public_id,
 			uploaderId,
 		};
+		const valid = validators.image(imageData);
+		if (valid.error) {
+			const errorMessage = valid.error.details.map((detail) => detail.message).join(", ");
+			return next(new CustomError(`Validation Error: ${errorMessage}`, 400, "Validation Error"));
+		}
 		const newImage = await createImage(imageData);
 		if (!newImage) {
 			return next(new CustomError("Failed to save image data", 500, "Database Error"));

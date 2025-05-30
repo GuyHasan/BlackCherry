@@ -1,5 +1,6 @@
 import { validateForgotPassword, validateLogin, validateRegister, validateResetPassword } from "./userValidator.js";
-import { validateEditProduct, validateProduct } from "./productValidator.js";
+import { validateProduct } from "./productValidator.js";
+import { validateCreateImage, validateImage } from "./imageValidator.js";
 
 const joiValidators = {
 	registerUser: validateRegister,
@@ -7,6 +8,8 @@ const joiValidators = {
 	forgotPassword: validateForgotPassword,
 	resetPassword: validateResetPassword,
 	product: validateProduct,
+	image: validateImage,
+	createImage: validateCreateImage,
 };
 
 export default joiValidators;
