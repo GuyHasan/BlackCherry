@@ -1,11 +1,11 @@
 import dotenv from "dotenv";
-import cloundryServices from "./cloudinaryService.js";
-import CustomError from "../../utils/customError.js";
+import CustomError from "../utils/customError.js";
+import cloundryServices from "./uploadClouds/cloudinaryService.js";
 dotenv.config();
 
 const provider = process.env.CLOUD_PROVIDER;
 if (!provider) {
-	throw new Error("CLOUD_PROVIDER environment variable is not set");
+	throw new CustomError("CLOUD_PROVIDER is not set in environment variables", 500, "Configuration Error");
 }
 let cloudService;
 

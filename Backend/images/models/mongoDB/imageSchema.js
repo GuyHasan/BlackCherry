@@ -11,6 +11,10 @@ const imageSchema = new mongoose.Schema(
 			type: String,
 			default: "",
 		},
+		publicId: {
+			type: String,
+			required: true,
+		},
 		productId: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: "Product",

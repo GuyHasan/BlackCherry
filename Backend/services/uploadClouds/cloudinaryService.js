@@ -8,18 +8,19 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET || "",
 });
 
-function uploadImage(buffer, originalName) {
+function cloudUploadImage(buffer, originalName) {
 	return new Promise((resolve, reject) => {
+		const publicId = originalName.replace(/\.[^/.]+$/, "") + "-" + Date.now();
 		const uploadStream = cloudinary.uploader.upload_stream(
 			{
 				folder: "products",
 				resource_type: "image",
-				public_id: originalName.replace(/\.[^/.]+$/, "") + "-" + Date.now(),
+				public_id: publicId,
 				eager: [{ width: 800, height: 800, crop: "limit" }],
 			},
 			(error, result) => {
 				if (error) return reject(error);
-				resolve(result.secure_url);
+				resolve({ url: result.secure_url, publicId: result.public_id });
 			}
 		);
 
@@ -27,7 +28,7 @@ function uploadImage(buffer, originalName) {
 	});
 }
 
-function deleteImage(publicId) {
+function cloudDeleteImage(publicId) {
 	return new Promise((resolve, reject) => {
 		cloudinary.uploader.destroy(publicId, (error, result) => {
 			if (error) return reject(error);
@@ -37,7 +38,7 @@ function deleteImage(publicId) {
 }
 
 const cloundryServices = {
-	uploadImage,
-	deleteImage,
+	cloudUploadImage,
+	cloudDeleteImage,
 };
 export default cloundryServices;
