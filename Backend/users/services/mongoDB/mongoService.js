@@ -1,8 +1,10 @@
-import { createAccessToken, createRefreshToken } from "../../../auth/jwt/createToken.js";
+import authProvider from "../../../auth/authProvider.js";
 import CustomError from "../../../utils/customError.js";
 import { handleServiceError } from "../../../utils/errorsHandlers.js";
 import User from "../../models/mongoDB/userSchema.js";
 import { comparePasswords, hashPassword } from "../passwordsServices.js";
+
+const { createAccessToken, createRefreshToken } = authProvider;
 
 const registerUser = async (userData) => {
 	try {

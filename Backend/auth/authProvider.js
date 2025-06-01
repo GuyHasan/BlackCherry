@@ -1,5 +1,5 @@
 import config from "config";
-import jwtProvider from "./jwt";
+import jwtProvider from "./jwt/jwtProvider.js";
 
 const providerType = config.get("AUTH_PROVIDER");
 

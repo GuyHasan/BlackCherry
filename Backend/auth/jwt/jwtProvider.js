@@ -1,7 +1,10 @@
-import { createToken } from "./createToken";
+import { createAccessToken, createRefreshToken } from "./createToken";
 import { verifyToken } from "./verifyToken";
 
-export const jwtProvider = {
-	createToken,
+const jwtProvider = {
+	createAccessToken,
+	createRefreshToken,
 	verifyToken,
 };
+
+export default jwtProvider;
