@@ -2,6 +2,7 @@ import cloudService from "../services/cloudProvider.js";
 import CustomError from "../utils/customError.js";
 import imageServices from "../images/services/imageService.js";
 import validators from "../validation/validator.js";
+import { handleControllerError } from "../utils/errorsHandlers.js";
 
 const { createImage, getAllImages, deleteImage, getImageById } = imageServices;
 const { cloudUploadImage, cloudDeleteImage } = cloudService;
@@ -36,7 +37,7 @@ export async function uploadImageController(req, res, next) {
 			image: newImage,
 		});
 	} catch (error) {
-		return next(new CustomError("Image upload failed", 500, error));
+		handleControllerError(error, next, "Failed to upload image");
 	}
 }
 
@@ -46,7 +47,7 @@ export async function getAllImagesController(req, res, next) {
 		const result = await getAllImages(page, limit);
 		res.status(200).json(result);
 	} catch (error) {
-		next(new CustomError("Failed to retrieve images", 500, error));
+		handleControllerError(error, next, "Failed to retrieve images");
 	}
 }
 
@@ -59,7 +60,7 @@ export async function getImageByIdController(req, res, next) {
 		}
 		res.status(200).json({ success: true, image });
 	} catch (error) {
-		next(new CustomError("Failed to retrieve image", 500, error));
+		handleControllerError(error, next, "Failed to retrieve image by ID");
 	}
 }
 
@@ -74,6 +75,6 @@ export async function deleteImageController(req, res, next) {
 		await cloudDeleteImage(image.publicId);
 		res.status(200).json({ success: true, message: "Image deleted" });
 	} catch (error) {
-		next(new CustomError("Failed to delete image", 500, error));
+		handleControllerError(error, next, "Failed to delete image");
 	}
 }

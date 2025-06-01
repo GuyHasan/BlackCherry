@@ -4,6 +4,7 @@ import userServices from "../users/services/userServices";
 import { createAccessToken } from "../auth/jwt/createToken";
 import CustomError from "../utils/customError.js";
 import { createResetTokenAndSendEmail, resetPassword } from "../auth/services/resetPasswordService.js";
+import { handleControllerError } from "../utils/errorsHandlers.js";
 
 dotenv.config();
 
@@ -27,7 +28,7 @@ export async function createAccessTokenController(req, res, next) {
 			accessToken: newAccessToken,
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Failed to refresh token", error.statusCode || 500, error.name || "Internal Server Error"));
+		handleControllerError(error, next, "Failed to create access token");
 	}
 }
 
@@ -41,7 +42,7 @@ export async function forgotPasswordController(req, res, next) {
 			message: result.message || "Reset password email sent successfully",
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Failed to process forgot password request", error.statusCode || 500, error.name || "Internal Server Error"));
+		handleControllerError(error, next, "Failed to send reset password email");
 	}
 }
 
@@ -54,6 +55,6 @@ export async function resetPasswordController(req, res, next) {
 			message: result.message || "Password reset successfully",
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Failed to reset password", error.statusCode || 500, error.name || "Internal Server Error"));
+		handleControllerError(error, next, "Failed to reset password");
 	}
 }

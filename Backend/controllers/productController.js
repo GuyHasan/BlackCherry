@@ -1,5 +1,6 @@
 import productService from "../products/services/productServices";
 import CustomError from "../utils/customError.js";
+import { handleControllerError } from "../utils/errorsHandlers.js";
 
 const { getAllProducts, getProductById, createProduct, editProduct, deleteProduct } = productService;
 
@@ -40,7 +41,7 @@ export const getAllProductsController = async (req, res, next) => {
 		const products = await getAllProducts(filter, options);
 		res.status(200).json({ success: true, products });
 	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to retrieve products");
 	}
 };
 
@@ -50,7 +51,7 @@ export const getProductByIdController = async (req, res, next) => {
 		const product = await getProductById(productId);
 		res.status(200).json({ success: true, product });
 	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to retrieve product by ID");
 	}
 };
 
@@ -62,7 +63,7 @@ export const createProductController = async (req, res, next) => {
 		const newProduct = await createProduct(req.body);
 		res.status(201).json({ success: true, product: newProduct });
 	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to create product");
 	}
 };
 
@@ -76,7 +77,7 @@ export const editProductController = async (req, res, next) => {
 		const updatedProduct = await editProduct(productId, updatedFields);
 		res.status(200).json({ success: true, product: updatedProduct });
 	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to edit product");
 	}
 };
 
@@ -91,6 +92,6 @@ export const deleteProductController = async (req, res, next) => {
 		await deleteProduct(productId);
 		res.status(200).json({ success: true, message: "Product deleted successfully" });
 	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to delete product");
 	}
 };

@@ -1,5 +1,6 @@
 import CustomError from "../utils/customError";
 import userServices from "../users/services/userServices";
+import { handleControllerError } from "../utils/errorsHandlers";
 
 const { loginUser, registerUser, getAllUsers, getUserById, updateUser, deleteUser, updateFavoriteItem, getUserFavorites, updateEmployeeStatus } = userServices;
 
@@ -21,7 +22,7 @@ export async function loginUserController(req, res, next) {
 			message: "Login successful",
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to login user");
 	}
 }
 
@@ -36,7 +37,7 @@ export async function registerUserController(req, res, next) {
 			user: response.user,
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "ServerError"));
+		handleControllerError(error, next, "Failed to register user");
 	}
 }
 
@@ -49,7 +50,7 @@ export async function getAllUsersController(req, res, next) {
 		const users = await getAllUsers();
 		res.status(200).json(users);
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to retrieve users");
 	}
 }
 
@@ -65,7 +66,7 @@ export async function getUserController(req, res, next) {
 		}
 		res.status(200).json(user);
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to retrieve user");
 	}
 }
 
@@ -86,7 +87,7 @@ export async function updateUserController(req, res, next) {
 			user: response.user,
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to update user");
 	}
 }
 
@@ -104,7 +105,7 @@ export async function deleteUserController(req, res, next) {
 			message: "User deleted successfully",
 		});
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to delete user");
 	}
 }
 
@@ -124,7 +125,7 @@ export async function updateFavoriteItemController(req, res, next) {
 		}
 		res.status(200).json(response);
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to update favorite item");
 	}
 }
 
@@ -140,7 +141,7 @@ export async function getUserFavoritesController(req, res, next) {
 		}
 		res.status(200).json(response.favorites);
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to retrieve user favorites");
 	}
 }
 
@@ -157,6 +158,6 @@ export async function updateEmployeeStatusController(req, res, next) {
 		}
 		res.status(200).json(response);
 	} catch (error) {
-		return next(new CustomError(error.message || "Internal server error", error.status || 500, error.name || "Error"));
+		handleControllerError(error, next, "Failed to update employee status");
 	}
 }

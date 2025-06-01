@@ -1,4 +1,4 @@
-import { handleServiceError } from "../../../utils/handleServiceError";
+import { handleServiceError } from "../../../utils/errorsHandlers";
 import Image from "../../models/mongoDB/imageSchema";
 
 const createImage = async (imageData) => {
