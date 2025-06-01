@@ -6,35 +6,41 @@
 
 ## Table of Contents
 
-1. [Overview](#overview)
-2. [Technologies](#technologies)
-3. [Project Structure](#project-structure)
-4. [Backend](#backend)
-
-    1. [Prerequisites](#prerequisites)
-    2. [Installation & Running](#installation--running)
-    3. [Directory Layout](#directory-layout-backend)
-    4. [Configuration & Environment](#configuration--environment)
-    5. [Main Routes](#main-routes)
-    6. [Authentication & Authorization](#authentication--authorization)
-    7. [Error Handling](#error-handling)
-    8. [Sample API Call](#sample-api-call-backend)
-
-5. [Frontend](#frontend)
-
-    1. [Prerequisites](#prerequisites-frontend)
-    2. [Installation & Running](#installation--running-frontend)
-    3. [Directory Layout](#directory-layout-frontend)
-    4. [Main Routes](#main-routes-frontend)
-    5. [SEO Implementation](#seo-implementation)
-    6. [Consuming the Backend API](#consuming-the-backend-api)
-    7. [Authorization & Content Display](#authorization--content-display)
-    8. [Component Example](#component-example)
-
-6. [Environment Variables](#environment-variables)
-7. [Preparing for Production](#preparing-for-production)
-8. [Flow Diagram (Optional)](#flow-diagram-optional)
-9. [Links & Credits](#links--credits)
+<ol type="1">
+  <li><a href="#overview">Overview</a></li>
+  <li><a href="#technologies">Technologies</a></li>
+  <li><a href="#project-structure">Project Structure</a></li>
+  <li>
+    <a href="#backend">Backend</a>
+    <ol type="1">
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#installation--running">Installation &amp; Running</a></li>
+      <li><a href="#directory-layout-backend">Directory Layout</a></li>
+      <li><a href="#configuration--environment">Configuration &amp; Environment</a></li>
+      <li><a href="#main-routes">Main Routes</a></li>
+      <li><a href="#authentication--authorization">Authentication &amp; Authorization</a></li>
+      <li><a href="#error-handling">Error Handling</a></li>
+      <li><a href="#sample-api-call-backend">Sample API Call</a></li>
+    </ol>
+  </li>
+  <li>
+    <a href="#frontend">Frontend</a>
+    <ol type="1">
+      <li><a href="#prerequisites-frontend">Prerequisites</a></li>
+      <li><a href="#installation--running-frontend">Installation &amp; Running</a></li>
+      <li><a href="#directory-layout-frontend">Directory Layout</a></li>
+      <li><a href="#main-routes-frontend">Main Routes</a></li>
+      <li><a href="#seo-implementation">SEO Implementation</a></li>
+      <li><a href="#consuming-the-backend-api">Consuming the Backend API</a></li>
+      <li><a href="#authorization--content-display">Authorization &amp; Content Display</a></li>
+      <li><a href="#component-example">Component Example</a></li>
+    </ol>
+  </li>
+  <li><a href="#environment-variables">Environment Variables</a></li>
+  <li><a href="#preparing-for-production">Preparing for Production</a></li>
+  <li><a href="#flow-diagram-optional">Flow Diagram (Optional)</a></li>
+  <li><a href="#links--credits">Links &amp; Credits</a></li>
+</ol>
 
 ---
 
