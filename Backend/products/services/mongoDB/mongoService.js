@@ -1,5 +1,6 @@
 import Product from "../../models/mongoDB/productSchema.js";
 import CustomError from "../../../utils/customError.js";
+import { handleServiceError } from "../../../utils/errorsHandlers.js";
 
 const getProductById = async (productId) => {
 	try {
@@ -9,8 +10,7 @@ const getProductById = async (productId) => {
 		}
 		return product;
 	} catch (error) {
-		if (error instanceof CustomError) throw error;
-		throw new CustomError(`Error fetching product by ID: ${error.message}`, 500, "ServerError");
+		handleServiceError(error, `Error retrieving product by ID ${productId}`);
 	}
 };
 
@@ -32,7 +32,7 @@ const getAllProducts = async (filter, options) => {
 			},
 		};
 	} catch (error) {
-		throw new CustomError(`Error fetching all products: ${error.message}`, 500, "ServerError");
+		handleServiceError(error, "Error retrieving all products");
 	}
 };
 
@@ -43,7 +43,7 @@ const createProduct = async (productData) => {
 		return newProduct;
 	} catch (error) {
 		if (error instanceof CustomError) throw error;
-		throw new CustomError(`Error creating product: ${error.message}`, 500, "ServerError");
+		handleServiceError(error, "Error creating product");
 	}
 };
 
@@ -58,7 +58,7 @@ const editProduct = async (productId, updatedFields) => {
 		return product;
 	} catch (error) {
 		if (error instanceof CustomError) throw error;
-		throw new CustomError(`Error editing product: ${error.message}`, 500, "ServerError");
+		handleServiceError(error, `Error editing product with ID ${productId}`);
 	}
 };
 
@@ -71,7 +71,7 @@ const deleteProduct = async (productId) => {
 		await Product.findByIdAndDelete(productId);
 	} catch (error) {
 		if (error instanceof CustomError) throw error;
-		throw new CustomError(`Error deleting product: ${error.message}`, 500, "ServerError");
+		handleServiceError(error, `Error deleting product with ID ${productId}`);
 	}
 };
 

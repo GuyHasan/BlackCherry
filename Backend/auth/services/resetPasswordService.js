@@ -1,10 +1,10 @@
 import crypto from "crypto";
-import { handleServiceError } from "../../utils/handleServiceError.js";
 import User from "../../users/models/mongoDB/userSchema.js";
 import userServices from "../../users/services/userServices.js";
 import { sendResetPasswordEmail } from "./emailService.js";
 import { hashPassword } from "../../users/services/passwordsServices.js";
 import CustomError from "../../utils/customError.js";
+import { handleServiceError } from "../../utils/errorsHandlers.js";
 
 const RESET_TOKEN_EXPIRATION = 60 * 60 * 1000; // 1 hour
 
