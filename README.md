@@ -1,86 +1,86 @@
 # Project Name
 
-> תיאור קצר על מטרת הפרויקט: אתר מסחר מקוון (e-commerce) להצגת מוצרים, ניהול משתמשים, העלאת תמונות ועוד.
+> A brief description: An e-commerce website for displaying products, user management, image uploads, and more.
 
 ---
 
-## תוכן העניינים
+## Table of Contents
 
-1. [תיאור כללי](#תיאור-כללי)
-2. [טכנולוגיות](#טכנולוגיות)
-3. [מבנה הפרויקט](#מבנה-הפרויקט)
+1. [Overview](#overview)
+2. [Technologies](#technologies)
+3. [Project Structure](#project-structure)
 4. [Backend](#backend)
 
-    1. [דרישות מקדימות](#דרישות-מקדימות)
-    2. [התקנה והרצה](#התקנה-והרצה)
-    3. [מבנה ותיקיות](#מבנה-ותיקיות-backend)
-    4. [קובצי קונפיג ושמירת סביבות](#קובצי-קונפיג-ושמירת-סביבות)
-    5. [Routes עיקריים](#routes-עיקריים)
-    6. [הרשאות ואבטחה](#הרשאות-ואבטחה)
-    7. [שגיאות ו-Error Handling](#שגיאות-ו-error-handling)
-    8. [דוגמת קריאת API](#דוגמת-קריאת-api-backend)
+    1. [Prerequisites](#prerequisites)
+    2. [Installation & Running](#installation--running)
+    3. [Directory Layout](#directory-layout-backend)
+    4. [Configuration & Environment](#configuration--environment)
+    5. [Main Routes](#main-routes)
+    6. [Authentication & Authorization](#authentication--authorization)
+    7. [Error Handling](#error-handling)
+    8. [Sample API Call](#sample-api-call-backend)
 
 5. [Frontend](#frontend)
 
-    1. [דרישות מקדימות](#דרישות-מקדימות-frontend)
-    2. [התקנה והרצה](#התקנה-והרצה-frontend)
-    3. [מבנה ותיקיות](#מבנה-ותיקיות-frontend)
-    4. [Routes עיקריים](#routes-עיקריים-frontend)
-    5. [סידור מימוש ה-SEO](#סידור-מימוש-ה-seo)
-    6. [עבודה עם API מה-Backend](#עבודה-עם-api-מה-backend)
-    7. [הרשאות ותצוגת התוכן](#הרשאות-ותצוגת-התוכן)
-    8. [דוגמה ל-component](#דוגמה-ל-component)
+    1. [Prerequisites](#prerequisites-frontend)
+    2. [Installation & Running](#installation--running-frontend)
+    3. [Directory Layout](#directory-layout-frontend)
+    4. [Main Routes](#main-routes-frontend)
+    5. [SEO Implementation](#seo-implementation)
+    6. [Consuming the Backend API](#consuming-the-backend-api)
+    7. [Authorization & Content Display](#authorization--content-display)
+    8. [Component Example](#component-example)
 
 6. [Environment Variables](#environment-variables)
-7. [התכוננות ל-Production](#התכוננות-ל-production)
-8. [תרשים זרימה (Optional)](#תרשים-זרימה-optional)
-9. [לינקים וקרדיטים](#לינקים-וקרדיטים)
+7. [Preparing for Production](#preparing-for-production)
+8. [Flow Diagram (Optional)](#flow-diagram-optional)
+9. [Links & Credits](#links--credits)
 
 ---
 
-## תיאור כללי
+## Overview
 
-פרויקט זה הוא אתר מסחר מקוון (e-commerce) המורכב משני חלקים מרכזיים:
+This project is an e-commerce website composed of two main parts:
 
 -   **Backend** (Node.js, Express, MongoDB)
-    – אחראי על ניהול משתמשים, אימות והרשאות, CRUD של מוצרים, העלאת תמונות לענן, לוגיקה עסקית ועוד.
+    – Responsible for user management, authentication, product CRUD, image uploads, business logic, and more.
 -   **Frontend** (React + Vite)
-    – מציג למשתמשים דפי קטגוריות, רשימת מוצרים, עמוד מוצר, ממשק משתמש להתנתקות ולהרשאה, טפסי יצירה/עריכה, מניפולציית SEO וניווט.
+    – Displays category pages, product lists, product details, login/register interface, forms for creation/editing, SEO handling, and routing.
 
 ---
 
-## טכנולוגיות
+## Technologies
 
 -   **Backend:**
 
     -   Node.js (v18+)
     -   Express
     -   MongoDB (Mongoose)
-    -   Cloudinary (לניהול תמונות)
+    -   Cloudinary (for image hosting)
     -   JWT (Authentication)
     -   Joi (Validation)
     -   express-rate-limit
-    -   config (ניהול סביבות)
-    -   기타: multer, bcrypt, helmet, cors
+    -   config (environment configuration)
+    -   Additional: multer, bcrypt, helmet, cors
 
 -   **Frontend:**
 
-    -   React (v18+) עם Vite
+    -   React (v18+) with Vite
     -   React Router v6
-    -   react-helmet-async (SEO, `<meta>` דינמי)
-    -   Axios או Fetch (קריאה ל-API)
-    -   Tailwind CSS / CSS Modules (לסגנון)
+    -   react-helmet-async (dynamic `<meta>` tags for SEO)
+    -   Axios or Fetch API (for calling the backend)
+    -   Tailwind CSS or CSS Modules (styling)
 
--   **כללי:**
+-   **General:**
 
-    -   Git (גרסאות)
-    -   Postman / Insomnia (לבדיקות API)
-    -   VSCode (IDE) עם `jsconfig.json` להגדרות מודולים
-    -   Docker (אופציונלי)
+    -   Git (version control)
+    -   Postman / Insomnia (API testing)
+    -   VSCode (IDE) with `jsconfig.json` for module resolution
+    -   Docker (optional)
 
 ---
 
-## מבנה הפרויקט
+## Project Structure
 
 ```
 /project-root
@@ -123,23 +123,22 @@
 
 ## Backend
 
-### דרישות מקדימות
+### Prerequisites
 
 -   Node.js ≥ v18
--   MongoDB (מופעל במחשב או Atlas)
--   חשבון Cloudinary (API keys בקובץ ה־env)
+-   MongoDB (local or Atlas)
+-   Cloudinary account (API credentials required)
 
-### התקנה והרצה
+### Installation & Running
 
 ```bash
-# נווט לתיקיית backend
+# Navigate to the backend directory
 cd backend
 
-# התקנת תלויות
+# Install dependencies
 npm install
 
-# הגדרת environment variables
-# צור לקובץ .env (לדוגמה .env.development):
+# Create and configure your .env file (e.g., .env.development):
 #   MONGODB_URI=<your_mongo_connection_string>
 #   JWT_SECRET=<your_jwt_secret>
 #   CLOUDINARY_CLOUD_NAME=<…>
@@ -147,56 +146,56 @@ npm install
 #   CLOUDINARY_API_SECRET=<…>
 #   AUTH_PROVIDER=jwt
 
-# הרצת השרת בפיתוח
-npm run dev         # עם nodemon או ts-node-dev
-# או
-npm start           # אם מוגדר ב־package.json "start": "node server.js"
+# Run the development server
+npm run dev         # Using nodemon or ts-node-dev
+# or
+npm start           # If "start": "node server.js" is defined in package.json
 ```
 
-### מבנה ותיקיות (Backend)
+### Directory Layout (Backend)
 
 ```
 /backend/src
 ├─ /config
-│   └─ default.json             # ערכי ברירת־מחדל של config (ENVIRONMENT, AUTH_PROVIDER וכו׳)
+│   └─ default.json             # Default config values (ENVIRONMENT, AUTH_PROVIDER, etc.)
 ├─ /models
-│   ├─ User.js                   # Mongoose Schema של משתמש
-│   ├─ Product.js                # Mongoose Schema של מוצר (כפי שהוצג)
-│   └─ Image.js                  # Mongoose Schema של תמונה
+│   ├─ User.js                  # Mongoose schema for User
+│   ├─ Product.js               # Mongoose schema for Product
+│   └─ Image.js                 # Mongoose schema for Image
 ├─ /controllers
-│   ├─ authController.js         # login, register, refreshToken, forgot/reset password
-│   ├─ userController.js         # CRUD משתמש, favorite-products, employee toggle
-│   ├─ productController.js      # getAll, getById, create, edit, delete
-│   └─ imageController.js        # upload, getAll, getById, delete
+│   ├─ authController.js        # login, register, refreshToken, forgot/reset password
+│   ├─ userController.js        # CRUD users, favorite-products, employee toggle
+│   ├─ productController.js     # getAll, getById, create, edit, delete
+│   └─ imageController.js       # upload, getAll, getById, delete
 ├─ /services
-│   ├─ authService.js            # לוגיקה של JWT, bcrypt, זיהוי משתמשים
-│   ├─ userService.js            # DB calls למשתמש
-│   ├─ productService.js         # DB calls למוצרים (פונקציות עם filter, pagination)
-│   └─ imageService.js           # DB calls לתמונות, העלאה ל־Cloudinary
+│   ├─ authService.js           # JWT, bcrypt, user lookup logic
+│   ├─ userService.js           # Database calls for users
+│   ├─ productService.js        # Database calls for products (filter, pagination)
+│   └─ imageService.js          # Database calls for images & Cloudinary upload
 ├─ /routes
 │   ├─ authRouter.js
 │   ├─ userRouter.js
 │   ├─ productRouter.js
 │   └─ imageRouter.js
 ├─ /middlewares
-│   ├─ authMiddleware.js         # בודק JWT, מוסיף req.user
-│   ├─ validateRequest.js        # Joi validation middleware
-│   ├─ rateLimiter.js            # גלובל rate‐limit (express-rate-limit)
-│   └─ onlyEmployeeOrAdmin.js    # בדיקת הרשאות (מידלוור)
+│   ├─ authMiddleware.js        # Verifies JWT, attaches req.user
+│   ├─ validateRequest.js       # Joi validation middleware
+│   ├─ rateLimiter.js           # Global rate-limit (express-rate-limit)
+│   └─ onlyEmployeeOrAdmin.js   # Authorization middleware
 ├─ /utils
-│   └─ errorHandlers.js          # handleServiceError, handleControllerError
-├─ app.js                        # הגדרת express, חיבור לראוטרים, middleware גלובלי
-├─ server.js                     # חיבור ל־MongoDB, start server
-├─ db.js                         # חיבור ל־MongoDB (Mongoose.connect)
-└─ jsconfig.json                 # עבור IntelliSense ו־moduleResolution
+│   └─ errorHandlers.js         # handleServiceError, handleControllerError
+├─ app.js                       # Express setup, route registration, global middleware
+├─ server.js                    # MongoDB connection, server start
+├─ db.js                        # Mongoose.connect logic
+└─ jsconfig.json                # For IntelliSense and module resolution
 ```
 
 ---
 
-### קובצי קונפיג ושמירת סביבות
+### Configuration & Environment
 
--   משתמשים ב־`config` (npm install config) כדי לנהל הגדרות לסביבות שונות (`development`, `production`).
--   דוגמא ל־`backend/src/config/default.json`:
+-   Uses the `config` package (npm install config) to manage settings across environments (`development`, `production`).
+-   Example `backend/src/config/default.json`:
 
     ```json
     {
@@ -210,136 +209,136 @@ npm start           # אם מוגדר ב־package.json "start": "node server.js"
     }
     ```
 
--   אם רוצים קונפיג מיוחד ל־production, יוצרים `production.json` באותה תיקייה.
+-   For production-specific overrides, create `production.json` in the same folder.
 
 ---
 
-### Routes עיקריים
+### Main Routes
 
 #### User Routes (`/api/users`)
 
 ```
-POST   /api/users/register              → רישום משתמש חדש (validateRequest("registerUser"))
-POST   /api/users/login                 → כניסה (validateRequest("loginUser"))
-GET    /api/users                       → קבלת כל המשתמשים (authMiddleware)
-GET    /api/users/:id                   → קבלת משתמש לפי ID (authMiddleware)
-PUT    /api/users/:id                   → עדכון משתמש (authMiddleware, validateRequest("registerUser"))
-DELETE /api/users/:id                   → מחיקת משתמש (authMiddleware)
-POST   /api/users/favorite-products     → הוספת/הסרת מוצר מועדף (authMiddleware)
-GET    /api/users/favorite-products     → קבלת המוצרים המועדפים (authMiddleware)
-PATCH  /api/users/employee/:id          → עדכון סטטוס עובד (authMiddleware, onlyEmployeeOrAdmin)
+POST   /api/users/register              → Register a new user (validateRequest("registerUser"))
+POST   /api/users/login                 → User login (validateRequest("loginUser"))
+GET    /api/users                       → Get all users (authMiddleware)
+GET    /api/users/:id                   → Get user by ID (authMiddleware)
+PUT    /api/users/:id                   → Update user (authMiddleware, validateRequest("registerUser"))
+DELETE /api/users/:id                   → Delete user (authMiddleware)
+POST   /api/users/favorite-products     → Add/remove favorite product (authMiddleware)
+GET    /api/users/favorite-products     → Get user’s favorite products (authMiddleware)
+PATCH  /api/users/employee/:id          → Update employee status (authMiddleware, onlyEmployeeOrAdmin)
 ```
 
 #### Auth Routes (`/api/auth`)
 
 ```
-POST /api/auth/refresh            → קבלת access token חדש (בעזרת refresh token)
-POST /api/auth/forgot-password    → שליחת קישור איפוס סיסמה (validateRequest("forgotPassword"))
-POST /api/auth/reset-password     → איפוס סיסמה חדש (validateRequest("resetPassword"))
+POST /api/auth/refresh            → Obtain a new access token using refresh token
+POST /api/auth/forgot-password    → Send password reset link (validateRequest("forgotPassword"))
+POST /api/auth/reset-password     → Reset password (validateRequest("resetPassword"))
 ```
 
 #### Product Routes (`/api/products`)
 
 ```
-GET    /api/products                      → קבלת כל המוצרים (filter, search, pagination, sort)
-GET    /api/products/id/:id               → קבלת מוצר לפי ID
-POST   /api/products                      → יצירת מוצר חדש (authMiddleware, validateRequest("product"))
-PUT    /api/products/id/:id               → עדכון מוצר (authMiddleware, validateRequest("product"))
-DELETE /api/products/id/:id               → מחיקת מוצר (authMiddleware, onlyEmployeeOrAdmin)
+GET    /api/products                      → Get all products (filter, search, pagination, sort)
+GET    /api/products/id/:id               → Get product by ID
+POST   /api/products                      → Create a new product (authMiddleware, validateRequest("product"))
+PUT    /api/products/id/:id               → Update a product (authMiddleware, validateRequest("product"))
+DELETE /api/products/id/:id               → Delete a product (authMiddleware, onlyEmployeeOrAdmin)
 ```
 
--   **Query Parameters אפשריים** ב־`GET /api/products`:
+-   **Possible Query Parameters** for `GET /api/products`:
 
-    -   `search` = מחרוזת חיפוש על שם/תיאור
-    -   `category` = slug של קטגוריה
-    -   `subCategory` = slug של תת־קטגוריה
-    -   `minPrice` = מחיר מינימלי
-    -   `maxPrice` = מחיר מקסימלי
-    -   `sort` = `{field}_asc` או `{field}_desc` (למשל `price_asc` או `createdAt_desc`)
-    -   `page` = מספר עמוד (ברירת מחדל 1)
-    -   `limit` = מספר פריטים לעמוד (ברירת מחדל 20)
+    -   `search` = search term for name/description
+    -   `category` = category slug
+    -   `subCategory` = sub-category slug
+    -   `minPrice` = minimum price
+    -   `maxPrice` = maximum price
+    -   `sort` = `{field}_asc` or `{field}_desc` (e.g., `price_asc`, `createdAt_desc`)
+    -   `page` = page number (default: 1)
+    -   `limit` = items per page (default: 20)
 
 #### Image Routes (`/api/images`)
 
 ```
-POST   /api/images/upload           → העלאת תמונה (authMiddleware, multer, validateRequest("createImage"))
-GET    /api/images                  → קבלת כל התמונות (authMiddleware)
-GET    /api/images/:id              → קבלת תמונה לפי ID (authMiddleware)
-DELETE /api/images/:id              → מחיקת תמונה (authMiddleware, onlyEmployeeOrAdmin)
+POST   /api/images/upload           → Upload image (authMiddleware, multer, validateRequest("createImage"))
+GET    /api/images                  → Get all images (authMiddleware)
+GET    /api/images/:id              → Get image by ID (authMiddleware)
+DELETE /api/images/:id              → Delete image (authMiddleware, onlyEmployeeOrAdmin)
 ```
 
 ---
 
-### הרשאות ואבטחה
+### Authentication & Authorization
 
 -   **JWT Authentication**
 
     -   Middleware: `authMiddleware.js`
-    -   בודק את הכותרת `Authorization: Bearer <token>`
-    -   מוודא את ה־token בעזרת `jwt.verify(...)` ומשייך את `req.user = { id, roles… }`.
+    -   Checks `Authorization: Bearer <token>` header
+    -   Verifies token using `jwt.verify(...)` and attaches `req.user = { id, roles… }`.
 
--   **בדיקת הרשאות**
+-   **Role-Based Authorization**
 
     -   Middleware: `onlyEmployeeOrAdmin.js`
-    -   דואג שאיזשהו route ייגש רק מי שיש לו `req.user.isEmployee` או `req.user.isAdmin`.
+    -   Ensures certain routes are accessible only to employees or admins (`req.user.isEmployee || req.user.isAdmin`).
 
 -   **Rate Limiting**
 
-    -   גלובלי או על מסלולים מסוימים: `express-rate-limit`
-    -   למשל: להגביל ל־100 בקשות בדקה לכל IP על מסלול ה־login.
+    -   Using `express-rate-limit` globally or per-route
+    -   Example: limit to 100 requests per minute per IP on login route
 
 -   **Validation**
 
-    -   Joi Schemas במידלוור: `validateRequest("schemaName")`
-    -   Schemas עבור: registerUser, loginUser, forgotPassword, resetPassword, product, createImage.
+    -   Joi schemas with `validateRequest("schemaName")` middleware
+    -   Schemas for: registerUser, loginUser, forgotPassword, resetPassword, product, createImage
 
 ---
 
-### שגיאות ו-Error Handling
+### Error Handling
 
--   בשירותים (Service): נוסיף תמיד ב־`catch (err)` קריאה ל-`handleServiceError(err, defaultMessage)` שנמצא ב־`utils/errorHandlers.js`.
--   בקונטרולרים (Controller): נוסיף ב־`catch (err)` קריאה ל-`handleControllerError(err, next, defaultMessage)`.
--   **Error Handler גלובלי** (`app.js` או בסוף ה־middleware chain):
+-   **Service Layer**: Always use `handleServiceError(err, defaultMessage)` inside `catch` blocks
+-   **Controller Layer**: Always use `handleControllerError(err, next, defaultMessage)` inside `catch` blocks
+-   **Global Error Handler** (in `app.js` as the last middleware):
 
-    ```
+    ```js
     app.use((err, req, res, next) => {
-      if (err instanceof CustomError) {
-        return res.status(err.statusCode).json({ error: err.message, code: err.code });
-      }
-      console.error(err);
-      return res.status(500).json({ error: "Internal Server Error", code: "ServerError" });
+    	if (err instanceof CustomError) {
+    		return res.status(err.statusCode).json({ error: err.message, code: err.code });
+    	}
+    	console.error(err);
+    	return res.status(500).json({ error: "Internal Server Error", code: "ServerError" });
     });
     ```
 
 ---
 
-### דוגמת קריאת API (Backend)
+### Sample API Call (Backend)
 
-חיפוש וסינון מוצרים:
+Search and filter products:
 
 ```
 GET /api/products?search=cheese&category=desserts&minPrice=50&maxPrice=200&sort=price_asc&page=2&limit=10
 ```
 
--   **Response** (200):
+-   **Response (200)**:
 
     ```json
     {
     	"data": [
     		{
     			"_id": "64a5d3b2c3f9a1e234567890",
-    			"name": "עוגת גבינה פרווה",
-    			"description": "טקסט...",
+    			"name": "Cheesecake (Parve)",
+    			"description": "Delicious parve cheesecake...",
     			"price": 120,
     			"category": "desserts",
     			"subCategory": "parve",
     			"size": [{ "quantity": 1, "price": 120 }],
-    			"unit": "יחידות",
+    			"unit": "units",
     			"popularity": 5,
-    			"imageUrl": "https://res.cloudinary.com/…/image.jpg",
+    			"imageUrl": "https://res.cloudinary.com/.../image.jpg",
     			"createdAt": "2025-05-30T10:15:23.456Z"
     		}
-    		// עד 10 מוצרים...
+    		// Up to 10 products...
     	],
     	"meta": {
     		"totalCount": 95,
@@ -353,30 +352,30 @@ GET /api/products?search=cheese&category=desserts&minPrice=50&maxPrice=200&sort=
 
 ## Frontend
 
-### דרישות מקדימות
+### Prerequisites
 
--   Node.js (ל־Vite)
--   Vite (מומלץ v4+)
+-   Node.js (for Vite)
+-   Vite (recommended v4+)
 -   React (v18+)
--   כל עורך קוד שתומך ב-JSX/ESLint/Prettier
+-   Text editor/IDE with JSX/ESLint/Prettier support
 
-### התקנה והרצה
+### Installation & Running
 
-```
-# נווט לתיקיית frontend
+```bash
+# Navigate to the frontend directory
 cd frontend
 
-# התקנת תלויות
+# Install dependencies
 npm install
 
-# הרצה בסביבת פיתוח
+# Run in development mode
 npm run dev
 
-# בניית גרסת Production
+# Build for production
 npm run build
 ```
 
-### מבנה ותיקיות (Frontend)
+### Directory Layout (Frontend)
 
 ```
 /frontend/src
@@ -384,7 +383,7 @@ npm run build
 │   ├─ Header.jsx
 │   ├─ Footer.jsx
 │   ├─ ProductCard.jsx
-│   └─ … (UI Components כלליים)
+│   └─ ... (shared UI components)
 ├─ /pages
 │   ├─ HomePage.jsx
 │   ├─ ProductsPage.jsx
@@ -393,19 +392,19 @@ npm run build
 │   ├─ ProductDetailPage.jsx
 │   ├─ LoginPage.jsx
 │   ├─ RegisterPage.jsx
-│   └─ … (שאר עמודים)
+│   └─ ... (other pages)
 ├─ /routes
-│   └─ AppRoutes.jsx         # React Router v6 routes definitions
+│   └─ AppRoutes.jsx         # React Router v6 route definitions
 ├─ /utils
-│   └─ categoryLabels.js     # מיפוי של slug → שם בעברית
-├─ App.jsx                   # רכיב ראשי, כולל <Routes>
+│   └─ categoryLabels.js     # Mapping of slug → English or display label
+├─ App.jsx                   # Main component including <Routes>
 ├─ main.jsx                  # ReactDOM.render, HelmetProvider
-└─ vite.config.js            # הגדרות Vite (alias, plugins וכו׳)
+└─ vite.config.js            # Vite configuration (aliases, plugins, etc.)
 ```
 
 ---
 
-### Routes עיקריים (React Router)
+### Main Routes (React Router)
 
 ```jsx
 <BrowserRouter>
@@ -419,51 +418,51 @@ npm run build
 
 		<Route path='/login' element={<LoginPage />} />
 		<Route path='/register' element={<RegisterPage />} />
-		{/* … ועוד לפי הצורך */}
+		{/* ...additional routes as needed */}
 	</Routes>
 </BrowserRouter>
 ```
 
--   הפרונט קורא ל־Backend דרך `axios` (או fetch), לדוגמה:
+-   The frontend calls the backend using Axios or Fetch. Example:
 
-    ```
+    ```js
     axios.get(`/api/products?category=${categoryKey}&subCategory=${subCategoryKey}`);
     ```
 
 ---
 
-### סידור מימוש ה-SEO
+### SEO Implementation
 
--   **react-helmet-async** לכל עמוד:
+-   Use **react-helmet-async** in each page:
 
     ```jsx
     import { Helmet } from "react-helmet-async";
 
     export default function CategoryPage() {
     	const { categoryKey } = useParams();
-    	const categoryHe = categoryLabels[categoryKey]; // מתוך utils/categoryLabels.js
+    	const categoryLabel = categoryLabels[categoryKey]; // from utils/categoryLabels.js
 
     	return (
     		<>
     			<Helmet>
-    				<title>{categoryHe} | My E-commerce Site</title>
-    				<meta name='description' content={`גלו מוצרים מצויינים בקטגוריית ${categoryHe}.`} />
+    				<title>{categoryLabel} | My E-commerce Site</title>
+    				<meta name='description' content={`Explore amazing products in the ${categoryLabel} category.`} />
     				<link rel='canonical' href={`https://yourdomain.com/products/${categoryKey}`} />
     			</Helmet>
-    			<h1>קטגוריה: {categoryHe}</h1>
-    			{/* שאר התוכן */}
+    			<h1>Category: {categoryLabel}</h1>
+    			{/* Page content */}
     		</>
     	);
     }
     ```
 
--   **Prerender** (בהגדרת Vite) – מומלץ להגדיר את ה־routes החשובים (עמודי קטגוריה ועמודי מוצר) כדי לוודא שגוגל מקבל HTML מלא.
+-   **Pre-rendering** (in Vite config) is recommended for key routes (category and product pages) so crawlers receive full HTML.
 
 ---
 
-### עבודה עם API מה-Backend
+### Consuming the Backend API
 
--   דוגמה בשימוש ב־Axios:
+-   Example using Axios:
 
     ```js
     import axios from "axios";
@@ -484,7 +483,7 @@ npm run build
     }
     ```
 
--   בתוך רכיב React:
+-   In a React component:
 
     ```jsx
     useEffect(() => {
@@ -496,9 +495,9 @@ npm run build
 
 ---
 
-### הרשאות ותצוגת התוכן
+### Authorization & Content Display
 
--   לאחר שהמשתמש נכנס (Login → קבלת JWT ב־`localStorage`), מוסיפים את ה־Bearer token ל־Axios:
+-   After login (storing the JWT in `localStorage`), attach the Bearer token to Axios:
 
     ```js
     axios.interceptors.request.use((config) => {
@@ -510,12 +509,12 @@ npm run build
     });
     ```
 
--   ברכיבי React מוגנים (Protected Routes), בודקים אם יש `token` תקין – אחרת מפנים ל־`/login`.
--   במידה והמשתמש הוא Admin או Employee, מציגים לעיתים כפתורים ל־Edit/Delete (למשל ב־ProductDetailPage).
+-   Protect certain routes in React by checking if a valid token exists—if not, redirect to `/login`.
+-   If the user is an Admin or Employee, show additional UI controls (e.g., Edit/Delete buttons on ProductDetailPage).
 
 ---
 
-### דוגמה ל-Component
+### Component Example
 
 ```jsx
 // src/components/ProductCard.jsx
@@ -525,8 +524,8 @@ import { categoryLabels, subCategoryLabels } from "../utils/categoryLabels";
 
 export default function ProductCard({ product }) {
 	const { name, price, category, subCategory, imageUrl, slug } = product;
-	const categoryHe = categoryLabels[category];
-	const subCategoryHe = subCategory ? subCategoryLabels[subCategory] : null;
+	const categoryLabel = categoryLabels[category];
+	const subCategoryLabel = subCategory ? subCategoryLabels[subCategory] : null;
 
 	return (
 		<div className='border rounded p-4 shadow'>
@@ -534,7 +533,7 @@ export default function ProductCard({ product }) {
 				<img src={imageUrl} alt={name} className='w-full h-48 object-cover rounded' />
 				<h2 className='mt-2 text-xl font-semibold'>{name}</h2>
 				<p className='text-gray-600'>
-					{categoryHe} {subCategoryHe && ` / ${subCategoryHe}`}
+					{categoryLabel} {subCategoryLabel && ` / ${subCategoryLabel}`}
 				</p>
 				<p className='mt-1 text-lg text-green-600'>₪{price}</p>
 			</Link>
@@ -547,7 +546,7 @@ export default function ProductCard({ product }) {
 
 ## Environment Variables
 
-ב־**Backend** (`backend/.env`):
+**Backend** (`backend/.env`):
 
 ```
 ENVIRONMENT=development
@@ -559,57 +558,57 @@ CLOUDINARY_API_KEY=…
 CLOUDINARY_API_SECRET=…
 ```
 
-ב־**Frontend** (`frontend/.env`):
+**Frontend** (`frontend/.env`):
 
 ```
 VITE_API_BASE_URL=http://localhost:5000/api
-# כל משתנה שמתחיל ב־VITE_ יוזמן ל־import.meta.env
+# Any variable prefixed with VITE_ is available via import.meta.env
 ```
 
 ---
 
-## התכוננות ל-Production
+## Preparing for Production
 
 1. **Backend:**
 
-    - ודא שכל משתני ה-env (MongoDB URI, JWT_SECRET, Cloudinary) מוגדרים בסביבה (למשל Heroku Config Vars או Docker Compose).
-    - `npm run build` (אם יש transpile, TypeScript וכו׳).
-    - הפעלת `node server.js` או שימוש ב־PM2/Nginx.
+    - Ensure all environment variables (MongoDB URI, JWT_SECRET, Cloudinary) are set in the deployment environment (e.g., Heroku Config Vars or Docker Compose).
+    - Run `npm run build` if you have a build step (TypeScript, Babel).
+    - Start the server with `node server.js`, or use PM2/Nginx.
 
 2. **Frontend:**
 
-    - `npm run build` – יוצרים תיקיית `dist/`.
-    - פריסה על Netlify/Vercel/S3+CloudFront או VPS אישי.
-    - הגדרת `redirects` (למשל `/api/*` proxied ל־Backend).
+    - Run `npm run build` to generate the `dist/` folder.
+    - Deploy to a static host (Netlify, Vercel, S3+CloudFront) or any VPS.
+    - Configure redirects so that `/api/*` proxies to your backend.
 
 3. **SSL/HTTPS:**
 
-    - חשוב לעבוד על HTTPS, במיוחד כשעובדים עם JWT.
-    - אם מאחסנים תמונות עם Cloudinary, הכתובת היא כבר `https://…`.
+    - Always use HTTPS, especially when handling JWTs.
+    - Cloudinary URLs are already HTTPS.
 
 4. **Logging & Monitoring:**
 
-    - Logging ב־Backend (Winston/Log4js)
-    - הבנת Metrics (CPU, Memory) אם מוריצים על VPS.
+    - Implement logging on the backend (Winston or Log4js).
+    - Monitor CPU/Memory if deployed on a VPS.
 
 5. **Security Best Practices:**
 
-    - שימוש ב־Helmet (Express) להגדרות אבטחה.
-    - הגבלת CORS רק לדומיין האמת.
-    - Rate limiting על מסלולי login/register.
+    - Use Helmet (Express) for security headers.
+    - Restrict CORS to your frontend domain.
+    - Apply rate limiting on sensitive routes (e.g., login, register).
 
 ---
 
-## תרשים זרימה (Optional)
+## Flow Diagram (Optional)
 
-> (ניתן להוסיף תמונה או ASCII art המתאר את ה־Flow, למשל:
+> You may embed a UML diagram or ASCII art illustrating the data flow, for example:
 >
-> 1. Frontend → AuthMiddleware → JWT 验证 → Controller → Service → DB
-> 2. Frontend → getProducts?search=… → Controller → Service → DB)
+> 1. Frontend → authMiddleware → JWT Verification → Controller → Service → Database
+> 2. Frontend → GET `/api/products?search=…` → Controller → Service → Database
 
 ---
 
-## לינקים וקרדיטים
+## Links & Credits
 
 -   [Express](https://expressjs.com/)
 -   [Mongoose](https://mongoosejs.com/)
@@ -620,4 +619,6 @@ VITE_API_BASE_URL=http://localhost:5000/api
 -   [react-helmet-async](https://github.com/staylor/react-helmet-async)
 -   [express-rate-limit](https://github.com/nfriedly/express-rate-limit)
 
-> **יוצר הפרויקט:** גיא חסן – [GitHub Profile](https://github.com/GuyHasan) > **התאריך**: יוני 2025
+> **Author:** Guy Hasan – [GitHub Profile](https://github.com/your-username) > **Date:** June 2025
+
+---
