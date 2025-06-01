@@ -1,6 +1,6 @@
-import CustomError from "../utils/customError";
-import userServices from "../users/services/userServices";
-import { handleControllerError } from "../utils/errorsHandlers";
+import CustomError from "../utils/customError.js";
+import userServices from "../users/services/userServices.js";
+import { handleControllerError } from "../utils/errorsHandlers.js";
 
 const { loginUser, registerUser, getAllUsers, getUserById, updateUser, deleteUser, updateFavoriteItem, getUserFavorites, updateEmployeeStatus } = userServices;
 

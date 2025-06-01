@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { categories } from "../../config/constants/categories";
+import { categories } from "../../config/constants/categories.js";
 
 const allowedCategories = categories.map((category) => category.key);
 const subCategoriesByCategory = categories.reduce((acc, category) => {

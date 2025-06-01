@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
-import userServices from "../users/services/userServices";
-import { createAccessToken } from "../auth/jwt/createToken";
+import userServices from "../users/services/userServices.js";
+import authProvider from "../auth/authProvider.js";
 import CustomError from "../utils/customError.js";
 import { createResetTokenAndSendEmail, resetPassword } from "../auth/services/resetPasswordService.js";
 import { handleControllerError } from "../utils/errorsHandlers.js";
@@ -10,6 +10,7 @@ dotenv.config();
 
 const REFRESH_SECRET = process.env.REFRESH_SECRET;
 const { getUserById } = userServices;
+const { createAccessToken } = authProvider;
 
 export async function createAccessTokenController(req, res, next) {
 	try {

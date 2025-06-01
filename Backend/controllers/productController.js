@@ -1,4 +1,4 @@
-import productService from "../products/services/productServices";
+import productService from "../products/services/productServices.js";
 import CustomError from "../utils/customError.js";
 import { handleControllerError } from "../utils/errorsHandlers.js";
 

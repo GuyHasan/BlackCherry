@@ -1,5 +1,7 @@
-import { verifyToken } from "../auth/jwt/jwtService.js";
+import authProvider from "../auth/authProvider.js";
 import CustomError from "../utils/customError.js";
+
+const { verifyToken } = authProvider;
 
 export default function authMiddleware(req, res, next) {
 	const authHeader = req.headers.authorization;

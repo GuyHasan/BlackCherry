@@ -1,6 +1,6 @@
 import express from "express";
-import { validateRequest } from "../../middleware/validationMiddleware";
-import { createAccessTokenController, forgotPasswordController, resetPasswordController } from "../../controllers/authController";
+import { validateRequest } from "../../middleware/validationMiddleware.js";
+import { createAccessTokenController, forgotPasswordController, resetPasswordController } from "../../controllers/authController.js";
 
 const router = express.Router();
 

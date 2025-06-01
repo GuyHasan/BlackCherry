@@ -1,5 +1,5 @@
-import { createAccessToken, createRefreshToken } from "./createToken";
-import { verifyToken } from "./verifyToken";
+import { createAccessToken, createRefreshToken } from "./createToken.js";
+import { verifyToken } from "./verifyToken.js";
 
 const jwtProvider = {
 	createAccessToken,

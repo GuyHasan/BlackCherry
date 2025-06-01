@@ -1,7 +1,7 @@
 import express from "express";
-import { authLimiter } from "../../middleware/rateLimiters";
-import { validateRequest } from "../../middleware/validationMiddleware";
-import authMiddleware from "../../middleware/authMiddleware";
+import { authLimiter } from "../../middleware/rateLimiters.js";
+import { validateRequest } from "../../middleware/validationMiddleware.js";
+import authMiddleware from "../../middleware/authMiddleware.js";
 import {
 	deleteUserController,
 	getAllUsersController,
@@ -12,7 +12,7 @@ import {
 	updateEmployeeStatusController,
 	updateFavoriteItemController,
 	updateUserController,
-} from "../../controllers/userController";
+} from "../../controllers/userController.js";
 
 const router = express.Router();
 

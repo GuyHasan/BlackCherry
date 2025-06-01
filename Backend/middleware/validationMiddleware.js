@@ -1,5 +1,5 @@
-import CustomError from "../utils/customError";
-import validators from "../validation/validator";
+import CustomError from "../utils/customError.js";
+import validators from "../validation/validator.js";
 
 export function validateRequest(schemaName) {
 	return (req, res, next) => {

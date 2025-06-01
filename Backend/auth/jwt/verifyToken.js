@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import CustomError from "../../utils/customError";
+import CustomError from "../../utils/customError.js";
 dotenv.config();
 
 const SECRET_WORD = process.env.SECRET_WORD;
