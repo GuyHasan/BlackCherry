@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import { categories } from "../../../config/constants/categories.js";
 
 const categoryEnum = categories.map((category) => category.he);
-const subCategoryEnum = [...new Set(categories.flatMap((c) => c.subCategories.map((sc) => sc.key)))];
+const subCategoryEnum = [...new Set(categories.flatMap((c) => (c.subCategories || []).map((sc) => sc.key)))];
 
 const productSchema = new mongoose.Schema({
 	name: {

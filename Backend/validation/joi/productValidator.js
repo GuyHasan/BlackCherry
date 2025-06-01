@@ -3,7 +3,7 @@ import { categories } from "../../config/constants/categories.js";
 
 const allowedCategories = categories.map((category) => category.key);
 const subCategoriesByCategory = categories.reduce((acc, category) => {
-	acc[category.key] = category.subCategories.map((sc) => sc.key);
+	acc[category.key] = (category.subCategories || []).map((sc) => sc.key);
 	return acc;
 }, {});
 const allowedUnits = ["kg", "g", "L", "יחידות"];

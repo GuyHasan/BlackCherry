@@ -7,7 +7,7 @@ const validatorType = config.get("VALIDATOR");
 let validators;
 
 switch (validatorType) {
-	case "joi":
+	case "Joi":
 		validators = joiValidators;
 		break;
 	default:
