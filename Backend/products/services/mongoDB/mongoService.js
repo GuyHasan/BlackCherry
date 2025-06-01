@@ -14,30 +14,25 @@ const getProductById = async (productId) => {
 	}
 };
 
-const getAllProducts = async () => {
+const getAllProducts = async (filter, options) => {
 	try {
-		const products = await Product.find();
-		return products;
+		const totalCount = await Product.countDocuments(filter);
+
+		const products = await Product.find(filter).sort(options.sort).skip(options.skip).limit(options.limit).lean();
+
+		const totalPages = Math.ceil(totalCount / options.limit);
+		const currentPage = Math.floor(options.skip / options.limit) + 1;
+
+		return {
+			data: products,
+			meta: {
+				totalCount,
+				totalPages,
+				currentPage,
+			},
+		};
 	} catch (error) {
 		throw new CustomError(`Error fetching all products: ${error.message}`, 500, "ServerError");
-	}
-};
-
-const getProductsByCategory = async (category) => {
-	try {
-		const products = await Product.find({ category });
-		return products;
-	} catch (error) {
-		throw new CustomError(`Error fetching products by category: ${error.message}`, 500, "ServerError");
-	}
-};
-
-const getProductsBySubCategory = async (subCategory) => {
-	try {
-		const products = await Product.find({ subCategory });
-		return products;
-	} catch (error) {
-		throw new CustomError(`Error fetching products by sub-category: ${error.message}`, 500, "ServerError");
 	}
 };
 
@@ -83,8 +78,6 @@ const deleteProduct = async (productId) => {
 const mongoService = {
 	getProductById,
 	getAllProducts,
-	getProductsByCategory,
-	getProductsBySubCategory,
 	createProduct,
 	editProduct,
 	deleteProduct,

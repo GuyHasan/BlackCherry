@@ -1,11 +1,43 @@
 import productService from "../products/services/productServices";
 import CustomError from "../utils/customError.js";
 
-const { getAllProducts, getProductById, getProductsByCategory, getProductsBySubCategory, createProduct, editProduct, deleteProduct } = productService;
+const { getAllProducts, getProductById, createProduct, editProduct, deleteProduct } = productService;
 
 export const getAllProductsController = async (req, res, next) => {
 	try {
-		const products = await getAllProducts();
+		const { search, category, subCategory, minPrice, maxPrice, sort, page = 1, limit = 50 } = req.query;
+
+		const pageNum = Number(page) >= 1 ? Number(page) : 1;
+		const limitNum = Number(limit) >= 1 ? Number(limit) : 20;
+		const minPriceNum = minPrice ? Number(minPrice) : undefined;
+		const maxPriceNum = maxPrice ? Number(maxPrice) : undefined;
+		const filter = {};
+		if (search) {
+			filter.$or = [{ name: { $regex: search, $options: "i" } }, { description: { $regex: search, $options: "i" } }];
+		}
+		if (category) {
+			filter.category = category;
+		}
+		if (subCategory) {
+			filter.subCategory = subCategory;
+		}
+		if (minPriceNum !== undefined || maxPriceNum !== undefined) {
+			filter.price = {};
+			if (minPriceNum !== undefined) filter.price.$gte = minPriceNum;
+			if (maxPriceNum !== undefined) filter.price.$lte = maxPriceNum;
+		}
+		let sortObj = { createdAt: -1 };
+		if (sort) {
+			const [field, order] = sort.split("_");
+			sortObj = { [field]: order === "asc" ? 1 : -1 };
+		}
+		const skip = (pageNum - 1) * limitNum;
+		const options = {
+			sort: sortObj,
+			skip,
+			limit: limitNum,
+		};
+		const products = await getAllProducts(filter, options);
 		res.status(200).json({ success: true, products });
 	} catch (error) {
 		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
@@ -17,26 +49,6 @@ export const getProductByIdController = async (req, res, next) => {
 		const productId = req.params.id;
 		const product = await getProductById(productId);
 		res.status(200).json({ success: true, product });
-	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
-	}
-};
-
-export const getProductsByCategoryController = async (req, res, next) => {
-	try {
-		const category = req.params.subCategory;
-		const products = await getProductsByCategory({ category });
-		res.status(200).json({ success: true, products });
-	} catch (error) {
-		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
-	}
-};
-
-export const getProductsBySubCategoryController = async (req, res, next) => {
-	try {
-		const subCategory = req.params.subCategory;
-		const products = await getProductsBySubCategory({ subCategory });
-		res.status(200).json({ success: true, products });
 	} catch (error) {
 		next(new CustomError(error.message || "Internal server error", error.statusCode || 500, error.name || "ServerError"));
 	}
