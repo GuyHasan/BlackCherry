@@ -1,11 +1,14 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { registerThunk } from "../redux/slices/userSlice";
+import { errorMessage, successMessage } from "../services/messageServices";
 
 function Register() {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 	const { isAuthenticated } = useSelector((state) => state.user);
 	useEffect(() => {
 		if (isAuthenticated) {
@@ -30,8 +33,12 @@ function Register() {
 		onSubmit: async (values) => {
 			try {
 				console.log(values);
+				const response = await dispatch(registerThunk(values)).unwrap();
+				successMessage("נרשמת בהצלחה!");
+				navigate("/login");
 			} catch (error) {
 				console.log(error);
+				errorMessage(error.message || "ארעה שגיאה במהלך ההרשמה, אנא בדוק את הפרטים שהזנת ונסה שנית מאוחר יותר.");
 			}
 		},
 	});
