@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loginThunk } from "../redux/slices/userSlice";
 import { errorMessage, successMessage } from "../services/messageServices";
+import SEO from "./SEO";
 
 function Login() {
 	const navigate = useNavigate();
@@ -39,6 +40,7 @@ function Login() {
 	});
 	return (
 		<>
+			<SEO title='התחברות' description='התחברו לאתר שלנו' keywords={["התחברות, משתמש קיים, כניסה לחשבון"]} />
 			<h1 className='w-100 text-center mt-5'>התחברות</h1>
 			<form onSubmit={formik.handleSubmit} className='my-3 w-50 mx-auto'>
 				<div className='form-floating mb-3'>

@@ -1,4 +1,5 @@
 import "../style/Home.css";
+import SEO from "./SEO";
 
 function Home() {
 	const data = [
@@ -15,6 +16,7 @@ function Home() {
 	];
 	return (
 		<>
+			<SEO title='BlackCherry - בית' description='ברוכים הבאים לבלק צ׳רי, קייטרינג ומגשי אירוח כשרים' keywords={["קייטרינג, מגשי אירוח, כשר, בלק צ׳רי"]} />
 			<div className='d-flex flex-column justify-content-center align-items-center w-100'>
 				<div className='home-header'>
 					<img src='/homePhoto.jpg' alt='' className='home-photo' />

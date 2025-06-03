@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { registerThunk } from "../redux/slices/userSlice";
 import { errorMessage, successMessage } from "../services/messageServices";
+import SEO from "./SEO";
 
 function Register() {
 	const navigate = useNavigate();
@@ -44,6 +45,7 @@ function Register() {
 	});
 	return (
 		<>
+			<SEO title='הרשמה' description='הרשמה לאתר שלנו' keywords={["הרשמה, משתמש חדש, יצירת חשבון"]} />
 			<div className='container w-100 mt-5 p-0 pb-5'>
 				<h1 className='w-100 text-center'>הרשמה</h1>
 				<form onSubmit={formik.handleSubmit} className='my-3 w-75 mx-auto'>
