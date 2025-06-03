@@ -7,7 +7,7 @@ export const injectStoreDispatch = (dispatch) => {
 };
 
 const api = axios.create({
-	baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:5000/api",
+	baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:8181/api",
 	withCredentials: true,
 	headers: {
 		"Content-Type": "application/json",

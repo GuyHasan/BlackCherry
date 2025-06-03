@@ -3,6 +3,8 @@ import * as yup from "yup";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { loginThunk } from "../redux/slices/userSlice";
+import { errorMessage, successMessage } from "../services/messageServices";
 
 function Login() {
 	const navigate = useNavigate();
@@ -25,11 +27,13 @@ function Login() {
 		onSubmit: async (values) => {
 			try {
 				console.log("Login values:", values);
-				if (response) {
-					navigate("/");
-				}
+				const response = await dispatch(loginThunk(values)).unwrap();
+				console.log("Login response:", response);
+				successMessage("התחברת בהצלחה!");
+				navigate("/");
 			} catch (error) {
 				console.log(error);
+				errorMessage(error.message || " ארעה שגיאה במהלך ההתחברות, אנא בדוק את פרטי ההתחברות או נסה שנית מאוחר יותר.");
 			}
 		},
 	});

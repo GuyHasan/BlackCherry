@@ -14,6 +14,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { refreshThunk } from "./redux/slices/userSlice";
+import { ToastContainer } from "react-toastify";
 
 function App() {
 	const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
 					</main>
 					<Footer />
 				</Router>
+				<ToastContainer theme='colored' />
 			</div>
 		</>
 	);
