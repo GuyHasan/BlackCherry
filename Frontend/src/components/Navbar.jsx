@@ -8,7 +8,7 @@ function Navbar() {
 					<NavLink className='nav-link' to='/'>
 						תפריט
 					</NavLink>
-					<NavLink className='nav-link' to='/'>
+					<NavLink className='nav-link' to='/about'>
 						אודות
 					</NavLink>
 					<NavLink className='navbar-brand' to='/'>
