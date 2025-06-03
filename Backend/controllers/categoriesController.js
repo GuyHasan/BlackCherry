@@ -1,6 +1,4 @@
-// server/controllers/categoriesController.js
-
-import { categories } from "../config/constants/categories";
+import { categories } from "../config/constants/categories.js";
 
 export const getCategoriesList = (req, res, next) => {
 	try {

@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import Kashrut from "./components/Kashrut";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
@@ -30,6 +31,7 @@ function App() {
 							<Route path='/about' element={<About />} />
 							<Route path='/contact' element={<Contact />} />
 							<Route path='/menu' element={<Menu />} />
+							<Route path='/kashrut' element={<Kashrut />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/register' element={<Register />} />
 							<Route path='*' element={<h1>404 Not Found</h1>} />

@@ -10,7 +10,7 @@ function Navbar() {
 				<nav className='d-grid align-items-center gap-5  px-5 py-3 w-100' style={{ gridTemplateColumns: "1fr auto 1fr" }}>
 					<div></div>
 					<div className='d-flex align-items-center gap-4'>
-						<NavLink className='nav-link' to='/about'>
+						<NavLink className='nav-link' to='/kashrut'>
 							כשרות
 						</NavLink>
 						<NavLink className='nav-link' to='/about'>
@@ -19,10 +19,10 @@ function Navbar() {
 						<NavLink className='navbar-brand' to='/'>
 							<img src='/logo.svg' alt='BlackCherry Logo' style={{ height: "40px" }} />
 						</NavLink>
-						<NavLink className='nav-link' to='/'>
+						<NavLink className='nav-link' to='/menu'>
 							תפריט
 						</NavLink>
-						<NavLink className='nav-link' to='/about'>
+						<NavLink className='nav-link' to='/contact'>
 							צור קשר
 						</NavLink>
 					</div>
