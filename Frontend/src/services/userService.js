@@ -31,6 +31,11 @@ const updateEmployeeStatus = async (userId) => {
 	return data;
 };
 
+const toggleFavoriteProduct = async (productId) => {
+	const { data } = await axios.post("/users/favorite-products", { productId });
+	return data;
+};
+
 export default {
 	login,
 	register,
@@ -38,4 +43,5 @@ export default {
 	getAllUsers,
 	deleteUser,
 	updateEmployeeStatus,
+	toggleFavoriteProduct,
 };

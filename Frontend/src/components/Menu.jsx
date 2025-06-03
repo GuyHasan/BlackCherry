@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadMenuPreview } from "../redux/slices/menuSlice";
 import { Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import ProductCard from "./products/ProductCard";
 
 export default function Menu() {
 	const dispatch = useDispatch();
@@ -71,23 +72,7 @@ export default function Menu() {
 										{Array.isArray(subProducts) && subProducts.length > 0 ? (
 											<div className='row'>
 												{subProducts.map((prod) => (
-													<div key={prod._id} className='col-6 col-sm-4 col-md-3 col-lg-2 mb-3'>
-														<Link to={`/product/${prod._id}`} className='text-decoration-none text-dark'>
-															<div className='card h-100'>
-																<img src={prod.imageUrl} className='card-img-top' alt={prod.name} style={{ objectFit: "cover", height: "120px" }} />
-																<div className='card-body p-2'>
-																	<h5 className='card-title mb-1' style={{ fontSize: "0.9rem" }}>
-																		{prod.name}
-																	</h5>
-																	{Array.isArray(prod.size) && prod.size.length > 0 && (
-																		<p className='card-text text-muted mb-0' style={{ fontSize: "0.8rem" }}>
-																			{prod.size[0].price} ₪
-																		</p>
-																	)}
-																</div>
-															</div>
-														</Link>
-													</div>
+													<ProductCard key={prod._id} prod={prod} />
 												))}
 											</div>
 										) : (
@@ -97,31 +82,7 @@ export default function Menu() {
 								);
 							})
 						) : (
-							<div className='row'>
-								{Array.isArray(products) && products.length > 0 ? (
-									products.map((prod) => (
-										<div key={prod._id} className='col-6 col-sm-4 col-md-3 col-lg-2 mb-3'>
-											<Link to={`/product/${prod._id}`} className='text-decoration-none text-dark'>
-												<div className='card h-100'>
-													<img src={prod.imageUrl} className='card-img-top' alt={prod.name} style={{ objectFit: "cover", height: "120px" }} />
-													<div className='card-body p-2'>
-														<h5 className='card-title mb-1' style={{ fontSize: "0.9rem" }}>
-															{prod.name}
-														</h5>
-														{Array.isArray(prod.size) && prod.size.length > 0 && (
-															<p className='card-text text-muted mb-0' style={{ fontSize: "0.8rem" }}>
-																{prod.size[0].price} ₪
-															</p>
-														)}
-													</div>
-												</div>
-											</Link>
-										</div>
-									))
-								) : (
-									<p className='text-muted'>אין מוצרים בקטגוריה זו.</p>
-								)}
-							</div>
+							<div className='row'>{Array.isArray(products) && products.length > 0 ? products.map((prod) => <ProductCard key={prod._id} prod={prod} />) : <p className='text-muted'>אין מוצרים בקטגוריה זו.</p>}</div>
 						)}
 					</section>
 				);
