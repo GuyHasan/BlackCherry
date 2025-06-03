@@ -1,5 +1,4 @@
-// About.jsx
-import { Helmet } from "react-helmet-async";
+import SEO from "./SEO";
 
 function About() {
 	return (

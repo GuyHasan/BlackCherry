@@ -9,9 +9,9 @@ function Navbar() {
 			<header className='sticky-top fw-bold' style={{ backgroundColor: "#fcfcfc", boxShadow: "0 0 2px rgba(0, 0, 0, 0.1)" }}>
 				<nav className='d-grid align-items-center gap-5  px-5 py-3 w-100' style={{ gridTemplateColumns: "1fr auto 1fr" }}>
 					<div></div>
-					<div className='d-flex align-items-center gap-3'>
-						<NavLink className='nav-link' to='/'>
-							תפריט
+					<div className='d-flex align-items-center gap-4'>
+						<NavLink className='nav-link' to='/about'>
+							כשרות
 						</NavLink>
 						<NavLink className='nav-link' to='/about'>
 							אודות
@@ -19,11 +19,11 @@ function Navbar() {
 						<NavLink className='navbar-brand' to='/'>
 							<img src='/logo.svg' alt='BlackCherry Logo' style={{ height: "40px" }} />
 						</NavLink>
-						<NavLink className='nav-link' to='/about'>
-							צור קשר
+						<NavLink className='nav-link' to='/'>
+							תפריט
 						</NavLink>
 						<NavLink className='nav-link' to='/about'>
-							כשרות
+							צור קשר
 						</NavLink>
 					</div>
 					<div className='d-flex align-items-center justify-content-end gap-3'>
