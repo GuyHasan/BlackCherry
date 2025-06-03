@@ -7,6 +7,7 @@ import { globalLimiter } from "./middleware/rateLimiters.js";
 import helmet from "helmet";
 import connectToDB from "./DB/dbServices.js";
 import seedDB from "./utils/seedDb.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 8181;
@@ -17,6 +18,7 @@ app.use(corsMiddleware);
 app.use(loggerMiddleware);
 app.use(globalLimiter);
 app.use(express.json());
+app.use(cookieParser());
 app.use("/api", router);
 app.use(errorHandler);
 

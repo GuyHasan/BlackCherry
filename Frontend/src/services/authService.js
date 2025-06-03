@@ -5,7 +5,7 @@ const logout = async () => {
 };
 
 const refreshAccessToken = async () => {
-	const { data } = await api.get("/auth/refresh");
+	const { data } = await api.post("/auth/refresh");
 	return data;
 };
 
