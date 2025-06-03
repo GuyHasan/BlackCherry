@@ -1,6 +1,9 @@
-import bcrypt from "bcrypt";
 import User from "../users/models/mongoDB/userSchema.js";
+import { hashPassword } from "../users/services/passwordsServices.js";
+import dotenv from "dotenv";
+dotenv.config();
 
+const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
 const seedDB = async () => {
 	const userCount = await User.countDocuments();
 	if (userCount > 0) {
@@ -8,7 +11,7 @@ const seedDB = async () => {
 		return;
 	}
 
-	const hashedPassword = bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
+	const hashedPassword = await hashPassword(adminPassword);
 	const adminUser = new User({
 		username: "admin",
 		email: "admin@example.com",
