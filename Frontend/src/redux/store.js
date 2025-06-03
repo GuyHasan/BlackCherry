@@ -1,21 +1,24 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import productsReducer from "./slices/productsSlice";
-import categoriesReducer from "./slices/categoriesSlice";
+import api, { injectStoreDispatch } from "../services/api";
 import userReducer from "./slices/userSlice";
-import favoritesReducer from "./slices/favoritesSlice";
-import adminImagesReducer from "./slices/adminImagesSlice";
-import adminUsersReducer from "./slices/adminUsersSlice";
+// import productsReducer from "./slices/productsSlice";
+// import categoriesReducer from "./slices/categoriesSlice";
+// import favoritesReducer from "./slices/favoritesSlice";
+// import adminImagesReducer from "./slices/adminImagesSlice";
+// import adminUsersReducer from "./slices/adminUsersSlice";
 
 const store = configureStore({
 	reducer: {
-		products: productsReducer,
-		categories: categoriesReducer,
 		user: userReducer,
-		favorites: favoritesReducer,
-		adminImages: adminImagesReducer,
-		adminUsers: adminUsersReducer,
+		// products: productsReducer,
+		// categories: categoriesReducer,
+		// favorites: favoritesReducer,
+		// adminImages: adminImagesReducer,
+		// adminUsers: adminUsersReducer,
 	},
 });
+
+injectStoreDispatch(store.dispatch);
 
 export default store;

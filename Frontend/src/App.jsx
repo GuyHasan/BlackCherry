@@ -8,8 +8,15 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { refreshThunk } from "./redux/slices/userSlice";
 
 function App() {
+	const dispatch = useDispatch();
+	useEffect(() => {
+		dispatch(refreshThunk());
+	}, [dispatch]);
 	return (
 		<>
 			<Router>

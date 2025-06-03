@@ -102,6 +102,13 @@ const userSlice = createSlice({
 		clearError(state) {
 			state.error = null;
 		},
+		clearUserState: (state) => {
+			state.user = null;
+			state.accessToken = null;
+			state.loading = false;
+			state.error = null;
+			state.isAuthenticated = false;
+		},
 	},
 	extraReducers: (builder) => {
 		const setLoading = (state) => {
@@ -113,11 +120,6 @@ const userSlice = createSlice({
 			state.error = action.payload || action.error.message;
 			state.isAuthenticated = false;
 		};
-
-		builder
-			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, getUserByIdThunk.pending, refreshThunk.pending, logoutThunk.pending, deleteUserThunk.pending, updateEmployeeStatusThunk.pending), setLoading)
-			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, getUserByIdThunk.rejected, refreshThunk.rejected, logoutThunk.rejected, deleteUserThunk.rejected, updateEmployeeStatusThunk.rejected), setError);
-
 		builder
 			.addCase(loginThunk.fulfilled, (state, action) => {
 				state.loading = false;
@@ -131,7 +133,7 @@ const userSlice = createSlice({
 				state.accessToken = action.payload.accessToken;
 				state.isAuthenticated = true;
 			})
-			.addCase(getProfileThunk.fulfilled, (state, action) => {
+			.addCase(getUserByIdThunk.fulfilled, (state, action) => {
 				state.loading = false;
 				state.user = action.payload;
 				state.isAuthenticated = true;
@@ -168,9 +170,11 @@ const userSlice = createSlice({
 			.addCase(getAllUsersThunk.rejected, (state, action) => {
 				state.userListLoading = false;
 				state.userListError = action.payload || action.error.message;
-			});
+			})
+			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, getUserByIdThunk.pending, refreshThunk.pending, logoutThunk.pending, deleteUserThunk.pending, updateEmployeeStatusThunk.pending), setLoading)
+			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, getUserByIdThunk.rejected, refreshThunk.rejected, logoutThunk.rejected, deleteUserThunk.rejected, updateEmployeeStatusThunk.rejected), setError);
 	},
 });
 
-export const { clearError } = userSlice.actions;
+export const { clearError, clearUserState } = userSlice.actions;
 export default userSlice.reducer;
