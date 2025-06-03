@@ -29,10 +29,12 @@ function Navbar() {
 					<div className='d-flex align-items-center justify-content-end gap-3'>
 						{isAuthenticated ? (
 							<>
-								<NavLink className='nav-link' to='/menu'>
+								<NavLink className='nav-link' to='/profile'>
 									הפרופיל שלי
 								</NavLink>
-								<button onClick={handleLogout}>התנתקות</button>
+								<button onClick={handleLogout} style={{ backgroundColor: "transparent", border: "none", color: "#000", cursor: "pointer", fontWeight: "bold" }}>
+									התנתקות
+								</button>
 							</>
 						) : (
 							<>

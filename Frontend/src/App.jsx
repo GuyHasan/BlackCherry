@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Kashrut from "./components/Kashrut";
+import Profile from "./components/users/Profile";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
@@ -35,6 +36,7 @@ function App() {
 							<Route path='/kashrut' element={<Kashrut />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/register' element={<Register />} />
+							<Route path='/profile' element={<Profile />} />
 							<Route path='*' element={<h1>404 Not Found</h1>} />
 						</Routes>
 					</main>

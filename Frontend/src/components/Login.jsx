@@ -23,7 +23,7 @@ function Login() {
 		},
 		validationSchema: yup.object({
 			email: yup.string().required("אימייל הוא שדה חובה").email("אימייל לא תקין").min(5, "אימייל לא יכול להיות קצר מ-5 תווים"),
-			password: yup.string().required("סיסמא היא שדה חובה").min(9, "סיסמא חייבת להיות לפחות באורך 9 תווים"),
+			password: yup.string().required("סיסמא היא שדה חובה").min(8, "סיסמא חייבת להיות לפחות באורך 8 תווים"),
 		}),
 		onSubmit: async (values) => {
 			try {
