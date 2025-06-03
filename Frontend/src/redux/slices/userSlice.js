@@ -4,9 +4,9 @@ import userService from "../../services/userService";
 import authService from "../../services/authService";
 import api from "../../services/api";
 
-export const loginThunk = createAsyncThunk("user/login", async ({ username, password }, thunkAPI) => {
+export const loginThunk = createAsyncThunk("user/login", async ({ email, password }, thunkAPI) => {
 	try {
-		const { accessToken } = await userService.login({ username, password });
+		const { accessToken } = await userService.login({ email, password });
 		const { id, isAdmin, isEmployee } = decodeToken(accessToken);
 		const user = { id, isAdmin, isEmployee };
 		api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;

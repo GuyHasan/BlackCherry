@@ -18,11 +18,11 @@ function Login() {
 	}, []);
 	const formik = useFormik({
 		initialValues: {
-			username: "",
+			email: "",
 			password: "",
 		},
 		validationSchema: yup.object({
-			username: yup.string().required("שם משתמש הוא שדה חובה"),
+			email: yup.string().required("אימייל הוא שדה חובה").email("אימייל לא תקין").min(5, "אימייל לא יכול להיות קצר מ-5 תווים"),
 			password: yup.string().required("סיסמא היא שדה חובה").min(9, "סיסמא חייבת להיות לפחות באורך 9 תווים"),
 		}),
 		onSubmit: async (values) => {
@@ -44,12 +44,12 @@ function Login() {
 			<h1 className='w-100 text-center mt-5'>התחברות</h1>
 			<form onSubmit={formik.handleSubmit} className='my-3 w-50 mx-auto'>
 				<div className='form-floating mb-3'>
-					<input name='username' type='text' className='form-control' id='username' placeholder='שם משתמש' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.username} />
-					<label htmlFor='username' className='text-end'>
-						שם משתמש
+					<input name='email' type='text' className='form-control' id='email' placeholder='אימייל' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.email} />
+					<label htmlFor='email' className='text-end'>
+						אימייל
 					</label>
 				</div>
-				{formik.errors.username && formik.touched.username && <div className='text-danger m-2'>{formik.errors.username}</div>}
+				{formik.errors.email && formik.touched.email && <div className='text-danger m-2'>{formik.errors.email}</div>}
 				<div className='form-floating'>
 					<input name='password' type='password' className='form-control' id='password' placeholder='סיסמא' onBlur={formik.handleBlur} onChange={formik.handleChange} value={formik.values.password} />
 					<label htmlFor='password'>סיסמא</label>
