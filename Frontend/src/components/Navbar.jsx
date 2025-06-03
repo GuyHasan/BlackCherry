@@ -4,8 +4,8 @@ function Navbar() {
 	return (
 		<>
 			<header className='sticky-top fw-bold' style={{ backgroundColor: "#fcfcfc", boxShadow: "0 0 2px rgba(0, 0, 0, 0.1)" }}>
-				<nav className='d-flex align-items-center justify-content-center px-5 py-3 gap-5'>
-					<div className='d-flex align-items-center gap-3'>
+				<nav className='d-flex align-items-center  px-5 py-3 gap-5 w-100'>
+					<div className='d-flex align-items-center gap-3 mx-auto'>
 						<NavLink className='nav-link' to='/'>
 							תפריט
 						</NavLink>

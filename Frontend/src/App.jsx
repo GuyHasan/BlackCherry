@@ -21,19 +21,23 @@ function App() {
 	}, [dispatch]);
 	return (
 		<>
-			<Router>
-				<Navbar />
-				<Routes>
-					<Route path='/' element={<Home />} />
-					<Route path='/about' element={<About />} />
-					<Route path='/contact' element={<Contact />} />
-					<Route path='/menu' element={<Menu />} />
-					<Route path='/login' element={<Login />} />
-					<Route path='/register' element={<Register />} />
-					<Route path='*' element={<h1>404 Not Found</h1>} />
-				</Routes>
-				<Footer />
-			</Router>
+			<div className='d-flex flex-column min-vh-100'>
+				<Router>
+					<Navbar />
+					<main className='flex-grow-1'>
+						<Routes>
+							<Route path='/' element={<Home />} />
+							<Route path='/about' element={<About />} />
+							<Route path='/contact' element={<Contact />} />
+							<Route path='/menu' element={<Menu />} />
+							<Route path='/login' element={<Login />} />
+							<Route path='/register' element={<Register />} />
+							<Route path='*' element={<h1>404 Not Found</h1>} />
+						</Routes>
+					</main>
+					<Footer />
+				</Router>
+			</div>
 		</>
 	);
 }
