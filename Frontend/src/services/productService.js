@@ -1,38 +1,66 @@
 import api from "./api";
 
 const getAllProducts = async () => {
-	const res = await api.get("/products");
-	return res.data;
+	try {
+		const res = await api.get("/products");
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getProductById = async (id) => {
-	const res = await api.get(`/products/${id}`);
-	return res.data;
+	try {
+		const res = await api.get(`/products/${id}`);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const createProduct = async (productData) => {
-	const res = await api.post("/products", productData);
-	return res.data;
+	try {
+		const res = await api.post("/products", productData);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const deleteProduct = async (id) => {
-	const res = await api.delete(`/products/${id}`);
-	return res.data;
+	try {
+		const res = await api.delete(`/products/${id}`);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getMenuPreviewProducts = async () => {
-	const res = await api.get("/products/menu-preview");
-	return res.data.data;
+	try {
+		const res = await api.get("/products/menu-preview");
+		return res.data.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getProductsByCategory = async (categoryKey) => {
-	const res = await api.get(`/products?category=${categoryKey}`);
-	return res.data;
+	try {
+		const res = await api.get(`/products?category=${categoryKey}`);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getProductsBySubCategory = async (categoryKey, subKey) => {
-	const res = await api.get(`/products?category=${categoryKey}&subCategory=${subKey}`);
-	return res.data;
+	try {
+		const res = await api.get(`/products?category=${categoryKey}&subCategory=${subKey}`);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const productService = {

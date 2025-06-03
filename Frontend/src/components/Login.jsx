@@ -33,7 +33,7 @@ function Login() {
 				successMessage("התחברת בהצלחה!");
 				navigate("/");
 			} catch (error) {
-				console.log(error);
+				console.log("cautgh", error);
 				errorMessage(error.message || " ארעה שגיאה במהלך ההתחברות, אנא בדוק את פרטי ההתחברות או נסה שנית מאוחר יותר.");
 			}
 		},

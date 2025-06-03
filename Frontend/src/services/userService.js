@@ -2,38 +2,66 @@
 import api from "./api";
 
 const login = async ({ email, password }) => {
-	const { data } = await api.post("/users/login", { email, password });
-	return data;
+	try {
+		const { data } = await api.post("/users/login", { email, password }, { skipRefresh: true });
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const register = async (userData) => {
-	const { data } = await api.post("/users/register", userData);
-	return data;
+	try {
+		const { data } = await api.post("/users/register", userData);
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getUserById = async (userId) => {
-	const { data } = await api.get(`/users/${userId}`);
-	return data;
+	try {
+		const { data } = await api.get(`/users/${userId}`);
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const getAllUsers = async () => {
-	const { data } = await api.get("/users");
-	return data;
+	try {
+		const { data } = await api.get("/users");
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const deleteUser = async (userId) => {
-	const { data } = await api.delete(`/users/${userId}`);
-	return data;
+	try {
+		const { data } = await api.delete(`/users/${userId}`);
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const updateEmployeeStatus = async (userId) => {
-	const { data } = await api.patch(`/users/employee/${userId}`);
-	return data;
+	try {
+		const { data } = await api.patch(`/users/employee/${userId}`);
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 const toggleFavoriteProduct = async (productId) => {
-	const { data } = await axios.post("/users/favorite-products", { productId });
-	return data;
+	try {
+		const { data } = await axios.post("/users/favorite-products", { productId });
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 export default {

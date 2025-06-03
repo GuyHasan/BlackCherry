@@ -19,11 +19,8 @@ let failedQueue = [];
 
 const processQueue = (error, token = null) => {
 	failedQueue.forEach(({ resolve, reject }) => {
-		if (error) {
-			reject(error);
-		} else {
-			resolve(token);
-		}
+		if (error) reject(error);
+		else resolve(token);
 	});
 	failedQueue = [];
 };
@@ -33,6 +30,9 @@ api.interceptors.response.use(
 	async (error) => {
 		const originalRequest = error.config;
 		const status = error.response?.status;
+		if (originalRequest?.skipRefresh) {
+			return Promise.reject(error);
+		}
 
 		if (status === 403) {
 			console.log("403 detected, clearing user state");
@@ -61,7 +61,7 @@ api.interceptors.response.use(
 			try {
 				const resultAction = await storeDispatch(refreshThunk());
 				if (refreshThunk.fulfilled.match(resultAction)) {
-					const newToken = resultAction.payload; // לפי איך שהגדרת ב-thunk
+					const newToken = resultAction.payload;
 					originalRequest.headers["Authorization"] = "Bearer " + newToken;
 					processQueue(null, newToken);
 					return axios(originalRequest);

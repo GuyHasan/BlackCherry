@@ -1,12 +1,20 @@
 import api from "./api";
 
 const logout = async () => {
-	await api.post("/auth/logout");
+	try {
+		await api.post("/auth/logout");
+	} catch (error) {
+		throw error;
+	}
 };
 
 const refreshAccessToken = async () => {
-	const { data } = await api.post("/auth/refresh");
-	return data;
+	try {
+		const { data } = await api.post("/auth/refresh");
+		return data;
+	} catch (error) {
+		throw error;
+	}
 };
 
 export default {
