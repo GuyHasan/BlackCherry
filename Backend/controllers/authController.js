@@ -64,7 +64,7 @@ export async function logoutController(req, res, next) {
 		if (!refreshToken) {
 			return next(new CustomError("No refresh token provided", 401, "AuthenticationError"));
 		}
-		const decoded = verifyToken(refreshToken, REFRESH_SECRET);
+		const decoded = verifyRefreshToken(refreshToken);
 		const user = await getUserById(decoded.id);
 		if (!user || user.refreshToken !== refreshToken) {
 			return next(new CustomError("Invalid refresh token", 401, "AuthenticationError"));

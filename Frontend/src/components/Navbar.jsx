@@ -1,9 +1,15 @@
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { logoutThunk } from "../redux/slices/userSlice";
 
 function Navbar() {
 	const { isAuthenticated } = useSelector((state) => state.user);
-	const handleLogout = () => {};
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const handleLogout = async () => {
+		await dispatch(logoutThunk());
+		navigate("/");
+	};
 	return (
 		<>
 			<header className='sticky-top fw-bold' style={{ backgroundColor: "#fcfcfc", boxShadow: "0 0 2px rgba(0, 0, 0, 0.1)" }}>
