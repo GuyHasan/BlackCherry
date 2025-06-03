@@ -3,7 +3,7 @@ import { hashPassword } from "../users/services/passwordsServices.js";
 import dotenv from "dotenv";
 dotenv.config();
 
-const adminPassword = process.env.ADMIN_PASSWORD || "admin123";
+const adminPassword = process.env.ADMIN_PASSWORD || "admin1234567";
 const seedDB = async () => {
 	const userCount = await User.countDocuments();
 	if (userCount > 0) {
