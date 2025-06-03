@@ -7,9 +7,8 @@ import { handleControllerError } from "../utils/errorsHandlers.js";
 
 dotenv.config();
 
-const REFRESH_SECRET = process.env.REFRESH_SECRET;
 const { getUserById } = userServices;
-const { createAccessToken, verifyToken } = authProvider;
+const { createAccessToken, verifyRefreshToken } = authProvider;
 
 export async function createAccessTokenController(req, res, next) {
 	try {
@@ -17,7 +16,7 @@ export async function createAccessTokenController(req, res, next) {
 		if (!refreshToken) {
 			return next(new CustomError("No refresh token provided", 401, "AuthenticationError"));
 		}
-		const decoded = verifyToken(refreshToken, REFRESH_SECRET);
+		const decoded = verifyRefreshToken(refreshToken);
 		const user = await getUserById(decoded.id);
 		if (!user || user.refreshToken !== refreshToken) {
 			return next(new CustomError("Invalid refresh token", 401, "AuthenticationError"));

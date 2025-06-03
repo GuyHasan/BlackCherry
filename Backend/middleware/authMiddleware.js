@@ -1,7 +1,7 @@
 import authProvider from "../auth/authProvider.js";
 import CustomError from "../utils/customError.js";
 
-const { verifyToken } = authProvider;
+const { verifyAccessToken } = authProvider;
 
 export default function authMiddleware(req, res, next) {
 	const authHeader = req.headers.authorization;
@@ -13,7 +13,7 @@ export default function authMiddleware(req, res, next) {
 	const token = authHeader.split(" ")[1];
 
 	try {
-		const decoded = verifyToken(token);
+		const decoded = verifyAccessToken(token);
 		req.user = decoded;
 		next();
 	} catch (err) {
