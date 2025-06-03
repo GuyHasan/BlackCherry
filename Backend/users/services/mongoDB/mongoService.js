@@ -171,7 +171,7 @@ const updateEmployeeStatus = async (userId) => {
 		return {
 			success: true,
 			message: user.isEmployee ? "User promoted to employee" : "User demoted from employee",
-			userId: user._id,
+			user: user,
 		};
 	} catch (error) {
 		handleServiceError(error, "An error occurred while updating employee role");

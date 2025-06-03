@@ -1,5 +1,4 @@
 import dotenv from "dotenv";
-import jwt from "jsonwebtoken";
 import userServices from "../users/services/userServices.js";
 import authProvider from "../auth/authProvider.js";
 import CustomError from "../utils/customError.js";
@@ -10,7 +9,7 @@ dotenv.config();
 
 const REFRESH_SECRET = process.env.REFRESH_SECRET;
 const { getUserById } = userServices;
-const { createAccessToken } = authProvider;
+const { createAccessToken, verifyToken } = authProvider;
 
 export async function createAccessTokenController(req, res, next) {
 	try {
@@ -18,7 +17,7 @@ export async function createAccessTokenController(req, res, next) {
 		if (!refreshToken) {
 			return next(new CustomError("No refresh token provided", 401, "AuthenticationError"));
 		}
-		const decoded = jwt.verify(refreshToken, REFRESH_SECRET);
+		const decoded = verifyToken(refreshToken, REFRESH_SECRET);
 		const user = await getUserById(decoded.id);
 		if (!user || user.refreshToken !== refreshToken) {
 			return next(new CustomError("Invalid refresh token", 401, "AuthenticationError"));
@@ -57,5 +56,28 @@ export async function resetPasswordController(req, res, next) {
 		});
 	} catch (error) {
 		handleControllerError(error, next, "Failed to reset password");
+	}
+}
+
+export async function logoutController(req, res, next) {
+	try {
+		const { refreshToken } = req.cookies;
+		if (!refreshToken) {
+			return next(new CustomError("No refresh token provided", 401, "AuthenticationError"));
+		}
+		const decoded = verifyToken(refreshToken, REFRESH_SECRET);
+		const user = await getUserById(decoded.id);
+		if (!user || user.refreshToken !== refreshToken) {
+			return next(new CustomError("Invalid refresh token", 401, "AuthenticationError"));
+		}
+		user.refreshToken = null;
+		await user.save();
+		res.clearCookie("refreshToken");
+		res.status(200).json({
+			success: true,
+			message: "Logged out successfully",
+		});
+	} catch (error) {
+		handleControllerError(error, next, "Failed to logout");
 	}
 }
