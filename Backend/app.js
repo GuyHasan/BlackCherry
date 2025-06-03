@@ -5,6 +5,8 @@ import corsMiddleware from "./middleware/corsMiddleware.js";
 import errorHandler from "./middleware/errorHandler.js";
 import { globalLimiter } from "./middleware/rateLimiters.js";
 import helmet from "helmet";
+import connectToDB from "./DB/dbServices.js";
+import seedDB from "./utils/seedDb.js";
 
 const app = express();
 const PORT = 8181;
@@ -18,6 +20,16 @@ app.use(express.json());
 app.use("/api", router);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-	console.log(`Server is running on port ${PORT}`);
-});
+const startServer = async () => {
+	try {
+		await connectToDB();
+		await seedDB();
+		app.listen(PORT, () => {
+			console.log(`Server is running on ${PORT}`);
+		});
+	} catch (error) {
+		console.error("Error starting the server:", error);
+	}
+};
+
+startServer();
