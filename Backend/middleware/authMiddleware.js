@@ -17,6 +17,6 @@ export default function authMiddleware(req, res, next) {
 		req.user = decoded;
 		next();
 	} catch (err) {
-		return next(new CustomError("Invalid or expired token", 401));
+		return next(new CustomError("Invalid or expired token", 401, "Authentication Error"));
 	}
 }
