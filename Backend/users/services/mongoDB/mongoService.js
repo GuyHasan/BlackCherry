@@ -32,7 +32,7 @@ const registerUser = async (userData) => {
 const loginUser = async (userData) => {
 	try {
 		const { email, password } = userData;
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ email }).select("+password");
 		if (!user) {
 			throw new CustomError("User not found", 404, "Not Found");
 		}

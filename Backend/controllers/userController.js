@@ -6,8 +6,8 @@ const { loginUser, registerUser, getAllUsers, getUserById, updateUser, deleteUse
 
 export async function loginUserController(req, res, next) {
 	try {
-		const { email, password } = req.body;
-		const response = await loginUser(email, password);
+		const userData = req.body;
+		const response = await loginUser(userData);
 		if (!response.success) {
 			return next(new CustomError("Login failed", 401, "AuthenticationError"));
 		}

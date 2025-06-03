@@ -3,6 +3,7 @@ import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
 import userService from "../../services/userService";
 import authService from "../../services/authService";
 import api from "../../services/api";
+import decodeToken from "../../utils/tokenDecoder";
 
 export const loginThunk = createAsyncThunk("user/login", async ({ email, password }, thunkAPI) => {
 	try {
