@@ -1,12 +1,131 @@
-import SEO from "./SEO";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadMenuPreview } from "../redux/slices/menuSlice";
+import { Spinner } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function Menu() {
+export default function Menu() {
+	const dispatch = useDispatch();
+	const { menuPreview, loading, error } = useSelector((state) => state.menu);
+	const [hasFetched, setHasFetched] = useState(false);
+	useEffect(() => {
+		dispatch(loadMenuPreview());
+	}, [dispatch]);
+	useEffect(() => {
+		if (!loading) {
+			setHasFetched(true);
+		}
+	}, [loading]);
+	if (loading && !hasFetched) {
+		return (
+			<div className='d-flex justify-content-center py-4'>
+				<Spinner animation='border' role='status'>
+					<span className='visually-hidden'>Loading...</span>
+				</Spinner>
+			</div>
+		);
+	}
+	if (loading && hasFetched) {
+		return (
+			<div className='d-flex justify-content-center py-4'>
+				<Spinner animation='border' role='status'>
+					<span className='visually-hidden'>Loading...</span>
+				</Spinner>
+			</div>
+		);
+	}
+	if (hasFetched && error) {
+		return <div className='text-center py-4 text-danger'>שגיאה: {error}</div>;
+	}
+	if (hasFetched && !menuPreview.length) {
+		return <div className='text-center py-4'>אין קטגוריות להצגה.</div>;
+	}
 	return (
-		<>
-			<SEO title='תפריט - החנות שלי' description='גלו את התפריט שלנו עם מגוון רחב של מוצרים.' keywords={["תפריט", "מוצרים", "החנות שלי"]} />
-			<h3>תפריט</h3>
-		</>
+		<div className='container my-4'>
+			{menuPreview.map((category) => {
+				const { key: catKey, he: catHe, subCategories, products } = category;
+				const hasSub = Array.isArray(subCategories) && subCategories.length > 0;
+
+				return (
+					<section key={catKey} className='mb-5'>
+						<div className='d-flex justify-content-between align-items-center mb-3'>
+							<h2 className='h3'>{catHe}</h2>
+							{!hasSub && (
+								<Link to={`/menu/${catKey}`} className='btn btn-sm btn-outline-primary'>
+									צפה בכל הקטגוריה
+								</Link>
+							)}
+						</div>
+
+						{hasSub ? (
+							subCategories.map((subCat) => {
+								const { key: subKey, he: subHe, products: subProducts } = subCat;
+								return (
+									<div key={subKey} className='mb-4'>
+										<div className='d-flex justify-content-between align-items-center mb-2'>
+											<h3 className='h5 mb-0'>{subHe}</h3>
+											<Link to={`/menu/${catKey}/${subKey}`} className='btn btn-sm btn-outline-primary'>
+												צפה בכל הקטגוריה
+											</Link>
+										</div>
+										{Array.isArray(subProducts) && subProducts.length > 0 ? (
+											<div className='row'>
+												{subProducts.map((prod) => (
+													<div key={prod._id} className='col-6 col-sm-4 col-md-3 col-lg-2 mb-3'>
+														<Link to={`/product/${prod._id}`} className='text-decoration-none text-dark'>
+															<div className='card h-100'>
+																<img src={prod.imageUrl} className='card-img-top' alt={prod.name} style={{ objectFit: "cover", height: "120px" }} />
+																<div className='card-body p-2'>
+																	<h5 className='card-title mb-1' style={{ fontSize: "0.9rem" }}>
+																		{prod.name}
+																	</h5>
+																	{Array.isArray(prod.size) && prod.size.length > 0 && (
+																		<p className='card-text text-muted mb-0' style={{ fontSize: "0.8rem" }}>
+																			{prod.size[0].price} ₪
+																		</p>
+																	)}
+																</div>
+															</div>
+														</Link>
+													</div>
+												))}
+											</div>
+										) : (
+											<p className='text-muted'>אין מוצרים בתת-קטגוריה זו.</p>
+										)}
+									</div>
+								);
+							})
+						) : (
+							<div className='row'>
+								{Array.isArray(products) && products.length > 0 ? (
+									products.map((prod) => (
+										<div key={prod._id} className='col-6 col-sm-4 col-md-3 col-lg-2 mb-3'>
+											<Link to={`/product/${prod._id}`} className='text-decoration-none text-dark'>
+												<div className='card h-100'>
+													<img src={prod.imageUrl} className='card-img-top' alt={prod.name} style={{ objectFit: "cover", height: "120px" }} />
+													<div className='card-body p-2'>
+														<h5 className='card-title mb-1' style={{ fontSize: "0.9rem" }}>
+															{prod.name}
+														</h5>
+														{Array.isArray(prod.size) && prod.size.length > 0 && (
+															<p className='card-text text-muted mb-0' style={{ fontSize: "0.8rem" }}>
+																{prod.size[0].price} ₪
+															</p>
+														)}
+													</div>
+												</div>
+											</Link>
+										</div>
+									))
+								) : (
+									<p className='text-muted'>אין מוצרים בקטגוריה זו.</p>
+								)}
+							</div>
+						)}
+					</section>
+				);
+			})}
+		</div>
 	);
 }
-
-export default Menu;

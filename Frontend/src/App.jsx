@@ -10,6 +10,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Kashrut from "./components/Kashrut";
 import Profile from "./components/users/Profile";
+import CategoryPage from "./components/products/CategoryPage";
+import ProductPage from "./components/products/ProductPage";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
@@ -32,7 +34,13 @@ function App() {
 							<Route path='/' element={<Home />} />
 							<Route path='/about' element={<About />} />
 							<Route path='/contact' element={<Contact />} />
-							<Route path='/menu' element={<Menu />} />
+							<Route path='/menu'>
+								<Route index element={<Menu />} />
+								<Route path=':categoryKey' element={<CategoryPage />} />
+								<Route path=':categoryKey/:subKey' element={<CategoryPage />} />
+								<Route path=':categoryKey/:subKey/:productSlug' element={<ProductPage />} />
+								<Route path=':categoryKey/:productSlug' element={<ProductPage />} />
+							</Route>
 							<Route path='/kashrut' element={<Kashrut />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/register' element={<Register />} />

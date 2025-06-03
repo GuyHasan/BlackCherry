@@ -1,6 +1,7 @@
 import productService from "../products/services/productServices.js";
 import CustomError from "../utils/customError.js";
 import { handleControllerError } from "../utils/errorsHandlers.js";
+import { categories } from "../config/constants/categories.js";
 
 const { getAllProducts, getProductById, createProduct, editProduct, deleteProduct } = productService;
 
@@ -93,5 +94,66 @@ export const deleteProductController = async (req, res, next) => {
 		res.status(200).json({ success: true, message: "Product deleted successfully" });
 	} catch (error) {
 		handleControllerError(error, next, "Failed to delete product");
+	}
+};
+
+export const getMenuPreviewController = async (req, res, next) => {
+	try {
+		const previews = await Promise.all(
+			categories.map(async (category) => {
+				const { key: catKey, he: catHe, subCategories } = category;
+
+				if (Array.isArray(subCategories) && subCategories.length > 0) {
+					const subs = await Promise.all(
+						subCategories.map(async (subCat) => {
+							const products = await getAllProducts(
+								{
+									category: catKey,
+									subCategory: subCat.key,
+									available: true,
+								},
+								{
+									sort: { createdAt: -1 },
+									limit: 5,
+								}
+							);
+							return {
+								key: subCat.key,
+								he: subCat.he,
+								products,
+							};
+						})
+					);
+
+					return {
+						key: catKey,
+						he: catHe,
+						subCategories: subs,
+						products: [],
+					};
+				} else {
+					const products = await getAllProducts(
+						{
+							category: catKey,
+							available: true,
+						},
+						{
+							sort: { createdAt: -1 },
+							limit: 5,
+						}
+					);
+					return {
+						key: catKey,
+						he: catHe,
+						subCategories: [],
+						products,
+					};
+				}
+			})
+		);
+
+		res.status(200).json({ success: true, data: previews });
+	} catch (error) {
+		handleControllerError(error, next, "Failed to load menu preview");
 	}
 };

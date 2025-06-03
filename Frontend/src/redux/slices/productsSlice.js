@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import productService from "./productService";
+import productService from "../../services/productService";
 
 export const getAllProducts = createAsyncThunk("products/getAllProducts", async (_, thunkAPI) => {
 	try {
@@ -97,3 +97,6 @@ const productsSlice = createSlice({
 			});
 	},
 });
+
+export const productsActions = productsSlice.actions;
+export default productsSlice.reducer;
