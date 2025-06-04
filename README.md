@@ -149,7 +149,7 @@ npm install
 # Create and configure your .env file (e.g., .env.development), fully explained at configuration & enivroment
 > **ℹ️ Note:**
 > On first run, the database is automatically seeded.
-> **Before starting, make sure to configure your environment variables**—especially the admin password and whether to use example data.
+> **Before starting, make sure to configure your environment variables**—especially the admin password,email and whether to use example data.
 
 # Running the Development or Production Server
 
@@ -242,6 +242,7 @@ You can use the following npm scripts (as defined in `package.json`):
     ATLAS_CONNECTION_STRING='your_mongodb_connection_string_here'
     PORT=8181
     ADMIN_PASSWORD=someSecurePassword123
+    ADMIN_EMAIL=admin@example.com
     USE_EXAMPLE_DATA=true # Set to false in production
 
     #-------------------------------------
@@ -458,6 +459,12 @@ npm run dev
 # Build for production
 npm run build
 ```
+
+### Admin User
+
+-   The admin user is automatically created when the server runs for the first time.
+-   The admin's email and password are configured via environment variables in the backend `.env` file.
+-   Only one admin account exists. The admin has full control over users, images, and products through the application.
 
 ### Directory Layout (Frontend)
 

@@ -7,6 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const adminPassword = process.env.ADMIN_PASSWORD || "admin1234567";
+const adminEmail = process.env.ADMIN_EMAIL || "admin@example.com";
 const useExampleData = process.env.USE_EXAMPLE_DATA;
 const seedDB = async () => {
 	const userCount = await User.countDocuments();
@@ -18,7 +19,7 @@ const seedDB = async () => {
 	const hashedPassword = await hashPassword(adminPassword);
 	const adminUser = new User({
 		username: "admin",
-		email: "admin@example.com",
+		email: adminEmail,
 		password: hashedPassword,
 		isAdmin: true,
 		isEmployee: false,
