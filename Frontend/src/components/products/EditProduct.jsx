@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { errorMessage, successMessage } from "../../services/messageServices";
+import { editProduct } from "../../redux/slices/productsSlice";
 
 function EditProduct({ product }) {
 	const dispatch = useDispatch();
@@ -54,8 +56,11 @@ function EditProduct({ product }) {
 		onSubmit: async (values) => {
 			try {
 				console.log("Form values:", values);
+				const response = await dispatch(editProduct({ id: product._id, data: values })).unwrap();
+				successMessage("המוצר עודכן בהצלחה");
 			} catch (error) {
 				console.log(error);
+				errorMessage("ארעה שגיאה בעדכון המוצר");
 			}
 		},
 	});

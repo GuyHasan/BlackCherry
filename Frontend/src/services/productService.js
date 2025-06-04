@@ -51,6 +51,15 @@ const deleteProduct = async (id) => {
 	}
 };
 
+const editProduct = async (id, productData) => {
+	try {
+		const res = await api.put(`/products/${id}`, productData);
+		return res.data;
+	} catch (error) {
+		throw error;
+	}
+};
+
 const getMenuPreviewProducts = async () => {
 	try {
 		const res = await api.get("/products/menu-preview");
@@ -84,6 +93,7 @@ const productService = {
 	getProducts,
 	createProduct,
 	deleteProduct,
+	editProduct,
 	getMenuPreviewProducts,
 	getProductsByCategory,
 	getProductsBySubCategory,
