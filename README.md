@@ -74,15 +74,17 @@ This project is an e-commerce website composed of two main parts:
     -   React (v18+) with Vite
     -   React Router v6
     -   react-helmet-async (dynamic `<meta>` tags for SEO)
-    -   Axios or Fetch API (for calling the backend)
-    -   Tailwind CSS or CSS Modules (styling)
+    -   redux
+    -   Axios
+    -   bootstrap
+    -   Toastify
+    -   formik/yup
 
 -   **General:**
 
     -   Git (version control)
     -   Postman / Insomnia (API testing)
     -   VSCode (IDE) with `jsconfig.json` for module resolution
-    -   Docker (optional)
 
 ---
 
@@ -144,13 +146,7 @@ cd backend
 # Install dependencies
 npm install
 
-# Create and configure your .env file (e.g., .env.development):
-#   MONGODB_URI=<your_mongo_connection_string>
-#   JWT_SECRET=<your_jwt_secret>
-#   CLOUDINARY_CLOUD_NAME=<…>
-#   CLOUDINARY_API_KEY=<…>
-#   CLOUDINARY_API_SECRET=<…>
-#   AUTH_PROVIDER=jwt
+# Create and configure your .env file (e.g., .env.development), fully explained at configuration & enivroment
 
 # Run the development server
 npm run dev         # Using nodemon or ts-node-dev
@@ -203,16 +199,49 @@ npm start           # If "start": "node server.js" is defined in package.json
 -   Uses the `config` package (npm install config) to manage settings across environments (`development`, `production`).
 -   Example `backend/src/config/default.json`:
 
-    ```json
-    {
-    	"ENVIRONMENT": "development",
-    	"AUTH_PROVIDER": "jwt",
-    	"MONGODB_URI": "mongodb://localhost:27017/your-db-name",
-    	"JWT_SECRET": "your_jwt_secret",
-    	"CLOUDINARY_CLOUD_NAME": "your_cloud_name",
-    	"CLOUDINARY_API_KEY": "your_api_key",
-    	"CLOUDINARY_API_SECRET": "your_api_secret"
-    }
+    ```ini
+    # ------------------------------------
+    # Environment Configuration
+    ATLAS_CONNECTION_STRING='your_mongodb_connection_string_here'
+    PORT=8181
+    ADMIN_PASSWORD=someSecurePassword123
+
+    #-------------------------------------
+    # Rate Limiting Configuration
+    AUTH_LIMIT=1000 # Maximum number of requests per 15m
+    GLOBAL_LIMIT=10000 # Global limit for all users per hour
+
+    # ------------------------------------
+    # Secrets for JWT authentication
+    ACCESS_SECRET="some_secure_and_random_string_here"
+    REFRESH_SECRET="another_secure_and_random_string_here"
+    TOKEN_EXPIRATION_TIME="15m"
+    REFRESH_TOKEN_EXPIRATION_TIME="1d"
+
+    # ------------------------------------
+    # SMTP Configuration
+    SMTP_HOST='smtp.example.com'
+    SMTP_PORT=587
+    SMTP_USER='your_smtp_user'
+    SMTP_PASSWORD='your_smtp_password'
+
+    # ------------------------------------
+    CLOUD_PROVIDER='cloudinary' # אפשרויות: cloudinary, s3
+
+    # פרטי Cloudinary
+    CLOUDINARY_CLOUD_NAME=your_cloud_name
+    CLOUDINARY_API_KEY=your_api_key
+    CLOUDINARY_API_SECRET=your_api_secret
+
+    # אופציה לשימוש ב S3
+    # AWS_ACCESS_KEY_ID=…
+    # AWS_SECRET_ACCESS_KEY=…
+    # S3_BUCKET_NAME=…
+    # AWS_REGION=…
+    ```
+
+    ```
+
     ```
 
 -   For production-specific overrides, create `production.json` in the same folder.
@@ -283,11 +312,6 @@ DELETE /api/images/:id              → Delete image (authMiddleware, onlyEmploy
     -   Checks `Authorization: Bearer <token>` header
     -   Verifies token using `jwt.verify(...)` and attaches `req.user = { id, roles… }`.
 
--   **Role-Based Authorization**
-
-    -   Middleware: `onlyEmployeeOrAdmin.js`
-    -   Ensures certain routes are accessible only to employees or admins (`req.user.isEmployee || req.user.isAdmin`).
-
 -   **Rate Limiting**
 
     -   Using `express-rate-limit` globally or per-route
@@ -307,12 +331,26 @@ DELETE /api/images/:id              → Delete image (authMiddleware, onlyEmploy
 -   **Global Error Handler** (in `app.js` as the last middleware):
 
     ```js
-    app.use((err, req, res, next) => {
-    	if (err instanceof CustomError) {
-    		return res.status(err.statusCode).json({ error: err.message, code: err.code });
+    export default function errorHandler(err, req, res, next) {
+    const status = err.status || 500;
+    const message = err.message || "Internal Server Error";
+    const name = err.name || "Error";
+
+    if (process.env.NODE_ENV !== "production") {
+    	if (status >= 500) {
+    		console.error("Internal Error:", err); // full stack trace
+    	} else {
+    		console.warn(`${status} ${name}: ${message}`); // cleaner log for expected errors
     	}
-    	console.error(err);
-    	return res.status(500).json({ error: "Internal Server Error", code: "ServerError" });
+    }
+
+    res.status(status).json({
+    	success: false,
+    	error: name,
+    	message,
+    });
+    }
+
     });
     ```
 
