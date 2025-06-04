@@ -27,9 +27,7 @@ function Login() {
 		}),
 		onSubmit: async (values) => {
 			try {
-				console.log("Login values:", values);
 				const response = await dispatch(loginThunk(values)).unwrap();
-				console.log("Login response:", response);
 				successMessage("התחברת בהצלחה!");
 				navigate("/");
 			} catch (error) {

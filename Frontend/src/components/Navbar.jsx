@@ -32,6 +32,11 @@ function Navbar() {
 						<NavLink className='nav-link' to='/contact'>
 							צור קשר
 						</NavLink>
+						{isAuthenticated && (
+							<NavLink className='nav-link' to='/profile/favorites'>
+								מועדפים
+							</NavLink>
+						)}
 						{isAdminOrEmployee && (
 							<NavLink className='nav-link' to='/admin'>
 								ניהול

@@ -14,6 +14,8 @@ import CategoryPage from "./components/products/CategoryPage";
 import ProductPage from "./components/products/ProductPage";
 import AddProduct from "./components/products/AddProduct";
 import Admin from "./components/Admin";
+import ManageProducts from "./components/products/ManageProducts";
+import UserFavorites from "./components/users/UserFavorites";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
@@ -46,7 +48,7 @@ function App() {
 							<Route path='/admin'>
 								<Route index element={<Admin />} />
 								<Route path='products'>
-									<Route index element={<h1>Manage Products</h1>} />
+									<Route index element={<ManageProducts />} />
 									<Route path='add' element={<AddProduct />} />
 									<Route path='edit/:productId' element={<h1>Edit Product</h1>} />
 								</Route>
@@ -54,7 +56,10 @@ function App() {
 							<Route path='/kashrut' element={<Kashrut />} />
 							<Route path='/login' element={<Login />} />
 							<Route path='/register' element={<Register />} />
-							<Route path='/profile' element={<Profile />} />
+							<Route path='/profile'>
+								<Route index element={<Profile />} />
+								<Route path='favorites' element={<UserFavorites />} />
+							</Route>
 							<Route path='*' element={<h1>404 Not Found</h1>} />
 						</Routes>
 					</main>

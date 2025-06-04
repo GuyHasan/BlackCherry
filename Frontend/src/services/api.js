@@ -1,3 +1,5 @@
+// src/api/index.js
+
 import axios from "axios";
 import { clearUserState, logoutThunk, refreshThunk } from "../redux/slices/userSlice";
 
@@ -19,8 +21,11 @@ let failedQueue = [];
 
 const processQueue = (error, token = null) => {
 	failedQueue.forEach(({ resolve, reject }) => {
-		if (error) reject(error);
-		else resolve(token);
+		if (error) {
+			reject(error);
+		} else {
+			resolve(token);
+		}
 	});
 	failedQueue = [];
 };
@@ -33,7 +38,6 @@ api.interceptors.response.use(
 		if (originalRequest?.skipRefresh) {
 			return Promise.reject(error);
 		}
-
 		if (status === 403) {
 			console.log("403 detected, clearing user state");
 			if (storeDispatch) {
@@ -44,14 +48,13 @@ api.interceptors.response.use(
 
 		if (status === 401 && !originalRequest._retry) {
 			originalRequest._retry = true;
-
 			if (isRefreshing) {
 				return new Promise((resolve, reject) => {
 					failedQueue.push({ resolve, reject });
 				})
 					.then((token) => {
 						originalRequest.headers["Authorization"] = "Bearer " + token;
-						return axios(originalRequest);
+						return api(originalRequest);
 					})
 					.catch((err) => Promise.reject(err));
 			}
@@ -59,12 +62,13 @@ api.interceptors.response.use(
 			isRefreshing = true;
 
 			try {
-				const resultAction = await storeDispatch(refreshThunk());
+				const resultAction = await storeDispatch(refreshThunk(null, { skipRefresh: true }));
+
 				if (refreshThunk.fulfilled.match(resultAction)) {
 					const newToken = resultAction.payload;
-					originalRequest.headers["Authorization"] = "Bearer " + newToken;
 					processQueue(null, newToken);
-					return axios(originalRequest);
+					originalRequest.headers["Authorization"] = "Bearer " + newToken;
+					return api(originalRequest);
 				} else {
 					throw new Error("Failed to refresh token");
 				}

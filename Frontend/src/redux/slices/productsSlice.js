@@ -9,6 +9,15 @@ export const getAllProducts = createAsyncThunk("products/getAllProducts", async 
 	}
 });
 
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async ({ page, limit, search }, thunkAPI) => {
+	try {
+		const data = await productService.getProducts({ page, limit, search });
+		return data;
+	} catch (error) {
+		return thunkAPI.rejectWithValue(error.response?.data || error.message);
+	}
+});
+
 export const getProductById = createAsyncThunk("products/getProductById", async (id, thunkAPI) => {
 	try {
 		return await productService.getProductById(id);
@@ -36,6 +45,12 @@ export const deleteProduct = createAsyncThunk("products/deleteProduct", async (i
 
 const initialState = {
 	products: [],
+	pagantionProducts: [],
+	totalCount: 0,
+	totalPages: 0,
+	page: 1,
+	limit: 10,
+	search: "",
 	product: null,
 	loading: false,
 	error: null,
@@ -44,7 +59,25 @@ const initialState = {
 const productsSlice = createSlice({
 	name: "products",
 	initialState,
-	reducers: {},
+	reducers: {
+		setSearchParam(state, action) {
+			state.search = action.payload;
+			state.page = 1;
+			state.pagantionProducts = [];
+			state.totalCount = 0;
+			state.totalPages = 0;
+			state.error = null;
+		},
+		resetProducts(state) {
+			state.pagantionProducts = [];
+			state.totalCount = 0;
+			state.totalPages = 0;
+			state.page = 1;
+			state.search = "";
+			state.loading = false;
+			state.error = null;
+		},
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(getAllProducts.pending, (state) => {
@@ -94,9 +127,32 @@ const productsSlice = createSlice({
 			.addCase(deleteProduct.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload;
+			})
+			.addCase(fetchProducts.pending, (state) => {
+				state.loading = true;
+				state.error = null;
+			})
+			.addCase(fetchProducts.fulfilled, (state, action) => {
+				const { data: newItems, meta } = action.payload;
+				const { totalCount, totalPages, currentPage } = meta;
+
+				state.loading = false;
+				state.totalCount = totalCount;
+				state.totalPages = totalPages;
+				state.page = currentPage;
+
+				if (currentPage === 1) {
+					state.pagantionProducts = newItems;
+				} else {
+					state.pagantionProducts = [...state.items, ...newItems];
+				}
+			})
+			.addCase(fetchProducts.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload || "Unknown error";
 			});
 	},
 });
 
-export const productsActions = productsSlice.actions;
+export const { productsActions, resetProducts, setSearchParam } = productsSlice.actions;
 export default productsSlice.reducer;

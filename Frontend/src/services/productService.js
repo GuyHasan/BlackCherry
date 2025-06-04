@@ -9,6 +9,21 @@ const getAllProducts = async () => {
 	}
 };
 
+export const getProducts = async ({ page = 1, limit = 10, search = "" }) => {
+	try {
+		const params = new URLSearchParams();
+		params.append("page", page);
+		params.append("limit", limit);
+		if (search) {
+			params.append("search", search);
+		}
+		const res = await api.get(`/products?${params.toString()}`);
+		return res.data.products;
+	} catch (error) {
+		throw error;
+	}
+};
+
 const getProductById = async (id) => {
 	try {
 		const res = await api.get(`/products/${id}`);
@@ -66,6 +81,7 @@ const getProductsBySubCategory = async (categoryKey, subKey) => {
 const productService = {
 	getAllProducts,
 	getProductById,
+	getProducts,
 	createProduct,
 	deleteProduct,
 	getMenuPreviewProducts,

@@ -33,7 +33,6 @@ function Register() {
 		}),
 		onSubmit: async (values) => {
 			try {
-				console.log(values);
 				const response = await dispatch(registerThunk(values)).unwrap();
 				successMessage("נרשמת בהצלחה!");
 				navigate("/login");
