@@ -139,7 +139,7 @@ This project is an e-commerce website composed of two main parts:
 
 ### Installation & Running
 
-```bash
+````bash
 # Navigate to the backend directory
 cd backend
 
@@ -147,12 +147,36 @@ cd backend
 npm install
 
 # Create and configure your .env file (e.g., .env.development), fully explained at configuration & enivroment
+> **ℹ️ Note:**
+> On first run, the database is automatically seeded.
+> **Before starting, make sure to configure your environment variables**—especially the admin password and whether to use example data.
 
-# Run the development server
-npm run dev         # Using nodemon or ts-node-dev
-# or
-npm start           # If "start": "node server.js" is defined in package.json
-```
+# Running the Development or Production Server
+
+You can use the following npm scripts (as defined in `package.json`):
+
+- `npm run dev`
+    Starts the server in development mode using `nodemon` and sets `NODE_ENV=development`.
+    ```json
+    "dev": "cross-env NODE_ENV=development nodemon app.js"
+    ```
+
+- `npm run start`
+    Starts the server using `node app.js` (typically for general use).
+    ```json
+    "start": "node app.js"
+    ```
+
+- `npm run prod`
+    Starts the server in production mode with `NODE_ENV=production`.
+    ```json
+    "prod": "cross-env NODE_ENV=production node app.js"
+    ```
+
+> **Tip:**
+> Use `npm run dev` during development for automatic restarts on file changes.
+> Use `npm run prod` or `npm start` when deploying or running in production.
+````
 
 ### Directory Layout (Backend)
 
@@ -218,6 +242,7 @@ npm start           # If "start": "node server.js" is defined in package.json
     ATLAS_CONNECTION_STRING='your_mongodb_connection_string_here'
     PORT=8181
     ADMIN_PASSWORD=someSecurePassword123
+    USE_EXAMPLE_DATA=true # Set to false in production
 
     #-------------------------------------
     # Rate Limiting Configuration
@@ -642,18 +667,6 @@ export default function ProductCard({ product }) {
 ---
 
 ## Environment Variables
-
-**Backend** (`backend/.env`):
-
-```
-ENVIRONMENT=development
-AUTH_PROVIDER=jwt
-MONGODB_URI=mongodb://localhost:27017/your-db
-JWT_SECRET=your_jwt_secret
-CLOUDINARY_CLOUD_NAME=…
-CLOUDINARY_API_KEY=…
-CLOUDINARY_API_SECRET=…
-```
 
 **Frontend** (`frontend/.env`):
 
