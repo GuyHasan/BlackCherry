@@ -12,6 +12,7 @@ export default function ProductCard({ prod }) {
 	const goToProduct = useSmartProductNavigation();
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
+	const { isAuthenticated } = useSelector((state) => state.user);
 	const favorites = useSelector((state) => state.favorites.favoritesIdList || []);
 	const isFavorite = favorites.includes(prod._id) || false;
 	const isEditor = user?.isAdmin || user?.isEmployee;
@@ -37,9 +38,11 @@ export default function ProductCard({ prod }) {
 		<>
 			<div className='col-6 col-sm-4 col-md-3 col-lg-2 mb-3'>
 				<div className='card h-100 position-relative d-flex flex-column' style={{ overflow: "hidden" }}>
-					<Button variant='light' onClick={handleToggleFavorite} className='position-absolute top-0 start-0 m-1 p-1 rounded-circle z-2' aria-label={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}>
-						{isFavorite ? <AiFillHeart color='red' size={18} /> : <AiOutlineHeart color='gray' size={18} />}
-					</Button>
+					{isAuthenticated && (
+						<Button variant='light' onClick={handleToggleFavorite} className='position-absolute top-0 start-0 m-1 p-1 rounded-circle z-2' aria-label={isFavorite ? "הסר מהמועדפים" : "הוסף למועדפים"}>
+							{isFavorite ? <AiFillHeart color='red' size={18} /> : <AiOutlineHeart color='gray' size={18} />}
+						</Button>
+					)}
 
 					<img src={prod.image.url} className='card-img-top' alt={prod.image.alt} style={{ objectFit: "cover", height: "120px" }} />
 

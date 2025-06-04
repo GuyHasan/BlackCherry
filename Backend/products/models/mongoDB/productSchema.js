@@ -55,7 +55,7 @@ const productSchema = new mongoose.Schema({
 			type: String,
 			required: true,
 			trim: true,
-			match: /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i,
+			match: /^https?:\/\/(res\.cloudinary\.com\/.*|images\.pexels\.com\/.*|\w+\.\w+\.\w+\/.*)\/?.*$/i,
 		},
 		alt: {
 			type: String,

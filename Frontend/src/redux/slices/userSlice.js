@@ -138,9 +138,6 @@ const userSlice = createSlice({
 				state.loading = false;
 				state.user = action.payload.user;
 				state.accessToken = action.payload.accessToken;
-				state.isAdmin = action.payload.user.isAdmin;
-				state.isEmployee = action.payload.user.isEmployee;
-				state.isAuthenticated = true;
 			})
 			.addCase(getUserByIdThunk.fulfilled, (state, action) => {
 				state.loading = false;

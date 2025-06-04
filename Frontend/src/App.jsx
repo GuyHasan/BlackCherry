@@ -47,18 +47,16 @@ function App() {
 							<Route path='/about' element={<About />} />
 							<Route path='/contact' element={<Contact />} />
 							<Route path='/menu'>
-								<Route index element={<Menu />} />
-								<Route path=':categoryKey' element={<CategoryPage />} />
 								<Route path=':categoryKey/:subKey' element={<CategoryPage />} />
-								<Route path=':categoryKey/:subKey/:productSlug' element={<ProductPage />} />
-								<Route path=':categoryKey/:productSlug' element={<ProductPage />} />
+								<Route path=':categoryKey' element={<CategoryPage />} />
+								<Route index element={<Menu />} />
 							</Route>
+							<Route path='/products/:slugId' element={<ProductPage />} />
 							<Route path='/admin'>
 								<Route index element={<Admin />} />
 								<Route path='products'>
 									<Route index element={<ManageProducts />} />
 									<Route path='add' element={<AddProduct />} />
-									<Route path='edit/:productId' element={<h1>Edit Product</h1>} />
 								</Route>
 							</Route>
 							<Route path='/kashrut' element={<Kashrut />} />

@@ -15,7 +15,7 @@ function UserFavorites() {
 		<>
 			<div className='d-flex flex-column align-items-center w-100'>
 				<h1 className='my-3'>המוצרים המועדפים שלי</h1>
-				<div className='grid grid-cols-2 md:grid-cols-4 gap-4 w-100 px-5'>{favoriteProducts.length > 0 ? favoriteProducts.map((product) => <ProductCard key={product._id} prod={product} />) : <p>אין מוצרים מועדפים</p>}</div>
+				<div className='d-flex flex-wrap w-100 px-4 justify-content-center gap-5'>{favoriteProducts.length > 0 ? favoriteProducts.map((product) => <ProductCard key={product._id} prod={product} />) : <p>אין מוצרים מועדפים</p>}</div>
 			</div>
 		</>
 	);

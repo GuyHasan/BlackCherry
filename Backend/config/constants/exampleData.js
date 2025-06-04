@@ -10,7 +10,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/steak.jpg",
+			url: "https://images.pexels.com/photos/1639561/pexels-photo-1639561.jpeg",
 			alt: "Grilled steak",
 		},
 	},
@@ -25,7 +25,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/roast_chicken.jpg",
+			url: "https://images.pexels.com/photos/265393/pexels-photo-265393.jpeg",
 			alt: "Roast chicken",
 		},
 	},
@@ -40,7 +40,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/beef_kebab.jpg",
+			url: "https://images.pexels.com/photos/2233729/pexels-photo-2233729.jpeg",
 			alt: "Beef kebab",
 		},
 	},
@@ -55,7 +55,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/lamb_chops.jpg",
+			url: "https://images.pexels.com/photos/7627486/pexels-photo-7627486.jpeg",
 			alt: "Lamb chops",
 		},
 	},
@@ -70,7 +70,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/turkey_schnitzel.jpg",
+			url: "https://images.pexels.com/photos/4109998/pexels-photo-4109998.jpeg",
 			alt: "Turkey schnitzel",
 		},
 	},
@@ -85,7 +85,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/cheese_lasagna.jpg",
+			url: "https://images.pexels.com/photos/5949902/pexels-photo-5949902.jpeg",
 			alt: "Cheese lasagna",
 		},
 	},
@@ -100,7 +100,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/quiche_lorraine.jpg",
+			url: "https://images.pexels.com/photos/6941010/pexels-photo-6941010.jpeg",
 			alt: "Quiche Lorraine",
 		},
 	},
@@ -115,7 +115,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/spinach_pie.jpg",
+			url: "https://images.pexels.com/photos/156114/pexels-photo-156114.jpeg",
 			alt: "Spinach pie",
 		},
 	},
@@ -130,7 +130,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/mac_and_cheese.jpg",
+			url: "https://images.pexels.com/photos/803963/pexels-photo-803963.jpeg",
 			alt: "Mac and cheese",
 		},
 	},
@@ -145,7 +145,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/cheese_pizza.jpg",
+			url: "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg",
 			alt: "Cheese pizza",
 		},
 	},
@@ -160,7 +160,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/cheesecake.jpg",
+			url: "https://images.pexels.com/photos/704971/pexels-photo-704971.jpeg",
 			alt: "Cheesecake",
 		},
 	},
@@ -175,7 +175,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/chocolate_cake.jpg",
+			url: "https://images.pexels.com/photos/533325/pexels-photo-533325.jpeg",
 			alt: "Chocolate cake",
 		},
 	},
@@ -190,7 +190,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_brownie.jpg",
+			url: "https://images.pexels.com/photos/3026804/pexels-photo-3026804.jpeg",
 			alt: "Vegan brownie",
 		},
 	},
@@ -205,7 +205,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/apple_pie.jpg",
+			url: "https://images.pexels.com/photos/161887/apple-pie-dessert-pastry-161887.jpeg",
 			alt: "Apple pie",
 		},
 	},
@@ -220,7 +220,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/fruit_salad.jpg",
+			url: "https://images.pexels.com/photos/1128678/pexels-photo-1128678.jpeg",
 			alt: "Fruit salad",
 		},
 	},
@@ -232,7 +232,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 29.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/sandwich_platter.jpg",
+			url: "https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg",
 			alt: "Sandwich platter",
 		},
 	},
@@ -244,7 +244,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 39.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/sushi_platter.jpg",
+			url: "https://images.pexels.com/photos/2098085/pexels-photo-2098085.jpeg",
 			alt: "Sushi platter",
 		},
 	},
@@ -256,7 +256,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 34.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/cheese_platter.jpg",
+			url: "https://images.pexels.com/photos/416471/pexels-photo-416471.jpeg",
 			alt: "Cheese platter",
 		},
 	},
@@ -268,7 +268,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 24.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegetable_platter.jpg",
+			url: "https://images.pexels.com/photos/264537/pexels-photo-264537.jpeg",
 			alt: "Vegetable platter",
 		},
 	},
@@ -280,7 +280,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 27.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/fruit_platter.jpg",
+			url: "https://images.pexels.com/photos/1092730/pexels-photo-1092730.jpeg",
 			alt: "Fruit platter",
 		},
 	},
@@ -292,7 +292,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 7.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/greek_salad.jpg",
+			url: "https://images.pexels.com/photos/1211887/pexels-photo-1211887.jpeg",
 			alt: "Greek salad",
 		},
 	},
@@ -304,7 +304,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 8.49 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/caesar_salad.jpg",
+			url: "https://images.pexels.com/photos/1059905/pexels-photo-1059905.jpeg",
 			alt: "Caesar salad",
 		},
 	},
@@ -316,7 +316,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 6.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/israeli_salad.jpg",
+			url: "https://images.pexels.com/photos/5938/food-salad-healthy-lunch.jpg",
 			alt: "Israeli salad",
 		},
 	},
@@ -328,7 +328,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 7.49 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/tabbouleh.jpg",
+			url: "https://images.pexels.com/photos/7656553/pexels-photo-7656553.jpeg",
 			alt: "Tabbouleh",
 		},
 	},
@@ -340,7 +340,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 5.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/coleslaw.jpg",
+			url: "https://images.pexels.com/photos/161519/coleslaw-cabbage-salad-food-161519.jpeg",
 			alt: "Coleslaw",
 		},
 	},
@@ -355,7 +355,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/french_fries.jpg",
+			url: "https://images.pexels.com/photos/1583884/pexels-photo-1583884.jpeg",
 			alt: "French fries",
 		},
 	},
@@ -370,7 +370,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/mashed_potatoes.jpg",
+			url: "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg",
 			alt: "Mashed potatoes",
 		},
 	},
@@ -385,7 +385,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/rice_pilaf.jpg",
+			url: "https://images.pexels.com/photos/1279330/pexels-photo-1279330.jpeg",
 			alt: "Rice pilaf",
 		},
 	},
@@ -400,7 +400,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/steamed_vegetables.jpg",
+			url: "https://images.pexels.com/photos/539431/pexels-photo-539431.jpeg",
 			alt: "Steamed vegetables",
 		},
 	},
@@ -415,7 +415,7 @@ export const exampleData = [
 		],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/garlic_bread.jpg",
+			url: "https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg",
 			alt: "Garlic bread",
 		},
 	},
@@ -427,7 +427,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 6.49 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_wrap.jpg",
+			url: "https://images.pexels.com/photos/5945640/pexels-photo-5945640.jpeg",
 			alt: "Vegan wrap",
 		},
 	},
@@ -439,7 +439,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 7.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_burger.jpg",
+			url: "https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg",
 			alt: "Vegan burger",
 		},
 	},
@@ -451,7 +451,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 6.99 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_chili.jpg",
+			url: "https://images.pexels.com/photos/5737377/pexels-photo-5737377.jpeg",
 			alt: "Vegan chili",
 		},
 	},
@@ -463,7 +463,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 8.49 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_sushi.jpg",
+			url: "https://images.pexels.com/photos/884596/pexels-photo-884596.jpeg",
 			alt: "Vegan sushi",
 		},
 	},
@@ -475,7 +475,7 @@ export const exampleData = [
 		size: [{ quantity: 1, price: 7.49 }],
 		unit: "יחידות",
 		image: {
-			url: "https://example.com/images/vegan_pasta.jpg",
+			url: "https://images.pexels.com/photos/1487511/pexels-photo-1487511.jpeg",
 			alt: "Vegan pasta",
 		},
 	},

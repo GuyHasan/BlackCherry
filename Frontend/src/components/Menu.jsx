@@ -84,7 +84,9 @@ export default function Menu() {
 								);
 							})
 						) : (
-							<div className='row'>{Array.isArray(products) && products.length > 0 ? products.map((prod) => <ProductCard key={prod._id} prod={prod} />) : <p className='text-muted'>אין מוצרים בקטגוריה זו.</p>}</div>
+							<div className='d-flex justify-content-between'>
+								{Array.isArray(products) && products.length > 0 ? products.map((prod) => <ProductCard key={prod._id} prod={prod} />) : <p className='text-muted'>אין מוצרים בקטגוריה זו.</p>}
+							</div>
 						)}
 					</section>
 				);

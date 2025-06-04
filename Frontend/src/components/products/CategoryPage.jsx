@@ -3,14 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchCategoryProducts, fetchSubCategoryProducts, clearCategory } from "../../redux/slices/categoriesSlice";
 import { Spinner } from "react-bootstrap";
-import { useSmartProductNavigation } from "../../hooks/useSmartProductNavigation";
 import ProductCard from "./ProductCard";
 
 export default function CategoryPage() {
 	const { categoryKey, subKey } = useParams();
 	const dispatch = useDispatch();
-	const goToProduct = useSmartProductNavigation();
-
 	const { products, loading, error } = useSelector((state) => state.categories);
 	const [hasFetched, setHasFetched] = useState(false);
 
