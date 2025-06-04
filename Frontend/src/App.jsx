@@ -22,12 +22,20 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { refreshThunk } from "./redux/slices/userSlice";
 import { ToastContainer } from "react-toastify";
+import { getUserFavorites } from "./redux/slices/favoritesSlice";
 
 function App() {
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(refreshThunk());
+		const init = async () => {
+			const refreshResult = await dispatch(refreshThunk());
+			if (refreshThunk.fulfilled.match(refreshResult)) {
+				await dispatch(getUserFavorites());
+			}
+		};
+		init();
 	}, [dispatch]);
+
 	return (
 		<>
 			<div className='d-flex flex-column min-vh-100'>

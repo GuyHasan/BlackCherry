@@ -3,7 +3,7 @@ import { useSmartProductNavigation } from "../../hooks/useSmartProductNavigation
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { FiEdit, FiTrash2 } from "react-icons/fi";
-import { toggleFavorite } from "../../redux/slices/userSlice";
+import { toggleFavorite } from "../../redux/slices/favoritesSlice";
 import { useState } from "react";
 import EditProductModal from "./EditProductModal";
 import DeleteCardModal from "./DeleteProductModal";
@@ -12,8 +12,8 @@ export default function ProductCard({ prod }) {
 	const goToProduct = useSmartProductNavigation();
 	const dispatch = useDispatch();
 	const { user } = useSelector((state) => state.user);
-	const favorites = useSelector((state) => state.user.user?.favorites || []);
-	const isFavorite = favorites.includes(prod._id);
+	const favorites = useSelector((state) => state.favorites.favoritesIdList || []);
+	const isFavorite = favorites.includes(prod._id) || false;
 	const isEditor = user?.isAdmin || user?.isEmployee;
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,22 +55,20 @@ export default function ProductCard({ prod }) {
 							)}
 						</div>
 
-						<div className='d-flex justify-content-between align-items-center mt-auto'>
-							<Button variant='outline-primary' size='sm' onClick={() => goToProduct(prod._id)}>
-								לצפייה במוצר
-							</Button>
+						<Button variant='outline-primary' size='sm' onClick={() => goToProduct(prod._id)}>
+							לצפייה במוצר
+						</Button>
 
-							{isEditor && (
-								<div className='d-flex gap-2'>
-									<Button variant='outline-secondary' size='sm' onClick={handleEdit} aria-label='ערוך מוצר'>
-										<FiEdit size={16} />
-									</Button>
-									<Button variant='outline-danger' size='sm' onClick={handleDelete} aria-label='מחק מוצר'>
-										<FiTrash2 size={16} />
-									</Button>
-								</div>
-							)}
-						</div>
+						{isEditor && (
+							<div className='d-flex mt-2 justify-content-center align-items-center gap-2 w-100'>
+								<Button variant='outline-secondary' size='sm' onClick={handleEdit} aria-label='ערוך מוצר'>
+									<FiEdit size={16} />
+								</Button>
+								<Button variant='outline-danger' size='sm' onClick={handleDelete} aria-label='מחק מוצר'>
+									<FiTrash2 size={16} />
+								</Button>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

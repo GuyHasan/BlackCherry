@@ -64,6 +64,15 @@ const toggleFavoriteProduct = async (productId) => {
 	}
 };
 
+const getUserFavorites = async () => {
+	try {
+		const { data } = await api.get("/users/favorite-products");
+		return data.favorites;
+	} catch (error) {
+		throw error;
+	}
+};
+
 export default {
 	login,
 	register,
@@ -72,4 +81,5 @@ export default {
 	deleteUser,
 	updateEmployeeStatus,
 	toggleFavoriteProduct,
+	getUserFavorites,
 };

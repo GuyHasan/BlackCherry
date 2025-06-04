@@ -139,7 +139,7 @@ export async function getUserFavoritesController(req, res, next) {
 		if (!response.success) {
 			return next(new CustomError(response.message, response.status, response.error?.name || "Error"));
 		}
-		res.status(200).json(response.favorites);
+		res.status(200).json(response);
 	} catch (error) {
 		handleControllerError(error, next, "Failed to retrieve user favorites");
 	}

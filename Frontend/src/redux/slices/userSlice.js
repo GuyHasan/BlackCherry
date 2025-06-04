@@ -87,16 +87,6 @@ export const updateEmployeeStatusThunk = createAsyncThunk("user/updateEmployeeSt
 	}
 });
 
-export const toggleFavorite = createAsyncThunk("user/toggleFavorite", async (productId, { getState, rejectWithValue }) => {
-	try {
-		const response = await userService.toggleFavoriteProduct(productId);
-		return response.favorites;
-	} catch (err) {
-		console.error("Error toggling favorite product:", err);
-		return rejectWithValue(err.message || "שגיאה בשמירה למועדפים");
-	}
-});
-
 const initialState = {
 	user: null,
 	accessToken: null,
@@ -195,20 +185,7 @@ const userSlice = createSlice({
 				state.userListLoading = false;
 				state.userListError = action.payload || action.error.message;
 			})
-			.addCase(toggleFavorite.fulfilled, (state, action) => {
-				if (state.user) {
-					state.user.favorites = action.payload;
-				}
-			})
-			.addCase(toggleFavorite.rejected, (state, action) => {
-				state.loading = false;
-				state.error = action.payload;
-				if (action.payload === "Unauthorized") {
-					state.user = null;
-					state.isAuthenticated = false;
-				}
-			})
-			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, getUserByIdThunk.pending, refreshThunk.pending, logoutThunk.pending, deleteUserThunk.pending, updateEmployeeStatusThunk.pending, toggleFavorite.pending), setLoading)
+			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, getUserByIdThunk.pending, refreshThunk.pending, logoutThunk.pending, deleteUserThunk.pending, updateEmployeeStatusThunk.pending), setLoading)
 			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, getUserByIdThunk.rejected, refreshThunk.rejected, logoutThunk.rejected, deleteUserThunk.rejected, updateEmployeeStatusThunk.rejected), setError);
 	},
 });
