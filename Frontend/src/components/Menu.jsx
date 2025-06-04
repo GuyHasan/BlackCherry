@@ -43,6 +43,8 @@ export default function Menu() {
 	}
 	return (
 		<div className='container my-4'>
+			<h1 className='mb-4'>תפריט</h1>
+			<p className='text-muted mb-4'>בחר קטגוריה או תת-קטגוריה כדי לראות את המוצרים.</p>
 			{menuPreview.map((category) => {
 				const { key: catKey, he: catHe, subCategories, products } = category;
 				const hasSub = Array.isArray(subCategories) && subCategories.length > 0;
