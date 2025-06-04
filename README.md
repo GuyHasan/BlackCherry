@@ -197,7 +197,24 @@ npm start           # If "start": "node server.js" is defined in package.json
 ### Configuration & Environment
 
 -   Uses the `config` package (npm install config) to manage settings across environments (`development`, `production`).
--   Example `backend/src/config/default.json`:
+-   Example `backend/config/default.json`:
+
+    ```ini
+    {
+    "AUTH_PROVIDER": "jwt",
+    "VALIDATOR": "Joi",
+    "DB": "MongoDB",
+    "ENVIRONMENT": "development",
+    "LOGGER": "morgan",
+    "useCloudUpload": true
+    }
+    ```
+
+    ```
+
+    ```
+
+-   Example `backend/.env`:
 
     ```ini
     # ------------------------------------
