@@ -3,7 +3,7 @@ export const exampleData = [
 		name: "Grilled Steak",
 		description: "Juicy grilled steak cooked to perfection.",
 		category: "meat",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 12.99 },
 			{ quantity: 2, price: 24.99 },
@@ -18,7 +18,7 @@ export const exampleData = [
 		name: "Roast Chicken",
 		description: "Tender roast chicken with herbs.",
 		category: "meat",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 11.99 },
 			{ quantity: 2, price: 22.99 },
@@ -33,7 +33,7 @@ export const exampleData = [
 		name: "Beef Kebab",
 		description: "Spiced beef kebabs grilled on skewers.",
 		category: "meat",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 10.99 },
 			{ quantity: 2, price: 21.49 },
@@ -48,7 +48,7 @@ export const exampleData = [
 		name: "Lamb Chops",
 		description: "Grilled lamb chops with rosemary.",
 		category: "meat",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 14.99 },
 			{ quantity: 2, price: 28.99 },
@@ -63,7 +63,7 @@ export const exampleData = [
 		name: "Turkey Schnitzel",
 		description: "Crispy breaded turkey schnitzel.",
 		category: "meat",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 9.99 },
 			{ quantity: 2, price: 19.49 },
@@ -78,7 +78,7 @@ export const exampleData = [
 		name: "Cheese Lasagna",
 		description: "Classic Italian lasagna with rich cheese and tomato sauce.",
 		category: "dairy",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 9.99 },
 			{ quantity: 2, price: 18.99 },
@@ -93,7 +93,7 @@ export const exampleData = [
 		name: "Quiche Lorraine",
 		description: "Savory quiche with cheese and vegetables.",
 		category: "dairy",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 8.99 },
 			{ quantity: 2, price: 17.49 },
@@ -108,7 +108,7 @@ export const exampleData = [
 		name: "Spinach Pie",
 		description: "Flaky pastry filled with spinach and cheese.",
 		category: "dairy",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 7.99 },
 			{ quantity: 2, price: 15.49 },
@@ -123,7 +123,7 @@ export const exampleData = [
 		name: "Mac and Cheese",
 		description: "Creamy macaroni and cheese.",
 		category: "dairy",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 6.99 },
 			{ quantity: 2, price: 13.49 },
@@ -138,7 +138,7 @@ export const exampleData = [
 		name: "Cheese Pizza",
 		description: "Classic cheese pizza with tomato sauce.",
 		category: "dairy",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 10.99 },
 			{ quantity: 2, price: 20.99 },
@@ -153,7 +153,7 @@ export const exampleData = [
 		name: "Cheesecake",
 		description: "Creamy cheesecake with a graham cracker crust.",
 		category: "desserts",
-		subcategory: "dairy",
+		subCategory: "dairy",
 		size: [
 			{ quantity: 1, price: 6.99 },
 			{ quantity: 2, price: 12.99 },
@@ -168,7 +168,7 @@ export const exampleData = [
 		name: "Chocolate Cake",
 		description: "Rich chocolate cake, parve and delicious.",
 		category: "desserts",
-		subcategory: "parve",
+		subCategory: "parve",
 		size: [
 			{ quantity: 1, price: 5.99 },
 			{ quantity: 2, price: 11.49 },
@@ -183,7 +183,7 @@ export const exampleData = [
 		name: "Vegan Brownie",
 		description: "Fudgy vegan brownie made with cocoa and nuts.",
 		category: "desserts",
-		subcategory: "vegan",
+		subCategory: "vegan",
 		size: [
 			{ quantity: 1, price: 4.99 },
 			{ quantity: 2, price: 9.49 },
@@ -198,7 +198,7 @@ export const exampleData = [
 		name: "Apple Pie",
 		description: "Classic apple pie with cinnamon.",
 		category: "desserts",
-		subcategory: "parve",
+		subCategory: "parve",
 		size: [
 			{ quantity: 1, price: 5.49 },
 			{ quantity: 2, price: 10.49 },
@@ -213,7 +213,7 @@ export const exampleData = [
 		name: "Fruit Salad",
 		description: "Fresh fruit salad with seasonal fruits.",
 		category: "desserts",
-		subcategory: "parve",
+		subCategory: "parve",
 		size: [
 			{ quantity: 1, price: 4.49 },
 			{ quantity: 2, price: 8.49 },
@@ -228,7 +228,7 @@ export const exampleData = [
 		name: "Sandwich Platter",
 		description: "Assorted sandwich platter for sharing.",
 		category: "platters",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 29.99 }],
 		unit: "יחידות",
 		image: {
@@ -240,7 +240,7 @@ export const exampleData = [
 		name: "Sushi Platter",
 		description: "Variety of sushi rolls and nigiri.",
 		category: "platters",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 39.99 }],
 		unit: "יחידות",
 		image: {
@@ -252,7 +252,7 @@ export const exampleData = [
 		name: "Cheese Platter",
 		description: "Assorted cheeses with crackers and fruit.",
 		category: "platters",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 34.99 }],
 		unit: "יחידות",
 		image: {
@@ -264,7 +264,7 @@ export const exampleData = [
 		name: "Vegetable Platter",
 		description: "Fresh cut vegetables with dip.",
 		category: "platters",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 24.99 }],
 		unit: "יחידות",
 		image: {
@@ -276,7 +276,7 @@ export const exampleData = [
 		name: "Fruit Platter",
 		description: "Assorted sliced fresh fruits.",
 		category: "platters",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 27.99 }],
 		unit: "יחידות",
 		image: {
@@ -288,7 +288,7 @@ export const exampleData = [
 		name: "Greek Salad",
 		description: "Fresh Greek salad with feta cheese and olives.",
 		category: "salads",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 7.99 }],
 		unit: "יחידות",
 		image: {
@@ -300,7 +300,7 @@ export const exampleData = [
 		name: "Caesar Salad",
 		description: "Classic Caesar salad with croutons.",
 		category: "salads",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 8.49 }],
 		unit: "יחידות",
 		image: {
@@ -312,7 +312,7 @@ export const exampleData = [
 		name: "Israeli Salad",
 		description: "Chopped cucumber, tomato, and herbs.",
 		category: "salads",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 6.99 }],
 		unit: "יחידות",
 		image: {
@@ -324,7 +324,7 @@ export const exampleData = [
 		name: "Tabbouleh",
 		description: "Parsley, bulgur, tomato, and lemon salad.",
 		category: "salads",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 7.49 }],
 		unit: "יחידות",
 		image: {
@@ -336,7 +336,7 @@ export const exampleData = [
 		name: "Coleslaw",
 		description: "Creamy coleslaw with cabbage and carrots.",
 		category: "salads",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 5.99 }],
 		unit: "יחידות",
 		image: {
@@ -348,7 +348,7 @@ export const exampleData = [
 		name: "French Fries",
 		description: "Crispy golden French fries.",
 		category: "sides",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 3.99 },
 			{ quantity: 2, price: 7.49 },
@@ -363,7 +363,7 @@ export const exampleData = [
 		name: "Mashed Potatoes",
 		description: "Creamy mashed potatoes with butter.",
 		category: "sides",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 4.49 },
 			{ quantity: 2, price: 8.49 },
@@ -378,7 +378,7 @@ export const exampleData = [
 		name: "Rice Pilaf",
 		description: "Fluffy rice pilaf with herbs.",
 		category: "sides",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 3.99 },
 			{ quantity: 2, price: 7.49 },
@@ -393,7 +393,7 @@ export const exampleData = [
 		name: "Steamed Vegetables",
 		description: "Assorted steamed vegetables.",
 		category: "sides",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 4.99 },
 			{ quantity: 2, price: 9.49 },
@@ -408,7 +408,7 @@ export const exampleData = [
 		name: "Garlic Bread",
 		description: "Toasted garlic bread slices.",
 		category: "sides",
-		subcategory: "",
+		subCategory: "",
 		size: [
 			{ quantity: 1, price: 3.49 },
 			{ quantity: 2, price: 6.49 },
@@ -423,7 +423,7 @@ export const exampleData = [
 		name: "Vegan Wrap",
 		description: "Tortilla wrap filled with fresh vegan ingredients.",
 		category: "vegan",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 6.49 }],
 		unit: "יחידות",
 		image: {
@@ -435,7 +435,7 @@ export const exampleData = [
 		name: "Vegan Burger",
 		description: "Plant-based burger with lettuce and tomato.",
 		category: "vegan",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 7.99 }],
 		unit: "יחידות",
 		image: {
@@ -447,7 +447,7 @@ export const exampleData = [
 		name: "Vegan Chili",
 		description: "Hearty vegan chili with beans and vegetables.",
 		category: "vegan",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 6.99 }],
 		unit: "יחידות",
 		image: {
@@ -459,7 +459,7 @@ export const exampleData = [
 		name: "Vegan Sushi",
 		description: "Sushi rolls with avocado and cucumber.",
 		category: "vegan",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 8.49 }],
 		unit: "יחידות",
 		image: {
@@ -471,7 +471,7 @@ export const exampleData = [
 		name: "Vegan Pasta",
 		description: "Pasta with tomato sauce and vegetables.",
 		category: "vegan",
-		subcategory: "",
+		subCategory: "",
 		size: [{ quantity: 1, price: 7.49 }],
 		unit: "יחידות",
 		image: {
