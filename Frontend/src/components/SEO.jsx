@@ -1,4 +1,3 @@
-// components/SEO.jsx
 import { Helmet } from "react-helmet-async";
 
 function SEO({ title, description, keywords = [], image, type = "website" }) {

@@ -210,10 +210,6 @@ npm start           # If "start": "node server.js" is defined in package.json
     }
     ```
 
-    ```
-
-    ```
-
 -   Example `backend/.env`:
 
     ```ini
@@ -297,6 +293,8 @@ GET    /api/products/id/:id               → Get product by ID
 POST   /api/products                      → Create a new product (authMiddleware, validateRequest("product"))
 PUT    /api/products/id/:id               → Update a product (authMiddleware, validateRequest("product"))
 DELETE /api/products/id/:id               → Delete a product (authMiddleware, onlyEmployeeOrAdmin)
+GET    /api/products/category             → get a list of the categories+subcategories of products
+GET    /api/products/menu-preview         → get 5 products from each category+sub-category for menu page
 ```
 
 -   **Possible Query Parameters** for `GET /api/products`:
@@ -468,23 +466,43 @@ npm run build
 ### Main Routes (React Router)
 
 ```jsx
-<BrowserRouter>
-	<Routes>
-		<Route path='/' element={<HomePage />} />
-
-		<Route path='/products' element={<ProductsPage />} />
-		<Route path='/products/:categoryKey' element={<CategoryPage />} />
-		<Route path='/products/:categoryKey/:subCategoryKey' element={<SubCategoryPage />} />
-		<Route path='/products/:categoryKey/:subCategoryKey/:productSlug' element={<ProductDetailPage />} />
-
-		<Route path='/login' element={<LoginPage />} />
-		<Route path='/register' element={<RegisterPage />} />
-		{/* ...additional routes as needed */}
-	</Routes>
-</BrowserRouter>
+<Router>
+	<Navbar />
+	<main className='flex-grow-1'>
+		<Routes>
+			<Route path='/' element={<Home />} />
+			<Route path='/about' element={<About />} />
+			<Route path='/contact' element={<Contact />} />
+			<Route path='/menu'>
+				<Route index element={<Menu />} />
+				<Route path=':categoryKey' element={<CategoryPage />} />
+				<Route path=':categoryKey/:subKey' element={<CategoryPage />} />
+				<Route path=':categoryKey/:subKey/:productSlug' element={<ProductPage />} />
+				<Route path=':categoryKey/:productSlug' element={<ProductPage />} />
+			</Route>
+			<Route path='/admin'>
+				<Route index element={<Admin />} />
+				<Route path='products'>
+					<Route index element={<ManageProducts />} />
+					<Route path='add' element={<AddProduct />} />
+					<Route path='edit/:productId' element={<h1>Edit Product</h1>} />
+				</Route>
+			</Route>
+			<Route path='/kashrut' element={<Kashrut />} />
+			<Route path='/login' element={<Login />} />
+			<Route path='/register' element={<Register />} />
+			<Route path='/profile'>
+				<Route index element={<Profile />} />
+				<Route path='favorites' element={<UserFavorites />} />
+			</Route>
+			<Route path='*' element={<h1>404 Not Found</h1>} />
+		</Routes>
+	</main>
+	<Footer />
+</Router>
 ```
 
--   The frontend calls the backend using Axios or Fetch. Example:
+-   The frontend calls the backend using Axios. Example:
 
     ```js
     axios.get(`/api/products?category=${categoryKey}&subCategory=${subCategoryKey}`);
@@ -497,7 +515,7 @@ npm run build
 -   Use **react-helmet-async** in each page:
 
     ```jsx
-    import { Helmet } from "react-helmet-async";
+    import SEO from "./components/SEO.jsx";
 
     export default function CategoryPage() {
     	const { categoryKey } = useParams();
@@ -505,16 +523,34 @@ npm run build
 
     	return (
     		<>
-    			<Helmet>
-    				<title>{categoryLabel} | My E-commerce Site</title>
-    				<meta name='description' content={`Explore amazing products in the ${categoryLabel} category.`} />
-    				<link rel='canonical' href={`https://yourdomain.com/products/${categoryKey}`} />
-    			</Helmet>
+    			<SEO title='עלינו - החנות שלי' description='קרא על מי אנחנו, מה אנחנו עושים ולמה לבחור בנו.' keywords={["אודות", "עלינו", "החנות שלי"]} />
     			<h1>Category: {categoryLabel}</h1>
     			{/* Page content */}
     		</>
     	);
     }
+    ```
+
+-   The SEO component:
+
+    ```jsx
+    import { Helmet } from "react-helmet-async";
+
+    function SEO({ title, description, keywords = [], image, type = "website" }) {
+    	return (
+    		<Helmet>
+    			<title>{title}</title>
+    			<meta name='description' content={description} />
+    			{keywords.length > 0 && <meta name='keywords' content={keywords.join(", ")} />}
+    			<meta property='og:title' content={title} />
+    			<meta property='og:description' content={description} />
+    			{image && <meta property='og:image' content={image} />}
+    			<meta property='og:type' content={type} />
+    		</Helmet>
+    	);
+    }
+
+    export default SEO;
     ```
 
 -   **Pre-rendering** (in Vite config) is recommended for key routes (category and product pages) so crawlers receive full HTML.
