@@ -6,6 +6,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { toggleFavorite } from "../../redux/slices/userSlice";
 import { useState } from "react";
 import EditProductModal from "./EditProductModal";
+import DeleteCardModal from "./DeleteProductModal";
 
 export default function ProductCard({ prod }) {
 	const goToProduct = useSmartProductNavigation();
@@ -14,6 +15,7 @@ export default function ProductCard({ prod }) {
 	const isFavorite = favorites?.some((p) => p._id === prod._id);
 	const isEditor = user?.isAdmin || user?.isEmployee;
 	const [showEditModal, setShowEditModal] = useState(false);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	const handleToggleFavorite = (e) => {
 		e.stopPropagation();
@@ -27,7 +29,7 @@ export default function ProductCard({ prod }) {
 
 	const handleDelete = (e) => {
 		e.stopPropagation();
-		console.log("מחיקת מוצר:", prod._id);
+		setShowDeleteModal(true);
 	};
 
 	return (
@@ -72,6 +74,7 @@ export default function ProductCard({ prod }) {
 				</div>
 			</div>
 			<EditProductModal product={prod} show={showEditModal} handleClose={() => setShowEditModal(false)} />
+			<DeleteCardModal product={prod} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
 		</>
 	);
 }

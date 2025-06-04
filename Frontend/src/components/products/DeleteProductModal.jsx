@@ -1,8 +1,22 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { useDispatch } from "react-redux";
+import { deleteProduct } from "../../redux/slices/productsSlice";
+import { errorMessage, successMessage } from "../../services/messageServices";
 
-function DeleteCardModal({ show, handleClose, handleDelete, product }) {
+function DeleteCardModal({ show, handleClose, product }) {
+	const dispatch = useDispatch();
 	if (!product) return null;
+	const handleDelete = async (productId) => {
+		try {
+			dispatch(deleteProduct(productId)).unwrap();
+			successMessage("Product deleted successfully");
+			handleClose();
+		} catch (error) {
+			console.error("Failed to delete product:", error);
+			errorMessage("Failed to delete product");
+		}
+	};
 	const { name, _id: productId } = product;
 	return (
 		<Modal show={show} onHide={handleClose} centered>

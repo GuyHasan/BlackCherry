@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import * as yup from "yup";
 import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { createProduct } from "../../redux/slices/productsSlice";
+import { errorMessage, successMessage } from "../../services/messageServices";
 
 function AddProduct() {
 	const dispatch = useDispatch();
@@ -59,8 +61,12 @@ function AddProduct() {
 		onSubmit: async (values) => {
 			try {
 				console.log("Form values:", values);
+				const response = await dispatch(createProduct(values)).unwrap();
+				successMessage("מוצר נוסף בהצלחה");
+				formik.resetForm();
 			} catch (error) {
 				console.log(error);
+				errorMessage("שגיאה בהוספת המוצר, אנא נסה שוב");
 			}
 		},
 	});
