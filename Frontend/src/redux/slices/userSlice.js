@@ -51,7 +51,10 @@ export const refreshThunk = createAsyncThunk("user/refreshToken", async (_, thun
 	try {
 		const { accessToken } = await authService.refreshAccessToken();
 		api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
-		return accessToken;
+		const decodedToken = decodeToken(accessToken);
+		const { id, isAdmin, isEmployee } = decodedToken;
+		const user = await userService.getUserById(id);
+		return { accessToken, user, isAdmin, isEmployee };
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.response?.data || error.message);
 	}
@@ -100,6 +103,8 @@ const initialState = {
 	loading: false,
 	error: null,
 	isAuthenticated: false,
+	isAdmin: false,
+	isEmployee: false,
 	userList: [],
 	userListLoading: false,
 	userListError: null,
@@ -135,12 +140,16 @@ const userSlice = createSlice({
 				state.loading = false;
 				state.user = action.payload.user;
 				state.accessToken = action.payload.accessToken;
+				state.isAdmin = action.payload.user.isAdmin;
+				state.isEmployee = action.payload.user.isEmployee;
 				state.isAuthenticated = true;
 			})
 			.addCase(registerThunk.fulfilled, (state, action) => {
 				state.loading = false;
 				state.user = action.payload.user;
 				state.accessToken = action.payload.accessToken;
+				state.isAdmin = action.payload.user.isAdmin;
+				state.isEmployee = action.payload.user.isEmployee;
 				state.isAuthenticated = true;
 			})
 			.addCase(getUserByIdThunk.fulfilled, (state, action) => {
@@ -150,14 +159,19 @@ const userSlice = createSlice({
 			})
 			.addCase(refreshThunk.fulfilled, (state, action) => {
 				state.loading = false;
-				state.accessToken = action.payload;
+				state.accessToken = action.payload.accessToken;
 				state.isAuthenticated = true;
+				state.user = action.payload.user;
+				state.isAdmin = action.payload.isAdmin;
+				state.isEmployee = action.payload.isEmployee;
 			})
 			.addCase(logoutThunk.fulfilled, (state) => {
 				state.loading = false;
 				state.user = null;
 				state.accessToken = null;
 				state.isAuthenticated = false;
+				state.isAdmin = false;
+				state.isEmployee = false;
 			})
 			.addCase(deleteUserThunk.fulfilled, (state, action) => {
 				state.userList = state.userList.filter((user) => user._id !== action.payload._id);

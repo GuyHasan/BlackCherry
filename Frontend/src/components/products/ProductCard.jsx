@@ -40,12 +40,12 @@ export default function ProductCard({ prod }) {
 						{isFavorite ? <AiFillHeart color='red' size={18} /> : <AiOutlineHeart color='gray' size={18} />}
 					</Button>
 
-					<img src={prod.imageUrl} className='card-img-top' alt={prod.name} style={{ objectFit: "cover", height: "120px" }} />
+					<img src={prod.image.url} className='card-img-top' alt={prod.image.alt} style={{ objectFit: "cover", height: "120px" }} />
 
 					<div className='card-body p-2 d-flex flex-column justify-content-between flex-grow-1'>
-						<div>
+						<div className='text-center'>
 							<h5 className='card-title mb-1' style={{ fontSize: "0.9rem" }}>
-								{prod.name}
+								{prod.name} - {prod.size[0].quantity} {prod.unit}
 							</h5>
 							{Array.isArray(prod.size) && prod.size.length > 0 && (
 								<p className='card-text text-muted mb-2' style={{ fontSize: "0.8rem" }}>

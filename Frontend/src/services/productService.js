@@ -3,7 +3,7 @@ import api from "./api";
 const getAllProducts = async () => {
 	try {
 		const res = await api.get("/products");
-		return res.data;
+		return res.data.products;
 	} catch (error) {
 		throw error;
 	}
@@ -27,7 +27,7 @@ export const getProducts = async ({ page = 1, limit = 10, search = "" }) => {
 const getProductById = async (id) => {
 	try {
 		const res = await api.get(`/products/${id}`);
-		return res.data;
+		return res.data.product;
 	} catch (error) {
 		throw error;
 	}
@@ -72,7 +72,7 @@ const getMenuPreviewProducts = async () => {
 const getProductsByCategory = async (categoryKey) => {
 	try {
 		const res = await api.get(`/products?category=${categoryKey}`);
-		return res.data;
+		return res.data.products;
 	} catch (error) {
 		throw error;
 	}
@@ -81,7 +81,7 @@ const getProductsByCategory = async (categoryKey) => {
 const getProductsBySubCategory = async (categoryKey, subKey) => {
 	try {
 		const res = await api.get(`/products?category=${categoryKey}&subCategory=${subKey}`);
-		return res.data;
+		return res.data.products;
 	} catch (error) {
 		throw error;
 	}

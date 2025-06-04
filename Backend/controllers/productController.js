@@ -102,56 +102,52 @@ export const getMenuPreviewController = async (req, res, next) => {
 		const previews = await Promise.all(
 			categories.map(async (category) => {
 				const { key: catKey, he: catHe, subCategories } = category;
-
 				if (Array.isArray(subCategories) && subCategories.length > 0) {
 					const subs = await Promise.all(
 						subCategories.map(async (subCat) => {
-							const products = await getAllProducts(
+							const result = await getAllProducts(
 								{
 									category: catKey,
 									subCategory: subCat.key,
-									available: true,
 								},
 								{
 									sort: { createdAt: -1 },
 									limit: 5,
 								}
 							);
+							const productsArray = Array.isArray(result.data) ? result.data : [];
 							return {
 								key: subCat.key,
 								he: subCat.he,
-								products,
+								products: productsArray,
 							};
 						})
 					);
-
 					return {
 						key: catKey,
 						he: catHe,
 						subCategories: subs,
 						products: [],
 					};
-				} else {
-					const products = await getAllProducts(
-						{
-							category: catKey,
-							available: true,
-						},
-						{
-							sort: { createdAt: -1 },
-							limit: 5,
-						}
-					);
-					return {
-						key: catKey,
-						he: catHe,
-						subCategories: [],
-						products,
-					};
 				}
+				const result = await getAllProducts(
+					{
+						category: catKey,
+					},
+					{
+						sort: { createdAt: -1 },
+						limit: 5,
+					}
+				);
+				const productsArray = Array.isArray(result.data) ? result.data : [];
+				return {
+					key: catKey,
+					he: catHe,
+					subCategories: [],
+					products: productsArray,
+				};
 			})
 		);
-
 		res.status(200).json({ success: true, data: previews });
 	} catch (error) {
 		handleControllerError(error, next, "Failed to load menu preview");

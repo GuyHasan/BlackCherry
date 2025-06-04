@@ -4,7 +4,8 @@ import { logoutThunk } from "../redux/slices/userSlice";
 
 function Navbar() {
 	const { isAuthenticated } = useSelector((state) => state.user);
-	const { isAdmin, isEmployee } = useSelector((state) => state.user.user || false);
+	const { isAdmin } = useSelector((state) => state.user);
+	const { isEmployee } = useSelector((state) => state.user);
 	const isAdminOrEmployee = Boolean(isAdmin || isEmployee);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
