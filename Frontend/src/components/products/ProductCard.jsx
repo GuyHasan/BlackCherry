@@ -11,8 +11,9 @@ import DeleteCardModal from "./DeleteProductModal";
 export default function ProductCard({ prod }) {
 	const goToProduct = useSmartProductNavigation();
 	const dispatch = useDispatch();
-	const { favorites, user } = useSelector((state) => state.user);
-	const isFavorite = favorites?.some((p) => p._id === prod._id);
+	const { user } = useSelector((state) => state.user);
+	const favorites = useSelector((state) => state.user.user?.favorites || []);
+	const isFavorite = favorites.includes(prod._id);
 	const isEditor = user?.isAdmin || user?.isEmployee;
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);

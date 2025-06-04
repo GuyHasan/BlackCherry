@@ -6,10 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { errorMessage, successMessage } from "../../services/messageServices";
 import { editProduct } from "../../redux/slices/productsSlice";
 
-function EditProduct({ product }) {
+function EditProduct({ product, handleClose }) {
 	const dispatch = useDispatch();
 	const categoriesList = useSelector((state) => state.categories?.categoriesList || []);
 	const [selectedCategory, setSelectedCategory] = useState("");
+	const sanitizedSizes = Array.isArray(product.size)
+		? product.size.map((s) => ({
+				quantity: s.quantity,
+				price: s.price,
+		  }))
+		: [{ quantity: 0, price: 0 }];
 
 	useEffect(() => {
 		dispatch(fetchCategoriesList());
@@ -21,7 +27,7 @@ function EditProduct({ product }) {
 			description: product?.description || "",
 			category: product?.category || "",
 			subCategory: product?.subCategory || "",
-			size: product?.size || [{ quantity: 0, price: 0 }],
+			size: sanitizedSizes,
 			unit: product?.unit || "",
 			popularity: product?.popularity || 0,
 			image: {
@@ -58,6 +64,7 @@ function EditProduct({ product }) {
 				console.log("Form values:", values);
 				const response = await dispatch(editProduct({ id: product._id, data: values })).unwrap();
 				successMessage("המוצר עודכן בהצלחה");
+				handleClose();
 			} catch (error) {
 				console.log(error);
 				errorMessage("ארעה שגיאה בעדכון המוצר");
@@ -67,7 +74,7 @@ function EditProduct({ product }) {
 
 	return (
 		<>
-			<h1 className='my-4 text-center'>הוסף מוצר</h1>
+			<h1 className='my-4 text-center'>ערוך מוצר</h1>
 			<div className='container w-100 text-center'>
 				<FormikProvider value={formik}>
 					<form onSubmit={formik.handleSubmit} className='w-100 p-3 border rounded bg-light'>

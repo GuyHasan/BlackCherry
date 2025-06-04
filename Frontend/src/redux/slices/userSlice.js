@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk, isAnyOf } from "@reduxjs/toolkit";
-
 import userService from "../../services/userService";
 import authService from "../../services/authService";
 import api from "../../services/api";
@@ -93,6 +92,7 @@ export const toggleFavorite = createAsyncThunk("user/toggleFavorite", async (pro
 		const response = await userService.toggleFavoriteProduct(productId);
 		return response.favorites;
 	} catch (err) {
+		console.error("Error toggling favorite product:", err);
 		return rejectWithValue(err.message || "שגיאה בשמירה למועדפים");
 	}
 });
@@ -200,8 +200,16 @@ const userSlice = createSlice({
 					state.user.favorites = action.payload;
 				}
 			})
+			.addCase(toggleFavorite.rejected, (state, action) => {
+				state.loading = false;
+				state.error = action.payload;
+				if (action.payload === "Unauthorized") {
+					state.user = null;
+					state.isAuthenticated = false;
+				}
+			})
 			.addMatcher(isAnyOf(loginThunk.pending, registerThunk.pending, getUserByIdThunk.pending, refreshThunk.pending, logoutThunk.pending, deleteUserThunk.pending, updateEmployeeStatusThunk.pending, toggleFavorite.pending), setLoading)
-			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, getUserByIdThunk.rejected, refreshThunk.rejected, logoutThunk.rejected, deleteUserThunk.rejected, updateEmployeeStatusThunk.rejected, toggleFavorite.rejected), setError);
+			.addMatcher(isAnyOf(loginThunk.rejected, registerThunk.rejected, getUserByIdThunk.rejected, refreshThunk.rejected, logoutThunk.rejected, deleteUserThunk.rejected, updateEmployeeStatusThunk.rejected), setError);
 	},
 });
 

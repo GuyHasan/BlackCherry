@@ -57,7 +57,7 @@ const updateEmployeeStatus = async (userId) => {
 
 const toggleFavoriteProduct = async (productId) => {
 	try {
-		const { data } = await axios.post("/users/favorite-products", { productId });
+		const { data } = await api.post("/users/favorite-products", { productId });
 		return data;
 	} catch (error) {
 		throw error;

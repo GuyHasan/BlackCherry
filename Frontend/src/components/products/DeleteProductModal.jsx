@@ -21,18 +21,18 @@ function DeleteCardModal({ show, handleClose, product }) {
 	return (
 		<Modal show={show} onHide={handleClose} centered>
 			<Modal.Header closeButton className='text-center border-0 w-100'>
-				<Modal.Title>Warning</Modal.Title>
+				<Modal.Title>אזהרה</Modal.Title>
 			</Modal.Header>
 			<Modal.Body className='text-center fw-400 fs-5 border-0'>
-				<p className='text-capitalize'>Are you sure you want to delete the {name} Product?</p>
+				<p className='text-capitalize'>האם אתה בטוח שאתה רוצה למחוק את המוצר {name}?</p>
 			</Modal.Body>
 
 			<Modal.Footer className='justify-content-center border-0'>
 				<Button variant='secondary' onClick={handleClose}>
-					Close
+					לא, ביטול
 				</Button>
 				<Button variant='danger' onClick={() => handleDelete(productId)}>
-					Yes, Delete It
+					כן, מחיקה
 				</Button>
 			</Modal.Footer>
 		</Modal>
