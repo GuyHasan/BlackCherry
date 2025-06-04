@@ -13,6 +13,7 @@ import Profile from "./components/users/Profile";
 import CategoryPage from "./components/products/CategoryPage";
 import ProductPage from "./components/products/ProductPage";
 import AddProduct from "./components/products/AddProduct";
+import Admin from "./components/Admin";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
@@ -43,7 +44,7 @@ function App() {
 								<Route path=':categoryKey/:productSlug' element={<ProductPage />} />
 							</Route>
 							<Route path='/admin'>
-								<Route index element={<h1>Admin Dashboard</h1>} />
+								<Route index element={<Admin />} />
 								<Route path='products'>
 									<Route index element={<h1>Manage Products</h1>} />
 									<Route path='add' element={<AddProduct />} />

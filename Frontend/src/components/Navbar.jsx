@@ -4,6 +4,7 @@ import { logoutThunk } from "../redux/slices/userSlice";
 
 function Navbar() {
 	const { isAuthenticated } = useSelector((state) => state.user);
+	const isAdminOrEmployee = useSelector((state) => state.user.user?.isAdmin || state.user.user?.isEmployee) || false;
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const handleLogout = async () => {
@@ -31,6 +32,11 @@ function Navbar() {
 						<NavLink className='nav-link' to='/contact'>
 							צור קשר
 						</NavLink>
+						{isAdminOrEmployee && (
+							<NavLink className='nav-link' to='/admin'>
+								ניהול
+							</NavLink>
+						)}
 					</div>
 					<div className='d-flex align-items-center justify-content-end gap-3'>
 						{isAuthenticated ? (
