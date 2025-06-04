@@ -50,11 +50,20 @@ const productSchema = new mongoose.Schema({
 		default: 0,
 		min: 0,
 	},
-	imageUrl: {
-		type: String,
-		required: true,
-		trim: true,
-		match: /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i,
+	image: {
+		url: {
+			type: String,
+			required: true,
+			trim: true,
+			match: /^https?:\/\/.+\.(jpg|jpeg|png|gif)$/i,
+		},
+		alt: {
+			type: String,
+			required: true,
+			trim: true,
+			minlength: 1,
+			maxlength: 200,
+		},
 	},
 });
 

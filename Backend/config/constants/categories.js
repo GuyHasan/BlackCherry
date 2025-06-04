@@ -9,6 +9,7 @@ export const categories = [
 	{
 		key: "dairy",
 		he: "חלבי",
+		subCategories: [],
 	},
 	{
 		key: "desserts",
