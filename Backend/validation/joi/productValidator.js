@@ -41,7 +41,10 @@ const productSchema = Joi.object({
 		.valid(...allowedUnits)
 		.required(),
 	popularity: Joi.number().integer().min(0).default(0),
-	imageUrl: Joi.string().uri().required(),
+	image: Joi.object({
+		url: Joi.string().uri().required(),
+		alt: Joi.string().max(100).required(),
+	}).required(),
 });
 
 export function validateProduct(productData) {
