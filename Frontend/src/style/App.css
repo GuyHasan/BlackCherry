@@ -8,9 +8,15 @@ header {
 	font-family: "M PLUS 1p", sans-serif;
 }
 
-/* rtl floating label fix */
 .form-floating > label {
 	right: 0;
 	left: auto;
 	text-align: right;
+}
+
+@media (min-width: 992px) {
+	.col-lg-2-4 {
+		flex: 0 0 auto;
+		width: 20%;
+	}
 }
