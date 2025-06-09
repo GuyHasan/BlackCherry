@@ -65,6 +65,10 @@ const productSchema = new mongoose.Schema({
 			maxlength: 200,
 		},
 	},
+	createdAt: {
+		type: Date,
+		default: Date.now,
+	},
 });
 
 const Product = mongoose.model("Product", productSchema);

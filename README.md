@@ -427,10 +427,9 @@ GET /api/products?search=cheese&category=desserts&minPrice=50&maxPrice=200&sort=
 
 ## Frontend
 
-```md
 This is the frontend for **Black Cherry**, a full-stack web application built with React 18 and Vite. It’s styled with Bootstrap 5, supports JWT-based authentication, and includes an admin panel for product and user management.
 
-## Tech Stack
+### Tech Stack
 
 -   React 18 + Vite
 -   Redux Toolkit (with Thunks for async logic)
@@ -443,25 +442,24 @@ This is the frontend for **Black Cherry**, a full-stack web application built wi
 -   React Helmet Async for SEO meta handling
 -   JWT Decode for client-side token parsing
 
-## Folder Structure (Highlights)
-```
+### Folder Structure (Highlights)
 
+```
 src/
 ├── components/
-│ ├── products/
-│ ├── users/
-│ └── ... (e.g. Home, Navbar, Footer, etc.)
+│   ├── products/
+│   ├── users/
+│   └── ... (e.g. Home, Navbar, Footer, etc.)
 ├── redux/
-│ ├── slices/
-│ └── store.js
+│   ├── slices/
+│   └── store.js
 ├── services/
-│ └── api.js
+│   └── api.js
 ├── style/
-│ └── App.css
+│   └── App.css
 ├── App.jsx
 └── main.jsx
-
-````
+```
 
 ## Getting Started
 
@@ -469,7 +467,7 @@ src/
 
 ```bash
 npm install
-````
+```
 
 ### 2. Set Up Environment Variables
 
