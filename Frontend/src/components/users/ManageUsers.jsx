@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersThunk } from "../../redux/slices/userSlice";
 import DeleteUserModal from "./DeleteUserModal";
+import EmployeeStatusModal from "./EmployeeStatusModal";
 
 function ManageUsers() {
 	const dispatch = useDispatch();
 	const isFirstLoad = useRef(true);
-	const { userList, error, loading } = useSelector((state) => state.user);
+	const { userList, userListLoading } = useSelector((state) => state.user);
 	const [currentUser, setCurrentUser] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showEmployeeStatusModal, setShowEmployeeStatusModal] = useState(false);
 
 	useEffect(() => {
 		if (isFirstLoad.current) {
@@ -28,6 +30,7 @@ function ManageUsers() {
 	const handleEmployeeUpdate = (e, user) => {
 		e.stopPropagation();
 		setCurrentUser(user);
+		setShowEmployeeStatusModal(true);
 	};
 
 	return (
@@ -36,12 +39,6 @@ function ManageUsers() {
 				<h1>ניהול משתמשים</h1>
 				<p>כאן תוכלו לנהל ולמחוק משתמשים רשומים לאתר.</p>
 			</div>
-
-			{error && (
-				<div className='alert alert-danger text-center' role='alert'>
-					שגיאה בטעינת מוצרים: {error}
-				</div>
-			)}
 
 			<div className='table-responsive'>
 				<table className='table table-striped align-middle'>
@@ -57,7 +54,7 @@ function ManageUsers() {
 						</tr>
 					</thead>
 					<tbody>
-						{userList.length === 0 && !loading && (
+						{userList.length === 0 && !userListLoading && (
 							<tr>
 								<td colSpan='5' className='text-center py-4'>
 									לא נמצאו משתמשים
@@ -66,7 +63,7 @@ function ManageUsers() {
 						)}
 
 						{userList.map((user, index) => (
-							<tr key={user.id || user._id}>
+							<tr key={user._id}>
 								<td>{index + 1}</td>
 								<td>{user.username}</td>
 								<td>{user.email}</td>
@@ -92,7 +89,7 @@ function ManageUsers() {
 							</tr>
 						))}
 
-						{loading && (
+						{userListLoading && (
 							<tr>
 								<td colSpan='5' className='text-center py-4'>
 									טוען…
@@ -103,6 +100,7 @@ function ManageUsers() {
 				</table>
 			</div>
 			<DeleteUserModal user={currentUser} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
+			<EmployeeStatusModal user={currentUser} show={showEmployeeStatusModal} handleClose={() => setShowEmployeeStatusModal(false)} />
 		</div>
 	);
 }

@@ -10,11 +10,12 @@ function DeleteUserModal({ show, handleClose, user }) {
 	const handleDelete = async (userId) => {
 		try {
 			dispatch(deleteUserThunk(userId)).unwrap();
-			successMessage("user deleted successfully");
+			successMessage("משתמש נמחק בהצלחה");
 			handleClose();
 		} catch (error) {
 			console.error("Failed to delete user:", error);
-			errorMessage("Failed to delete user");
+			errorMessage("מחיקת המשתמש נכשלה, אנא נסה שוב מאוחר יותר");
+			handleClose();
 		}
 	};
 	const { username, _id: userId } = user;

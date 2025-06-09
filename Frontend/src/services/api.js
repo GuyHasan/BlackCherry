@@ -1,5 +1,3 @@
-// src/api/index.js
-
 import axios from "axios";
 import { clearUserState, logoutThunk, refreshThunk } from "../redux/slices/userSlice";
 

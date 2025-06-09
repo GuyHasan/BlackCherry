@@ -70,12 +70,6 @@ function ManageProducts() {
 				</button>
 			</form>
 
-			{error && (
-				<div className='alert alert-danger text-center' role='alert'>
-					שגיאה בטעינת מוצרים: {error}
-				</div>
-			)}
-
 			<div className='table-responsive'>
 				<table className='table table-striped align-middle'>
 					<thead>

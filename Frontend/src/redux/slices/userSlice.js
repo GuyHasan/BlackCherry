@@ -78,9 +78,10 @@ export const deleteUserThunk = createAsyncThunk("user/deleteUser", async (userId
 	}
 });
 
-export const updateEmployeeStatusThunk = createAsyncThunk("user/updateEmployeeStatus", async ({ userId, newStatus }, thunkAPI) => {
+export const updateEmployeeStatusThunk = createAsyncThunk("user/updateEmployeeStatus", async (userId, thunkAPI) => {
 	try {
-		const updated = await userService.updateEmployeeStatus(userId, newStatus);
+		console.log(userId);
+		const updated = await userService.updateEmployeeStatus(userId);
 		return updated;
 	} catch (error) {
 		return thunkAPI.rejectWithValue(error.response?.data || error.message);
@@ -164,11 +165,12 @@ const userSlice = createSlice({
 				state.userList = state.userList.filter((user) => user._id !== action.payload._id);
 			})
 			.addCase(updateEmployeeStatusThunk.fulfilled, (state, action) => {
-				const updatedUser = action.payload;
+				const updatedUser = action.payload.user;
 				const index = state.userList.findIndex((user) => user._id === updatedUser._id);
 				if (index !== -1) {
 					state.userList[index] = updatedUser;
 				}
+				state.loading = false;
 			})
 			.addCase(getAllUsersThunk.pending, (state) => {
 				state.userListLoading = true;
