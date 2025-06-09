@@ -3,13 +3,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts, setSearchParam, resetProducts } from "../../redux/slices/productsSlice";
 import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
+import DeleteProductModal from "./DeleteProductModal";
+import EditProductModal from "./EditProductModal";
 
 function ManageProducts() {
 	const dispatch = useDispatch();
 	const { pagantionProducts, totalPages, page: currentPage, limit, search: currentSearch, loading, error } = useSelector((state) => state.products);
 	const { categoriesList } = useSelector((state) => state.categories);
 	const [searchInput, setSearchInput] = useState(currentSearch || "");
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
+	const [showEditModal, setShowEditModal] = useState(false);
+	const [selectedProduct, setSelectedProduct] = useState(null);
 	const isFirstLoad = useRef(true);
+
 	useEffect(() => {
 		if (isFirstLoad.current) {
 			dispatch(fetchProducts({ page: 1, limit, search: currentSearch }));
@@ -34,6 +40,17 @@ function ManageProducts() {
 		if (!loading && currentPage < totalPages) {
 			dispatch(fetchProducts({ page: currentPage + 1, limit, search: currentSearch }));
 		}
+	};
+
+	const handleDelete = (e, product) => {
+		e.stopPropagation();
+		setSelectedProduct(product);
+		setShowDeleteModal(true);
+	};
+	const handleEdit = (e, product) => {
+		e.stopPropagation();
+		setSelectedProduct(product);
+		setShowEditModal(true);
 	};
 
 	return (
@@ -98,10 +115,12 @@ function ManageProducts() {
 									<span>&#8362;</span>
 								</td>
 								<td className='text-center'>
-									<Link to={`/admin/products/edit/${prod.id || prod._id}`} className='btn btn-sm btn-outline-secondary me-2'>
+									<div className='btn btn-sm btn-outline-secondary me-2' onClick={(e) => handleEdit(e, prod)}>
 										ערוך
-									</Link>
-									<button className='btn btn-sm btn-outline-danger'>מחק</button>
+									</div>
+									<button className='btn btn-sm btn-outline-danger' onClick={(e) => handleDelete(e, prod)}>
+										מחק
+									</button>
 								</td>
 							</tr>
 						))}
@@ -126,6 +145,8 @@ function ManageProducts() {
 			)}
 
 			{loading && pagantionProducts.length > 0 && <div className='text-center mb-5'>טוען עוד מוצרים…</div>}
+			<DeleteProductModal show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} product={selectedProduct} />
+			<EditProductModal show={showEditModal} handleClose={() => setShowEditModal(false)} product={selectedProduct} />
 		</div>
 	);
 }
