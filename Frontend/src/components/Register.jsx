@@ -1,21 +1,14 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { registerThunk } from "../redux/slices/userSlice";
 import { errorMessage, successMessage } from "../services/messageServices";
 import SEO from "./SEO";
 
 function Register() {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	const { isAuthenticated } = useSelector((state) => state.user);
-	useEffect(() => {
-		if (isAuthenticated) {
-			navigate("/");
-		}
-	}, []);
+
 	const formik = useFormik({
 		initialValues: {
 			username: "",

@@ -2,18 +2,6 @@ import "../style/Home.css";
 import SEO from "./SEO";
 
 function Home() {
-	const data = [
-		{ id: 1, color: "red" },
-		{ id: 2, color: "blue" },
-		{ id: 3, color: "green" },
-		{ id: 4, color: "yellow" },
-		{ id: 5, color: "purple" },
-		{ id: 6, color: "orange" },
-		{ id: 7, color: "pink" },
-		{ id: 8, color: "brown" },
-		{ id: 9, color: "black" },
-		{ id: 10, color: "white" },
-	];
 	return (
 		<>
 			<SEO title='BlackCherry - בית' description='ברוכים הבאים לבלק צ׳רי, קייטרינג ומגשי אירוח כשרים' keywords={["קייטרינג, מגשי אירוח, כשר, בלק צ׳רי"]} />

@@ -1,16 +1,9 @@
 import { FiUser, FiMail } from "react-icons/fi";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 function Profile() {
 	const { user } = useSelector((state) => state.user);
-	const navigate = useNavigate();
-	if (!user) {
-		navigate("/login");
-		return null;
-	}
-
 	return (
 		<>
 			<div className='container py-5'>

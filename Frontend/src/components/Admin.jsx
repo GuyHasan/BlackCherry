@@ -1,18 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
 
 function Admin() {
-	const isAdmin = useSelector((state) => state.user.user?.isAdmin);
-	const isEmployee = useSelector((state) => state.user.user?.isEmployee);
-	const navigate = useNavigate();
-	useEffect(() => {
-		if (!isAdmin && !isEmployee) {
-			navigate("/");
-		}
-	}, [isAdmin, isEmployee, navigate]);
-
 	return (
 		<div className='container pt-5 text-center'>
 			<h1>פאנל מנהלים</h1>
