@@ -6,41 +6,31 @@
 
 ## Table of Contents
 
-<ol type="1">
-  <li><a href="#overview">Overview</a></li>
-  <li><a href="#technologies">Technologies</a></li>
-  <li><a href="#project-structure">Project Structure</a></li>
-  <li>
-    <a href="#backend">Backend</a>
-    <ol type="1">
-      <li><a href="#prerequisites">Prerequisites</a></li>
-      <li><a href="#installation--running">Installation &amp; Running</a></li>
-      <li><a href="#directory-layout-backend">Directory Layout</a></li>
-      <li><a href="#configuration--environment">Configuration &amp; Environment</a></li>
-      <li><a href="#main-routes">Main Routes</a></li>
-      <li><a href="#authentication--authorization">Authentication &amp; Authorization</a></li>
-      <li><a href="#error-handling">Error Handling</a></li>
-      <li><a href="#sample-api-call-backend">Sample API Call</a></li>
-    </ol>
-  </li>
-  <li>
-    <a href="#frontend">Frontend</a>
-    <ol type="1">
-      <li><a href="#prerequisites-frontend">Prerequisites</a></li>
-      <li><a href="#installation--running-frontend">Installation &amp; Running</a></li>
-      <li><a href="#directory-layout-frontend">Directory Layout</a></li>
-      <li><a href="#main-routes-frontend">Main Routes</a></li>
-      <li><a href="#seo-implementation">SEO Implementation</a></li>
-      <li><a href="#consuming-the-backend-api">Consuming the Backend API</a></li>
-      <li><a href="#authorization--content-display">Authorization &amp; Content Display</a></li>
-      <li><a href="#component-example">Component Example</a></li>
-    </ol>
-  </li>
-  <li><a href="#environment-variables">Environment Variables</a></li>
-  <li><a href="#preparing-for-production">Preparing for Production</a></li>
-  <li><a href="#flow-diagram-optional">Flow Diagram (Optional)</a></li>
-  <li><a href="#links--credits">Links &amp; Credits</a></li>
-</ol>
+-   [Overview](#overview)
+-   [Technologies](#technologies)
+-   [Project Structure](#project-structure)
+-   [Backend](#backend)
+    -   [Prerequisites](#prerequisites)
+    -   [Installation & Running](#installation--running)
+    -   [Directory Layout (Backend)](#directory-layout-backend)
+    -   [Configuration & Environment](#configuration--environment)
+    -   [Main Routes](#main-routes)
+    -   [Authentication & Authorization](#authentication--authorization)
+    -   [Error Handling](#error-handling)
+    -   [Sample API Call (Backend)](#sample-api-call-backend)
+-   [Frontend](#frontend)
+    -   [Tech Stack](#tech-stack)
+    -   [Folder Structure (Highlights)](#folder-structure-highlights)
+    -   [Getting Started](#getting-started)
+    -   [App Logic](#app-logic)
+    -   [Routing Structure](#routing-structure)
+    -   [Auth & Favorites](#auth--favorites)
+    -   [Admin Panel Features](#admin-panel-features)
+    -   [Useful Scripts](#useful-scripts)
+    -   [Notes](#notes)
+-   [Preparing for Production](#preparing-for-production)
+-   [Flow Diagram](#flow-diagram)
+-   [Links & Credits](#links--credits)
 
 ---
 
@@ -437,250 +427,144 @@ GET /api/products?search=cheese&category=desserts&minPrice=50&maxPrice=200&sort=
 
 ## Frontend
 
-### Prerequisites
+```md
+This is the frontend for **Black Cherry**, a full-stack web application built with React 18 and Vite. It’s styled with Bootstrap 5, supports JWT-based authentication, and includes an admin panel for product and user management.
 
--   Node.js (for Vite)
--   Vite (recommended v4+)
--   React (v18+)
--   Text editor/IDE with JSX/ESLint/Prettier support
+## Tech Stack
 
-### Installation & Running
+-   React 18 + Vite
+-   Redux Toolkit (with Thunks for async logic)
+-   React Router v7
+-   Axios for API communication
+-   React-Bootstrap for UI components
+-   Formik + Yup for forms and validation
+-   Framer Motion for animations
+-   React Toastify for notifications
+-   React Helmet Async for SEO meta handling
+-   JWT Decode for client-side token parsing
+
+## Folder Structure (Highlights)
+```
+
+src/
+├── components/
+│ ├── products/
+│ ├── users/
+│ └── ... (e.g. Home, Navbar, Footer, etc.)
+├── redux/
+│ ├── slices/
+│ └── store.js
+├── services/
+│ └── api.js
+├── style/
+│ └── App.css
+├── App.jsx
+└── main.jsx
+
+````
+
+## Getting Started
+
+### 1. Install Dependencies
 
 ```bash
-# Navigate to the frontend directory
-cd frontend
-
-# Install dependencies
 npm install
+````
 
-# Run in development mode
+### 2. Set Up Environment Variables
+
+Create a `.env` file in the `frontend/` directory:
+
+```
+VITE_BACKEND_URL=http://localhost:8181/api
+VITE_TOKEN_DECODE_METHOD =jwt
+```
+
+This controls your backend API base URL. Axios uses this via `import.meta.env`.
+
+### 3. Run the Dev Server
+
+```bash
 npm run dev
+```
 
-# Build for production
+The app will be served at `http://localhost:5173` by default.
+
+### 4. Build for Production
+
+```bash
 npm run build
 ```
 
-### Admin User
+To preview the built project locally:
 
--   The admin user is automatically created when the server runs for the first time.
--   The admin's email and password are configured via environment variables in the backend `.env` file.
--   Only one admin account exists. The admin has full control over users, images, and products through the application.
-
-### Directory Layout (Frontend)
-
-```
-/frontend/src
-├─ /components
-│   ├─ Header.jsx
-│   ├─ Footer.jsx
-│   ├─ ProductCard.jsx
-│   └─ ... (shared UI components)
-├─ /pages
-│   ├─ HomePage.jsx
-│   ├─ ProductsPage.jsx
-│   ├─ CategoryPage.jsx
-│   ├─ SubCategoryPage.jsx
-│   ├─ ProductDetailPage.jsx
-│   ├─ LoginPage.jsx
-│   ├─ RegisterPage.jsx
-│   └─ ... (other pages)
-├─ /routes
-│   └─ AppRoutes.jsx         # React Router v6 route definitions
-├─ /utils
-│   └─ categoryLabels.js     # Mapping of slug → English or display label
-├─ App.jsx                   # Main component including <Routes>
-├─ main.jsx                  # ReactDOM.render, HelmetProvider
-└─ vite.config.js            # Vite configuration (aliases, plugins, etc.)
+```bash
+npm run preview
 ```
 
----
+## App Logic
 
-### Main Routes (React Router)
+-   Redux Toolkit is used for state management.
+-   Thunks interact with the `services` layer, which abstracts Axios calls.
+-   The Redux `store` includes slices for:
+    `user`, `products`, `categories`, `menu`, and `favorites`.
 
-```jsx
-<Router>
-	<Navbar />
-	<main className='flex-grow-1'>
-		<Routes>
-			<Route path='/' element={<Home />} />
-			<Route path='/about' element={<About />} />
-			<Route path='/contact' element={<Contact />} />
-			<Route path='/menu'>
-				<Route index element={<Menu />} />
-				<Route path=':categoryKey' element={<CategoryPage />} />
-				<Route path=':categoryKey/:subKey' element={<CategoryPage />} />
-				<Route path=':categoryKey/:subKey/:productSlug' element={<ProductPage />} />
-				<Route path=':categoryKey/:productSlug' element={<ProductPage />} />
-			</Route>
-			<Route path='/admin'>
-				<Route index element={<Admin />} />
-				<Route path='products'>
-					<Route index element={<ManageProducts />} />
-					<Route path='add' element={<AddProduct />} />
-					<Route path='edit/:productId' element={<h1>Edit Product</h1>} />
-				</Route>
-			</Route>
-			<Route path='/kashrut' element={<Kashrut />} />
-			<Route path='/login' element={<Login />} />
-			<Route path='/register' element={<Register />} />
-			<Route path='/profile'>
-				<Route index element={<Profile />} />
-				<Route path='favorites' element={<UserFavorites />} />
-			</Route>
-			<Route path='*' element={<h1>404 Not Found</h1>} />
-		</Routes>
-	</main>
-	<Footer />
-</Router>
-```
+> Store is injected into service files using `injectStoreDispatch()` for side-effect handling.
 
--   The frontend calls the backend using Axios. Example:
+## Routing Structure
 
-    ```js
-    axios.get(`/api/products?category=${categoryKey}&subCategory=${subCategoryKey}`);
-    ```
-
----
-
-### SEO Implementation
-
--   Use **react-helmet-async** in each page:
-
-    ```jsx
-    import SEO from "./components/SEO.jsx";
-
-    export default function CategoryPage() {
-    	const { categoryKey } = useParams();
-    	const categoryLabel = categoryLabels[categoryKey]; // from utils/categoryLabels.js
-
-    	return (
-    		<>
-    			<SEO title='עלינו - החנות שלי' description='קרא על מי אנחנו, מה אנחנו עושים ולמה לבחור בנו.' keywords={["אודות", "עלינו", "החנות שלי"]} />
-    			<h1>Category: {categoryLabel}</h1>
-    			{/* Page content */}
-    		</>
-    	);
-    }
-    ```
-
--   The SEO component:
-
-    ```jsx
-    import { Helmet } from "react-helmet-async";
-
-    function SEO({ title, description, keywords = [], image, type = "website" }) {
-    	return (
-    		<Helmet>
-    			<title>{title}</title>
-    			<meta name='description' content={description} />
-    			{keywords.length > 0 && <meta name='keywords' content={keywords.join(", ")} />}
-    			<meta property='og:title' content={title} />
-    			<meta property='og:description' content={description} />
-    			{image && <meta property='og:image' content={image} />}
-    			<meta property='og:type' content={type} />
-    		</Helmet>
-    	);
-    }
-
-    export default SEO;
-    ```
-
--   **Pre-rendering** (in Vite config) is recommended for key routes (category and product pages) so crawlers receive full HTML.
-
----
-
-### Consuming the Backend API
-
--   Example using Axios:
-
-    ```js
-    import axios from "axios";
-
-    export async function fetchProducts({ category, subCategory, search, minPrice, maxPrice, sort, page, limit }) {
-    	const params = {};
-    	if (search) params.search = search;
-    	if (category) params.category = category;
-    	if (subCategory) params.subCategory = subCategory;
-    	if (minPrice) params.minPrice = minPrice;
-    	if (maxPrice) params.maxPrice = maxPrice;
-    	if (sort) params.sort = sort;
-    	if (page) params.page = page;
-    	if (limit) params.limit = limit;
-
-    	const response = await axios.get("/api/products", { params });
-    	return response.data; // { data: [...], meta: { ... } }
-    }
-    ```
-
--   In a React component:
-
-    ```jsx
-    useEffect(() => {
-    	fetchProducts({ category: "desserts", sort: "price_desc" })
-    		.then((res) => setProducts(res.data))
-    		.catch((err) => console.error(err));
-    }, []);
-    ```
-
----
-
-### Authorization & Content Display
-
--   After login (storing the JWT in `localStorage`), attach the Bearer token to Axios:
-
-    ```js
-    axios.interceptors.request.use((config) => {
-    	const token = localStorage.getItem("accessToken");
-    	if (token) {
-    		config.headers.Authorization = `Bearer ${token}`;
-    	}
-    	return config;
-    });
-    ```
-
--   Protect certain routes in React by checking if a valid token exists—if not, redirect to `/login`.
--   If the user is an Admin or Employee, show additional UI controls (e.g., Edit/Delete buttons on ProductDetailPage).
-
----
-
-### Component Example
-
-```jsx
-// src/components/ProductCard.jsx
-import React from "react";
-import { Link } from "react-router-dom";
-import { categoryLabels, subCategoryLabels } from "../utils/categoryLabels";
-
-export default function ProductCard({ product }) {
-	const { name, price, category, subCategory, imageUrl, slug } = product;
-	const categoryLabel = categoryLabels[category];
-	const subCategoryLabel = subCategory ? subCategoryLabels[subCategory] : null;
-
-	return (
-		<div className='border rounded p-4 shadow'>
-			<Link to={`/products/${category}/${subCategory}/${slug}`}>
-				<img src={imageUrl} alt={name} className='w-full h-48 object-cover rounded' />
-				<h2 className='mt-2 text-xl font-semibold'>{name}</h2>
-				<p className='text-gray-600'>
-					{categoryLabel} {subCategoryLabel && ` / ${subCategoryLabel}`}
-				</p>
-				<p className='mt-1 text-lg text-green-600'>₪{price}</p>
-			</Link>
-		</div>
-	);
-}
-```
-
----
-
-## Environment Variables
-
-**Frontend** (`frontend/.env`):
+Managed via `react-router-dom@7`, with a structure like:
 
 ```
-VITE_API_BASE_URL=http://localhost:5000/api
-# Any variable prefixed with VITE_ is available via import.meta.env
+/
+├── /about
+├── /contact
+├── /menu
+│   ├── /:categoryKey
+│   └── /:categoryKey/:subKey
+├── /products/:slugId
+├── /admin
+│   ├── /products
+│   ├── /products/add
+│   └── /users
+├── /kashrut
+├── /login
+├── /register
+├── /profile
+│   └── /favorites
+└── * (404 fallback)
 ```
+
+## Auth & Favorites
+
+-   JWT tokens are handled via `refreshThunk()` and stored in cookies.
+-   User login status is determined by the presence of an authentication cookie. When this cookie expires, the user is automatically logged out the next time they interact with the site.
+-   The token expiration time is configurable via the backend environment variables.
+-   On application load, the `refreshThunk` function attempts to obtain a new access token using the refresh token. If successful, it also loads the user's favorite products.
+-   API requests use `withCredentials: true`.
+
+## Admin Panel Features
+
+Accessible at `/admin` with nested routes:
+
+-   Manage Products (`/admin/products`)
+-   Add Product (`/admin/products/add`)
+-   Manage Users (`/admin/users`)
+
+## Useful Scripts
+
+| Command           | Description                   |
+| ----------------- | ----------------------------- |
+| `npm run dev`     | Start local dev server        |
+| `npm run build`   | Build app for production      |
+| `npm run preview` | Preview the built app locally |
+
+## Notes
+
+-   Styling is done via `App.css` and `react-bootstrap`.
+-   Responsive design supported (with hamburger menu on small screens).
+-   `ToastContainer` handles global toast notifications.
+-   SEO support via `react-helmet-async`.
 
 ---
 
@@ -716,12 +600,47 @@ VITE_API_BASE_URL=http://localhost:5000/api
 
 ---
 
-## Flow Diagram (Optional)
+## Flow Diagram
 
-> You may embed a UML diagram or ASCII art illustrating the data flow, for example:
->
-> 1. Frontend → authMiddleware → JWT Verification → Controller → Service → Database
-> 2. Frontend → GET `/api/products?search=…` → Controller → Service → Database
+Below is a high-level overview of how a typical user request flows through the application:
+
+```
+[Frontend Event]
+    │
+    ▼
+[Redux Thunk Action]
+    │
+    ▼
+[Frontend Service Layer]
+    │
+    ▼
+[HTTP Request to Backend]
+  (e.g., GET /api/products?search=...)
+    │
+    ▼
+[Backend Controller]
+    │
+    ▼
+[Backend Service Layer]
+    │
+    ▼
+[Database Query]
+    │
+    ▼
+[Response Propagates Back Up]
+```
+
+**Example Flow:**
+
+1. **User Action:** User searches for products in the frontend UI.
+2. **Redux Thunk:** Dispatches an async thunk action.
+3. **Service Layer:** Thunk calls a service function that uses Axios to send a request to the backend API.
+4. **Backend Controller:** Receives the request, validates input, and calls the appropriate service.
+5. **Backend Service:** Handles business logic and queries the database.
+6. **Database:** Returns data to the backend service.
+7. **Response:** Data is sent back through the controller to the frontend, updating the UI.
+
+This structure ensures clear separation of concerns, maintainability, and scalability across both frontend and backend.
 
 ---
 
