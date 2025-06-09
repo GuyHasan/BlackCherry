@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchProducts, setSearchParam, resetProducts } from "../../redux/slices/productsSlice";
 import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 import DeleteProductModal from "./DeleteProductModal";
@@ -8,6 +8,7 @@ import EditProductModal from "./EditProductModal";
 
 function ManageProducts() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { pagantionProducts, totalPages, page: currentPage, limit, search: currentSearch, loading, error } = useSelector((state) => state.products);
 	const { categoriesList } = useSelector((state) => state.categories);
 	const [searchInput, setSearchInput] = useState(currentSearch || "");
@@ -15,6 +16,7 @@ function ManageProducts() {
 	const [showEditModal, setShowEditModal] = useState(false);
 	const [selectedProduct, setSelectedProduct] = useState(null);
 	const isFirstLoad = useRef(true);
+	const handleBack = () => navigate(-1);
 
 	useEffect(() => {
 		if (isFirstLoad.current) {
@@ -58,9 +60,14 @@ function ManageProducts() {
 			<div className='d-flex flex-column align-items-center text-center mb-4'>
 				<h1>ניהול מוצרים</h1>
 				<p>כאן תוכלו לחפש, לצפות, לערוך ולמחוק מוצרים.</p>
-				<Link to='/admin/products/add' className='btn btn-primary'>
-					הוספת מוצר חדש
-				</Link>
+				<div className='d-flex justify-content-center gap-3'>
+					<Link to='/admin/products/add' className='btn btn-primary'>
+						הוספת מוצר חדש
+					</Link>
+					<button className='btn btn-outline-secondary' onClick={handleBack}>
+						← חזרה
+					</button>
+				</div>
 			</div>
 
 			<form onSubmit={handleSearchSubmit} className='d-flex justify-content-center mb-4'>
