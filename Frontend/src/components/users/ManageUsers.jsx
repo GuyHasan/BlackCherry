@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUsersThunk } from "../../redux/slices/userSlice";
 import DeleteUserModal from "./DeleteUserModal";
@@ -7,6 +7,8 @@ function ManageUsers() {
 	const dispatch = useDispatch();
 	const isFirstLoad = useRef(true);
 	const { userList, error, loading } = useSelector((state) => state.user);
+	const [currentUser, setCurrentUser] = useState(null);
+	const [showDeleteModal, setShowDeleteModal] = useState(false);
 
 	useEffect(() => {
 		if (isFirstLoad.current) {
@@ -18,8 +20,9 @@ function ManageUsers() {
 		};
 	}, [dispatch]);
 
-	const handleDelete = (e) => {
+	const handleDelete = (e, user) => {
 		e.stopPropagation();
+		setCurrentUser(user);
 		setShowDeleteModal(true);
 	};
 
@@ -65,7 +68,7 @@ function ManageUsers() {
 								<td>{user.email}</td>
 								<td>{user.isAdmin ? <div>מנהל</div> : user.isEmployee ? <div>עובד</div> : <div>רגיל</div>}</td>
 								<td className='text-center'>
-									<button className='btn btn-sm btn-outline-danger' onClick={handleDelete}>
+									<button className='btn btn-sm btn-outline-danger' onClick={(e) => handleDelete(e, user)}>
 										מחק
 									</button>
 								</td>
@@ -82,7 +85,7 @@ function ManageUsers() {
 					</tbody>
 				</table>
 			</div>
-			<DeleteUserModal product={prod} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
+			<DeleteUserModal user={currentUser} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
 		</div>
 	);
 }

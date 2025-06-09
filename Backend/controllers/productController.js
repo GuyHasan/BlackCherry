@@ -28,7 +28,7 @@ export const getAllProductsController = async (req, res, next) => {
 			if (minPriceNum !== undefined) filter.price.$gte = minPriceNum;
 			if (maxPriceNum !== undefined) filter.price.$lte = maxPriceNum;
 		}
-		let sortObj = { createdAt: -1 };
+		let sortObj = { _id: -1 };
 		if (sort) {
 			const [field, order] = sort.split("_");
 			sortObj = { [field]: order === "asc" ? 1 : -1 };
@@ -39,8 +39,13 @@ export const getAllProductsController = async (req, res, next) => {
 			skip,
 			limit: limitNum,
 		};
-		const products = await getAllProducts(filter, options);
-		res.status(200).json({ success: true, products });
+		const { data, meta } = await getAllProducts(filter, options);
+
+		res.status(200).json({
+			success: true,
+			products: data,
+			meta: meta,
+		});
 	} catch (error) {
 		handleControllerError(error, next, "Failed to retrieve products");
 	}

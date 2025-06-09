@@ -2,15 +2,18 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchProducts, setSearchParam, resetProducts } from "../../redux/slices/productsSlice";
+import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 
 function ManageProducts() {
 	const dispatch = useDispatch();
-	const { pagantionProducts, totalCount, totalPages, page: currentPage, limit, search: currentSearch, loading, error } = useSelector((state) => state.products);
+	const { pagantionProducts, totalPages, page: currentPage, limit, search: currentSearch, loading, error } = useSelector((state) => state.products);
+	const { categoriesList } = useSelector((state) => state.categories);
 	const [searchInput, setSearchInput] = useState(currentSearch || "");
 	const isFirstLoad = useRef(true);
 	useEffect(() => {
 		if (isFirstLoad.current) {
 			dispatch(fetchProducts({ page: 1, limit, search: currentSearch }));
+			dispatch(fetchCategoriesList());
 			isFirstLoad.current = false;
 		}
 		return () => {
@@ -79,11 +82,21 @@ function ManageProducts() {
 						)}
 
 						{pagantionProducts.map((prod, idx) => (
-							<tr key={prod.id || prod._id}>
-								<th scope='row'>{(currentPage - 1) * limit + (idx + 1)}</th>
+							<tr key={prod._id}>
+								<th scope='row'>{idx + 1}</th>
 								<td>{prod.name}</td>
-								<td>{prod.category?.he || prod.category || "-"}</td>
-								<td>{prod.priceMin != null && prod.priceMin !== prod.priceMax ? `${prod.priceMin} - ${prod.priceMax}` : prod.priceMin != null ? prod.priceMin : "-"}</td>
+								<td>
+									{categoriesList.map((cat) => {
+										if (cat.key === prod.category) {
+											return cat.he;
+										}
+										return null;
+									})}
+								</td>
+								<td>
+									{prod.size[0].price}
+									<span>&#8362;</span>
+								</td>
 								<td className='text-center'>
 									<Link to={`/admin/products/edit/${prod.id || prod._id}`} className='btn btn-sm btn-outline-secondary me-2'>
 										ערוך
@@ -93,7 +106,7 @@ function ManageProducts() {
 							</tr>
 						))}
 
-						{loading && (
+						{loading && pagantionProducts.length === 0 && (
 							<tr>
 								<td colSpan='5' className='text-center py-4'>
 									טוען…

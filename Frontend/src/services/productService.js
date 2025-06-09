@@ -18,7 +18,7 @@ export const getProducts = async ({ page = 1, limit = 10, search = "" }) => {
 			params.append("search", search);
 		}
 		const res = await api.get(`/products?${params.toString()}`);
-		return res.data.products;
+		return res.data;
 	} catch (error) {
 		throw error;
 	}

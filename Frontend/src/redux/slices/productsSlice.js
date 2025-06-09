@@ -155,8 +155,10 @@ const productsSlice = createSlice({
 				state.error = null;
 			})
 			.addCase(fetchProducts.fulfilled, (state, action) => {
-				const { data: newItems, meta } = action.payload;
-				const { totalCount, totalPages, currentPage } = meta;
+				const {
+					products: newItems,
+					meta: { totalCount, totalPages, currentPage },
+				} = action.payload;
 
 				state.loading = false;
 				state.totalCount = totalCount;
@@ -166,9 +168,12 @@ const productsSlice = createSlice({
 				if (currentPage === 1) {
 					state.pagantionProducts = newItems;
 				} else {
-					state.pagantionProducts = [...state.items, ...newItems];
+					const existingIds = new Set(state.pagantionProducts.map((p) => p._id));
+					const filteredNewItems = newItems.filter((p) => !existingIds.has(p._id));
+					state.pagantionProducts = [...state.pagantionProducts, ...filteredNewItems];
 				}
 			})
+
 			.addCase(fetchProducts.rejected, (state, action) => {
 				state.loading = false;
 				state.error = action.payload || "Unknown error";
