@@ -337,11 +337,14 @@ DELETE /api/images/:id              → Delete image (authMiddleware, onlyEmploy
 
 ### Authentication & Authorization
 
--   **JWT Authentication**
+-   **JWT Authentication & Refresh Tokens**
 
     -   Middleware: `authMiddleware.js`
-    -   Checks `Authorization: Bearer <token>` header
-    -   Verifies token using `jwt.verify(...)` and attaches `req.user = { id, roles… }`.
+    -   Checks `Authorization: Bearer <token>` header for the access token
+    -   Verifies token using `jwt.verify(...)` and attaches `req.user = { id, roles… }`
+    -   **Refresh Token:** Issued as an HTTP-only cookie on login; used to obtain new access tokens via the `/api/auth/refresh` route
+    -   Refresh token expiration is set via environment variables (`REFRESH_TOKEN_EXPIRATION_TIME`)
+    -   When the refresh token expires, the user must log in again to obtain a new one
 
 -   **Rate Limiting**
 
@@ -502,12 +505,48 @@ npm run preview
 
 ## App Logic
 
--   Redux Toolkit is used for state management.
--   Thunks interact with the `services` layer, which abstracts Axios calls.
--   The Redux `store` includes slices for:
-    `user`, `products`, `categories`, `menu`, and `favorites`.
+### State Management with Redux Toolkit
 
-> Store is injected into service files using `injectStoreDispatch()` for side-effect handling.
+The app uses **Redux Toolkit** for centralized state management. The Redux store is divided into several slices, each responsible for a specific domain:
+
+-   **user**: Handles authentication state, user profile, login/logout, and token refresh.
+-   **products**: Manages product lists, product details, filters, and pagination.
+-   **categories**: Stores category and subcategory data for navigation and filtering.
+-   **menu**: Holds menu preview data for quick access on the homepage or menu pages.
+-   **favorites**: Manages the user's favorite products, allowing quick add/remove and retrieval.
+
+Each slice defines its own state, reducers, and async thunks for fetching or updating data.
+
+### Async Logic & API Communication
+
+-   **Thunks**: Async actions (thunks) are used to fetch data or perform mutations (e.g., login, fetch products, update favorites). Thunks call service functions that wrap Axios API requests.
+-   **Services Layer**: All API calls are abstracted in the `services/` directory, keeping business logic separate from UI and state management.
+
+### Authentication & Token Handling
+
+-   **Token Storage**: Access and refresh tokens are never stored in `localStorage` or `sessionStorage`. Instead, the backend issues HTTP-only cookies for refresh tokens, and access tokens are managed in memory.
+-   **Axios Interceptors**: Axios is configured with interceptors to:
+    -   Attach the current access token to every API request.
+    -   Detect expired/invalid tokens and automatically call `/api/auth/refresh` using the refresh token cookie.
+    -   On successful refresh, retry the original request with the new access token.
+    -   If refresh fails (e.g., refresh token expired), dispatch a logout action and redirect the user to login.
+-   **Initial Load Flow**:
+    1. On app startup, a thunk (`refreshThunk`) tries to refresh the access token using the cookie.
+    2. If successful, it updates the Redux store with the new token and loads the user's profile and favorites.
+    3. If not, the user remains logged out.
+
+### Favorites & User Data Flow
+
+-   When a user logs in or their session is refreshed, the app loads their favorite products into the `favorites` slice.
+-   This enables instant access to favorites throughout the UI and allows for quick add/remove actions, all synced with the backend.
+
+### Store Injection
+
+-   The Redux store's `dispatch` function is injected into service files (via `injectStoreDispatch()`), allowing service functions to dispatch actions (such as logout on auth failure) even outside React components.
+
+---
+
+This architecture ensures secure authentication, robust token management, and a clear separation between UI, state, and API logic for maintainability and scalability.
 
 ## Routing Structure
 
@@ -543,11 +582,27 @@ Managed via `react-router-dom@7`, with a structure like:
 
 ## Admin Panel Features
 
-Accessible at `/admin` with nested routes:
+The main admin panel is accessible at `/admin` and serves as the entry point for management interfaces. Access is strictly controlled by user roles:
 
--   Manage Products (`/admin/products`)
--   Add Product (`/admin/products/add`)
--   Manage Users (`/admin/users`)
+-   **User Roles:**
+
+    -   **Regular User:** Cannot access the admin panel at all.
+    -   **Employee:** Can access the admin panel, but only sees and manages the **Images** and **Products** sections.
+    -   **Admin:** Has full access to all admin features, including **Users**, **Products**, and **Images** management.
+
+-   **Panel Structure:**
+
+    -   **/admin**: Main dashboard with navigation to sub-panels.
+        -   **/admin/images**: Manage uploaded images (view, upload, delete).
+        -   **/admin/products**: Manage products (list, add, edit, delete).
+        -   **/admin/products/add**: Add a new product.
+        -   **/admin/users**: Manage users (view, delete, change roles) — _admin only_.
+
+-   **Authorization Logic:**
+    -   Route protection is enforced both on the backend (API authorization middleware) and frontend (React route guards).
+    -   Employees attempting to access `/admin/users` will be denied and redirected or shown an error.
+
+This structure ensures that only authorized users can perform sensitive CRUD actions, and each user level sees only the panels relevant to their permissions.
 
 ## Useful Scripts
 
