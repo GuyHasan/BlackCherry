@@ -25,6 +25,10 @@ function ManageUsers() {
 		setCurrentUser(user);
 		setShowDeleteModal(true);
 	};
+	const handleEmployeeUpdate = (e, user) => {
+		e.stopPropagation();
+		setCurrentUser(user);
+	};
 
 	return (
 		<div className='container pt-5'>
@@ -67,10 +71,23 @@ function ManageUsers() {
 								<td>{user.username}</td>
 								<td>{user.email}</td>
 								<td>{user.isAdmin ? <div>מנהל</div> : user.isEmployee ? <div>עובד</div> : <div>רגיל</div>}</td>
-								<td className='text-center'>
-									<button className='btn btn-sm btn-outline-danger' onClick={(e) => handleDelete(e, user)}>
-										מחק
-									</button>
+								<td className='d-flex gap-2 justify-content-center'>
+									{user.isAdmin ? (
+										<div>
+											<button className='btn btn-sm btn-outline-secondary' disabled>
+												מנהל
+											</button>
+										</div>
+									) : (
+										<button className='btn btn-sm btn-outline-danger' onClick={(e) => handleDelete(e, user)}>
+											מחק
+										</button>
+									)}
+									{!user.isAdmin && (
+										<button className='btn btn-sm btn-outline-primary' onClick={(e) => handleEmployeeUpdate(e, user)}>
+											{user.isEmployee ? "בטל עובד" : "הגדר כעובד"}
+										</button>
+									)}
 								</td>
 							</tr>
 						))}
