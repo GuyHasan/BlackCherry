@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import { refreshThunk } from "./redux/slices/userSlice";
 import { ToastContainer } from "react-toastify";
 import { getUserFavorites } from "./redux/slices/favoritesSlice";
+import ManageUsers from "./components/users/ManageUsers";
 
 function App() {
 	const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function App() {
 									<Route index element={<ManageProducts />} />
 									<Route path='add' element={<AddProduct />} />
 								</Route>
+								<Route path='users' element={<ManageUsers />} />
 							</Route>
 							<Route path='/kashrut' element={<Kashrut />} />
 							<Route path='/login' element={<Login />} />

@@ -6,7 +6,7 @@ import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { toggleFavorite } from "../../redux/slices/favoritesSlice";
 import { useState } from "react";
 import EditProductModal from "./EditProductModal";
-import DeleteCardModal from "./DeleteProductModal";
+import DeleteProductModal from "./DeleteProductModal";
 
 export default function ProductCard({ prod }) {
 	const goToProduct = useSmartProductNavigation();
@@ -76,7 +76,7 @@ export default function ProductCard({ prod }) {
 				</div>
 			</div>
 			<EditProductModal product={prod} show={showEditModal} handleClose={() => setShowEditModal(false)} />
-			<DeleteCardModal product={prod} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
+			<DeleteProductModal product={prod} show={showDeleteModal} handleClose={() => setShowDeleteModal(false)} />
 		</>
 	);
 }

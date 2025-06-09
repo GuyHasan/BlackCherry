@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { deleteProduct } from "../../redux/slices/productsSlice";
 import { errorMessage, successMessage } from "../../services/messageServices";
 
-function DeleteProductModal({ show, handleClose, product }) {
+function DeleteUserModal({ show, handleClose, product }) {
 	const dispatch = useDispatch();
 	if (!product) return null;
 	const handleDelete = async (productId) => {
@@ -39,4 +39,4 @@ function DeleteProductModal({ show, handleClose, product }) {
 	);
 }
 
-export default DeleteProductModal;
+export default DeleteUserModal;

@@ -65,9 +65,6 @@ export default function ProductPage() {
 	const maxPrice = prices.length ? Math.max(...prices) : 0;
 	const priceDisplay = minPrice === maxPrice ? `₪${minPrice.toFixed(2)}` : `₪${minPrice.toFixed(2)} - ₪${maxPrice.toFixed(2)}`;
 
-	const handleQuantityChange = (delta) => {
-		setQuantity((prev) => Math.max(1, prev + delta));
-	};
 	const totalPrice = selectedSize ? (selectedSize.price * quantity).toFixed(2) : "0.00";
 
 	return (
