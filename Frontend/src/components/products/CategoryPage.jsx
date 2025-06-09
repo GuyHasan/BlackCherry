@@ -1,23 +1,44 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { fetchCategoryProducts, fetchSubCategoryProducts, clearCategory } from "../../redux/slices/categoriesSlice";
+import { fetchCategoryProducts, fetchSubCategoryProducts, clearCategory, fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 import { Spinner } from "react-bootstrap";
 import ProductCard from "./ProductCard";
 
 export default function CategoryPage() {
 	const { categoryKey, subKey } = useParams();
 	const dispatch = useDispatch();
-	const { products, loading } = useSelector((state) => state.categories);
+	const { products, loading, categoriesList } = useSelector((state) => state.categories);
+	const [currentHebrewCategory, setCurrentHebrewCategory] = useState("");
+	const [currentHebrewSubCategory, setCurrentHebrewSubCategory] = useState("");
 
 	useEffect(() => {
 		dispatch(clearCategory());
+		dispatch(fetchCategoriesList());
 		if (subKey) {
 			dispatch(fetchSubCategoryProducts({ categoryKey, subKey }));
 		} else {
 			dispatch(fetchCategoryProducts(categoryKey));
 		}
 	}, [dispatch, categoryKey, subKey]);
+
+	useEffect(() => {
+		if (categoriesList && categoriesList.length > 0) {
+			const category = categoriesList.find((cat) => cat.key === categoryKey);
+			if (category) {
+				setCurrentHebrewCategory(category.he);
+			}
+
+			if (subKey) {
+				const subCategory = category?.subCategories?.find((sub) => sub.key === subKey);
+				if (subCategory) {
+					setCurrentHebrewSubCategory(subCategory.he);
+				}
+			} else {
+				setCurrentHebrewSubCategory("");
+			}
+		}
+	}, [categoriesList]);
 
 	if (loading) {
 		return (
@@ -32,7 +53,7 @@ export default function CategoryPage() {
 	return (
 		<div className='container my-4'>
 			<div className='d-flex justify-content-between align-items-center mb-4'>
-				<h2 className='h3'>{subKey ? `תת־קטגוריה: ${subKey} (קבוצה: ${categoryKey})` : `קטגוריה: ${categoryKey}`}</h2>
+				<h2 className='h3'>{subKey ? `תת־קטגוריה: ${currentHebrewSubCategory} (קבוצה: ${currentHebrewCategory})` : `קטגוריה: ${currentHebrewCategory}`}</h2>
 			</div>
 			{Array.isArray(products) && products.length > 0 ? (
 				<div className='row'>{products.map((prod) => (prod ? <ProductCard key={prod._id} prod={prod} /> : null))}</div>
