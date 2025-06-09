@@ -56,7 +56,15 @@ export default function CategoryPage() {
 				<h2 className='h3'>{subKey ? `תת־קטגוריה: ${currentHebrewSubCategory} (קבוצה: ${currentHebrewCategory})` : `קטגוריה: ${currentHebrewCategory}`}</h2>
 			</div>
 			{Array.isArray(products) && products.length > 0 ? (
-				<div className='row'>{products.map((prod) => (prod ? <ProductCard key={prod._id} prod={prod} /> : null))}</div>
+				<div className='row'>
+					{products.map((prod) =>
+						prod ? (
+							<div className='col-6 col-sm-4 col-md-3 col-lg-2-4 mb-4'>
+								<ProductCard key={prod._id} prod={prod} />
+							</div>
+						) : null
+					)}
+				</div>
 			) : (
 				<div className='text-center py-4'>לא נמצאו מוצרים {subKey ? "בתת־קטגוריה זו" : "בקטגוריה זו"}.</div>
 			)}

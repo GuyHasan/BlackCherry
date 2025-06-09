@@ -8,7 +8,7 @@ function Profile() {
 	const navigate = useNavigate();
 	if (!user) {
 		navigate("/login");
-		return null; // Prevent rendering if user is not authenticated
+		return null;
 	}
 
 	return (
@@ -29,11 +29,13 @@ function Profile() {
 							<ul className='list-group list-group-flush'>
 								<li className='list-group-item d-flex align-items-center'>
 									<FiUser className='me-3 text-secondary' size={20} />
+									&nbsp;
 									<span className='fw-semibold'>שם משתמש:&nbsp;</span>
 									<span className='ms-auto'>{user.username}</span>
 								</li>
 								<li className='list-group-item d-flex align-items-center'>
 									<FiMail className='me-3 text-secondary' size={20} />
+									&nbsp;
 									<span className='fw-semibold'>אימייל:&nbsp;</span>
 									<span className='ms-auto'>{user.email}</span>
 								</li>
