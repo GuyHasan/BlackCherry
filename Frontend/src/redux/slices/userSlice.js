@@ -80,7 +80,6 @@ export const deleteUserThunk = createAsyncThunk("user/deleteUser", async (userId
 
 export const updateEmployeeStatusThunk = createAsyncThunk("user/updateEmployeeStatus", async (userId, thunkAPI) => {
 	try {
-		console.log(userId);
 		const updated = await userService.updateEmployeeStatus(userId);
 		return updated;
 	} catch (error) {

@@ -5,7 +5,7 @@ import categoryService from "../../services/categoryService";
 export const fetchCategoryProducts = createAsyncThunk("category/fetchProducts", async (categoryKey, thunkAPI) => {
 	try {
 		const res = await productService.getProductsByCategory(categoryKey);
-		return res.data;
+		return res;
 	} catch (err) {
 		return thunkAPI.rejectWithValue(err.response?.data?.message || err.message);
 	}
@@ -14,7 +14,7 @@ export const fetchCategoryProducts = createAsyncThunk("category/fetchProducts", 
 export const fetchSubCategoryProducts = createAsyncThunk("category/fetchSubProducts", async ({ categoryKey, subKey }, thunkAPI) => {
 	try {
 		const res = await productService.getProductsBySubCategory(categoryKey, subKey);
-		return res.data;
+		return res;
 	} catch (err) {
 		return thunkAPI.rejectWithValue(err.response?.data?.message || err.message);
 	}
@@ -40,7 +40,6 @@ const categorySlice = createSlice({
 	reducers: {
 		clearCategory: (state) => {
 			state.products = [];
-			state.loading = false;
 			state.error = null;
 		},
 	},

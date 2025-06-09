@@ -7,20 +7,17 @@ import EmployeeStatusModal from "./EmployeeStatusModal";
 function ManageUsers() {
 	const dispatch = useDispatch();
 	const isFirstLoad = useRef(true);
-	const { userList, userListLoading } = useSelector((state) => state.user);
+	const { userList, userListLoading, accessToken } = useSelector((state) => state.user);
 	const [currentUser, setCurrentUser] = useState(null);
 	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const [showEmployeeStatusModal, setShowEmployeeStatusModal] = useState(false);
 
 	useEffect(() => {
-		if (isFirstLoad.current) {
+		if (accessToken && isFirstLoad.current) {
 			dispatch(getAllUsersThunk());
 			isFirstLoad.current = false;
 		}
-		return () => {
-			dispatch(getAllUsersThunk());
-		};
-	}, [dispatch]);
+	}, [accessToken, dispatch]);
 
 	const handleDelete = (e, user) => {
 		e.stopPropagation();
