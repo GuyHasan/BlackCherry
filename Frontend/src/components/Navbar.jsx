@@ -97,7 +97,7 @@ function Navbar() {
 										</NavLink>
 									</li>
 									<li className='nav-item d-lg-none'>
-										<button className='nav-link btn btn-link p-0' onClick={handleLogout}>
+										<button className='btn text-secondry text-decoration-none w-100 px-3' onClick={handleLogout}>
 											התנתקות
 										</button>
 									</li>
