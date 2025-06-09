@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { Spinner, Container, Row, Col, Button, Badge } from "react-bootstrap";
 import { getProductById } from "../../redux/slices/productsSlice";
+import { fetchCategoriesList } from "../../redux/slices/categoriesSlice";
 
 export default function ProductPage() {
 	const { slugId } = useParams();
@@ -10,19 +11,27 @@ export default function ProductPage() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
+	const { categoriesList } = useSelector((state) => state.categories);
+
 	const [product, setProduct] = useState(null);
 	const [selectedSize, setSelectedSize] = useState(null);
-	const [quantity, setQuantity] = useState(1);
 	const [isLoading, setIsLoading] = useState(true);
+	const [currentCategoryHe, setCurrentCategoryHe] = useState("");
+	const [currentSubCategoryHe, setCurrentSubCategoryHe] = useState("");
 
 	useEffect(() => {
-		const fetchProduct = async () => {
+		const fetchData = async () => {
 			setIsLoading(true);
 			try {
+				await dispatch(fetchCategoriesList());
 				const action = await dispatch(getProductById(productId));
 				if (getProductById.fulfilled.match(action)) {
 					const data = action.payload;
 					setProduct(data);
+					const productHebrawCategory = categoriesList.find((cat) => cat.key === data.category)?.he;
+					const productHebrawSubCategory = data.subCategory ? categoriesList.find((cat) => cat.key === data.category)?.subCategories?.find((sub) => sub.key === data.subCategory)?.he : "";
+					setCurrentCategoryHe(productHebrawCategory);
+					setCurrentSubCategoryHe(productHebrawSubCategory);
 					if (Array.isArray(data.size) && data.size.length > 0) {
 						setSelectedSize(data.size[0]);
 					}
@@ -35,7 +44,7 @@ export default function ProductPage() {
 			}
 			setIsLoading(false);
 		};
-		fetchProduct();
+		fetchData();
 	}, [dispatch, productId]);
 
 	if (isLoading) {
@@ -64,8 +73,7 @@ export default function ProductPage() {
 	const minPrice = prices.length ? Math.min(...prices) : 0;
 	const maxPrice = prices.length ? Math.max(...prices) : 0;
 	const priceDisplay = minPrice === maxPrice ? `₪${minPrice.toFixed(2)}` : `₪${minPrice.toFixed(2)} - ₪${maxPrice.toFixed(2)}`;
-
-	const totalPrice = selectedSize ? (selectedSize.price * quantity).toFixed(2) : "0.00";
+	const totalPrice = selectedSize ? selectedSize.price.toFixed(2) : "0.00";
 
 	return (
 		<Container className='py-4 bg-white'>
@@ -83,7 +91,7 @@ export default function ProductPage() {
 				<Col md={6}>
 					<div className='mb-2'>
 						<Badge bg='warning' text='dark'>
-							{product.category}
+							{currentCategoryHe} {product.subCategory ? `- ${currentSubCategoryHe}` : ""}
 						</Badge>
 					</div>
 

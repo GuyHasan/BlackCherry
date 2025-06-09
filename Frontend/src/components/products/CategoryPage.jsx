@@ -12,7 +12,7 @@ export default function CategoryPage() {
 	const { categoryKey, subKey } = useParams();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { products, loading, categoriesList } = useSelector((state) => state.categories);
+	const { products, categoriesList } = useSelector((state) => state.categories);
 	const [currentHebrewCategory, setCurrentHebrewCategory] = useState("");
 	const [currentHebrewSubCategory, setCurrentHebrewSubCategory] = useState("");
 	const [showSidebar, setShowSidebar] = useState(false);
