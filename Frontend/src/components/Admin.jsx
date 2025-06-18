@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useSelector } from "react-redux";
 
 function Admin() {
+	const isAdmin = useSelector((state) => state.user.isAdmin);
 	return (
 		<div className='container pt-5 text-center'>
 			<h1>פאנל מנהלים</h1>
